@@ -1,0 +1,135 @@
+BEGIN:VCALENDAR
+PRODID:-//Facebook//NONSGML Facebook Events V1.0//EN
+X-PUBLISHED-TTL:PT12H
+X-ORIGINAL-URL:https://www.facebook.com/events/ical/upcoming/?uid=100000000
+ 000000&key=SAMPLEKEY
+X-WR-CALNAME:Upcoming events
+VERSION:2.0
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+DTSTAMP:20260901T020000Z
+LAST-MODIFIED:20260901T020000Z
+CREATED:20260815T060000Z
+SEQUENCE:0
+ORGANIZER;CN=HAART - Homeless and Abused Animal Rescue Team:MAILTO:noreply@
+ facebookmail.com
+DTSTART:20261010T020000Z
+DTEND:20261010T050000Z
+UID:e1234567890101@facebook.com
+SUMMARY:Adoption day at Pet Fresh Bibra Lake
+LOCATION:Pet Fresh Bibra Lake\, Bibra Lake WA 6163
+URL:https://www.facebook.com/events/1234567890101/
+DESCRIPTION:Come and meet some of the dogs and cats looking for homes. Our 
+ fosters will be there from 10 am with the animals they are caring for\, so
+  you can say hello and ask the questions that matter.\n\nIf you would like
+  to adopt on the day\, please fill in the pre-adoption form first.\n\nhttp
+ s://www.facebook.com/events/1234567890101/
+CLASS:PUBLIC
+STATUS:CONFIRMED
+PARTSTAT:ACCEPTED
+END:VEVENT
+BEGIN:VEVENT
+DTSTAMP:20260901T020000Z
+LAST-MODIFIED:20260901T020000Z
+CREATED:20260815T060000Z
+SEQUENCE:0
+ORGANIZER;CN=HAART - Homeless and Abused Animal Rescue Team:MAILTO:noreply@
+ facebookmail.com
+DTSTART;TZID=Australia/Perth:20261024T183000
+DTEND;TZID=Australia/Perth:20261024T220000
+UID:e1234567890102@facebook.com
+SUMMARY:HAART annual quiz night
+LOCATION:Fremantle Sailing Club\, 151 Marine Terrace\, Fremantle WA 6160
+URL:https://www.facebook.com/events/1234567890102/
+DESCRIPTION:Our biggest fundraiser of the year\, hosted by Bamboozled Quizm
+ asters. Tables of eight\, a raffle\, a silent auction and games between ro
+ unds. BYO food and nibbles\; drinks are available at the bar.\n\nTickets a
+ re $25 a head and tables sell out\, so book early.\n\nhttps://www.facebook
+ .com/events/1234567890102/
+CLASS:PUBLIC
+STATUS:CONFIRMED
+PARTSTAT:ACCEPTED
+END:VEVENT
+BEGIN:VEVENT
+DTSTAMP:20260901T020000Z
+LAST-MODIFIED:20260901T020000Z
+CREATED:20260815T060000Z
+SEQUENCE:0
+ORGANIZER;CN=HAART - Homeless and Abused Animal Rescue Team:MAILTO:noreply@
+ facebookmail.com
+DTSTART:20261104T110000Z
+DTEND:20261104T140000Z
+RRULE:FREQ=WEEKLY;COUNT=3
+UID:e1234567890103@facebook.com
+SUMMARY:Rock Music Bingo
+LOCATION:4 The Esplanade\, Mount Pleasant WA 6153
+URL:https://www.facebook.com/events/1234567890103/
+DESCRIPTION:Instead of numbers you listen for songs. Doors open at 6 pm and
+  the first game starts at 7. Tickets are $20 at the door and every dollar 
+ goes to vet bills.\n\nhttps://www.facebook.com/events/1234567890103/
+CLASS:PUBLIC
+STATUS:CONFIRMED
+PARTSTAT:ACCEPTED
+END:VEVENT
+BEGIN:VEVENT
+DTSTAMP:20260901T020000Z
+LAST-MODIFIED:20260901T020000Z
+CREATED:20260815T060000Z
+SEQUENCE:0
+ORGANIZER;CN=HAART - Homeless and Abused Animal Rescue Team:MAILTO:noreply@
+ facebookmail.com
+DTSTART;VALUE=DATE:20261114
+DTEND;VALUE=DATE:20261115
+UID:e1234567890104@facebook.com
+SUMMARY:Bunnings sausage sizzle
+LOCATION:Bunnings Melville\, 276 Leach Highway\, Myaree WA 6154
+URL:https://www.facebook.com/events/1234567890104/
+DESCRIPTION:We are cooking sausages outside Bunnings Melville all day. Come
+  and say hello\, grab a snag and help us raise money for desexing and vacc
+ inations.\n\nhttps://www.facebook.com/events/1234567890104/
+CLASS:PUBLIC
+STATUS:CONFIRMED
+PARTSTAT:ACCEPTED
+END:VEVENT
+BEGIN:VEVENT
+DTSTAMP:20260901T020000Z
+LAST-MODIFIED:20260901T020000Z
+CREATED:20260815T060000Z
+SEQUENCE:2
+ORGANIZER;CN=HAART - Homeless and Abused Animal Rescue Team:MAILTO:noreply@
+ facebookmail.com
+DTSTART:20261205T010000Z
+DTEND:20261205T050000Z
+UID:e1234567890105@facebook.com
+SUMMARY:Christmas photos with Santa Paws
+LOCATION:Pet Fresh Balcatta\, Balcatta WA 6021
+URL:https://www.facebook.com/events/1234567890105/
+DESCRIPTION:Bring your dog\, cat\, rabbit or bird for a photo with Santa Pa
+ ws. Photos are $15 each\, printed on the spot.\n\nhttps://www.facebook.com
+ /events/1234567890105/
+CLASS:PUBLIC
+STATUS:CANCELLED
+PARTSTAT:ACCEPTED
+END:VEVENT
+BEGIN:VEVENT
+DTSTAMP:20260901T020000Z
+LAST-MODIFIED:20260901T020000Z
+CREATED:20260815T060000Z
+SEQUENCE:0
+ORGANIZER;CN=HAART - Homeless and Abused Animal Rescue Team:MAILTO:noreply@
+ facebookmail.com
+DTSTART:20261201T110000Z
+DTEND:20261201T120000Z
+UID:e1234567890106@facebook.com
+SUMMARY:Christmas online auction opens
+URL:https://www.facebook.com/events/1234567890106/
+DESCRIPTION:Our Christmas online auction opens at 7 pm with more than sixty
+  lots donated by local businesses. Bidding runs for one week and everythin
+ g raised pays for vet care.\n\nhttps://www.facebook.com/events/12345678901
+ 06/
+CLASS:PUBLIC
+STATUS:CONFIRMED
+PARTSTAT:ACCEPTED
+END:VEVENT
+END:VCALENDAR

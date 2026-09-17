@@ -28,6 +28,20 @@ const OUT_RAW = path.resolve('docs/crawl-raw');
 const DRY = process.argv.includes('--dry');
 const WAYBACK = process.argv.includes('--wayback');
 
+type InventoryItem = {
+  sourceUrl?: string | null;
+  sourceUrls?: string[];
+  verbatimBody?: string | null;
+  verbatimStatus?: string;
+  crawl?: unknown;
+  lastModified?: string | null;
+  media?: string[];
+};
+
+type Inventory = { meta: Record<string, unknown>; documents: Record<string, InventoryItem[]> };
+
+type MediaAsset = { id: string; url: string | null; foundOn: string[]; kind: string; width: number | null; height: number | null; bytes: number | null; format: string | null; alt: string | null; flags: string[]; action: string | null };
+
 type Page = {
   url: string;
   finalUrl: string;
@@ -62,13 +76,6 @@ async function fetchWithChain(url: string): Promise<{ res: Response; chain: stri
     return { res, chain };
   }
   throw new Error(`Too many redirects from ${url}`);
-}
-
-function textOf($: cheerio.CheerioAPI, sel: string) {
-  return $(sel)
-    .map((_, el) => $(el).text().replace(/\s+/g, ' ').trim())
-    .get()
-    .filter(Boolean);
 }
 
 async function crawlPage(url: string): Promise<Page | null> {
@@ -156,8 +163,8 @@ async function discoverUrls(): Promise<Set<string>> {
     urls.add(host + '/');
   }
   // Seed with everything the inventory already knows.
-  const inv = JSON.parse(await readFile(OUT_INVENTORY, 'utf8'));
-  for (const items of Object.values(inv.documents) as any[]) {
+  const inv = JSON.parse(await readFile(OUT_INVENTORY, 'utf8')) as Inventory;
+  for (const items of Object.values(inv.documents)) {
     for (const it of items) {
       if (it.sourceUrl?.startsWith('http')) urls.add(it.sourceUrl.split(' ')[0]);
       for (const u of it.sourceUrls ?? []) if (u.startsWith('http')) urls.add(u);
@@ -191,8 +198,8 @@ async function probeImage(url: string) {
 }
 
 async function main() {
-  const inventory = JSON.parse(await readFile(OUT_INVENTORY, 'utf8'));
-  const media = JSON.parse(await readFile(OUT_MEDIA, 'utf8'));
+  const inventory = JSON.parse(await readFile(OUT_INVENTORY, 'utf8')) as Inventory;
+  const media = JSON.parse(await readFile(OUT_MEDIA, 'utf8')) as { meta: Record<string, unknown>; assets: MediaAsset[] };
   const queue = [...(await discoverUrls())];
   const seen = new Set<string>();
   const pages: Page[] = [];
@@ -222,7 +229,7 @@ async function main() {
   const byUrl = new Map(pages.map((p) => [p.url.replace(/\/$/, ''), p]));
   const unknown: string[] = [];
   const known = new Set<string>();
-  for (const items of Object.values(inventory.documents) as any[]) {
+  for (const items of Object.values(inventory.documents)) {
     for (const it of items) {
       const src = (it.sourceUrl ?? '').split(' ')[0].replace(/\/$/, '');
       known.add(src);
@@ -253,7 +260,7 @@ async function main() {
     }
     for (const d of p.documents) imageUrls.add(d);
   }
-  const assets: any[] = media.assets.filter((a: any) => a.url && !a.url.startsWith('http'));
+  const assets: MediaAsset[] = media.assets.filter((a) => a.url && !a.url.startsWith('http'));
   for (const url of imageUrls) {
     const f = found.get(url);
     const isDoc = /\.(pdf|docx?|xlsx?)$/i.test(url);

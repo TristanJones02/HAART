@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" width="1200" height="900" role="img" aria-labelledby="dog6-title">
+  <title id="dog6-title">Placeholder image</title>
+  <defs>
+    <linearGradient id="dog6-bg" x1="100%" y1="100%" x2="0%" y2="0%">
+      <stop offset="0" stop-color="#faf8f6"/>
+      <stop offset="1" stop-color="#e5e0dd"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="900" fill="url(#dog6-bg)"/>
+  <g transform="translate(380 640) rotate(-28) scale(1.15)" fill="#b3b0ae" fill-opacity="0.35">
+    <ellipse cx="-70" cy="-58" rx="24" ry="34"/><ellipse cx="-24" cy="-92" rx="26" ry="36"/><ellipse cx="24" cy="-92" rx="26" ry="36"/><ellipse cx="70" cy="-58" rx="24" ry="34"/><path d="M0 -24c40 0 72 30 72 64 0 30-30 46-72 46S-72 70-72 40c0-34 32-64 72-64z"/>
+  </g>
+</svg>

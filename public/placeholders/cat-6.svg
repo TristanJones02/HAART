@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" width="1200" height="900" role="img" aria-labelledby="cat6-title">
+  <title id="cat6-title">Placeholder image</title>
+  <defs>
+    <linearGradient id="cat6-bg" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0" stop-color="#faf8f6"/>
+      <stop offset="1" stop-color="#e5e0dd"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="900" fill="url(#cat6-bg)"/>
+  <g transform="translate(400 660) rotate(-18) scale(0.9)" fill="#b3b0ae" fill-opacity="0.35">
+    <ellipse cx="-60" cy="-50" rx="20" ry="26"/><ellipse cx="-21" cy="-78" rx="21" ry="28"/><ellipse cx="21" cy="-78" rx="21" ry="28"/><ellipse cx="60" cy="-50" rx="20" ry="26"/><path d="M0 -18c36 0 62 26 62 56 0 26-26 40-62 40S-62 64-62 38c0-30 26-56 62-56z"/>
+  </g>
+</svg>
