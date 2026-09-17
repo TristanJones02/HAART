@@ -1,0 +1,54 @@
+{
+  "meta": {
+    "generated": "2026-09-17",
+    "status": "skeleton",
+    "note": "No image or document could be downloaded from haart.org.au or Facebook in this session (egress blocked). scripts/crawl-inventory.ts populates `assets` with every image and document found on both hosts: url, page(s) found on, width, height, bytes, format, existing alt text, and flags. Facebook originals must be checked by hand for any asset flagged lowResolution.",
+    "flags": {
+      "lowResolution": "long edge under 1200px; re-source from Facebook or the photographer before use as a hero or card image",
+      "missingAlt": "no alt attribute or alt equal to the filename",
+      "oversize": "file larger than 600 KB as served; will be re-encoded by the Sanity pipeline",
+      "textBaked": "image contains rendered text (cover composites, posters); replace with typeset content"
+    },
+    "minimumUsable": {
+      "heroLongEdge": 1600,
+      "cardLongEdge": 1200,
+      "logoFormat": "SVG"
+    }
+  },
+  "assets": [
+    {
+      "id": "logo-primary",
+      "url": null,
+      "foundOn": [
+        "https://haart.org.au/ (header, not retrievable)"
+      ],
+      "kind": "logo",
+      "width": null,
+      "height": null,
+      "bytes": null,
+      "format": null,
+      "alt": null,
+      "flags": [
+        "missing"
+      ],
+      "action": "request original vector from the committee (blocker F12); typographic wordmark used until supplied"
+    },
+    {
+      "id": "petfresh-roundup-poster",
+      "url": "Google Drive: Images for Customer Display/haart.png",
+      "foundOn": [
+        "connected Google Drive (Pet Fresh in-store display), modified 2022-07-25"
+      ],
+      "kind": "partner-collateral",
+      "width": 1931,
+      "height": 2264,
+      "bytes": 342703,
+      "format": "png",
+      "alt": null,
+      "flags": [
+        "textBaked"
+      ],
+      "action": "not a site asset; used only for the branding analysis. Dominant sampled colours #b00800, #383838, #f8f0f0"
+    }
+  ]
+}

@@ -1,0 +1,3180 @@
+{
+  "meta": {
+    "generated": "2026-09-17",
+    "method": "Search-index reconstruction. Direct crawling was blocked; run scripts/crawl-inventory.ts to fill verbatimBody, media and lastModified for every item and to enumerate pages not in the index (shop products, form fields).",
+    "verbatimStatusValues": {
+      "complete": "full page copy captured",
+      "fragment": "one or more sentences captured verbatim from the search index; the rest of the page is not captured",
+      "missing": "nothing captured; page known only by URL or title"
+    },
+    "recommendationValues": [
+      "keep",
+      "merge",
+      "rewrite",
+      "drop"
+    ],
+    "contentTypes": [
+      "siteSettings",
+      "page",
+      "animal",
+      "article",
+      "person",
+      "event",
+      "product",
+      "partner"
+    ],
+    "hosts": {
+      "canonical": "https://haart.org.au",
+      "legacy": "https://www.haart.org.au"
+    },
+    "counts": {
+      "siteSettings": 1,
+      "page": 23,
+      "animal": 36,
+      "partner": 7,
+      "product": 4,
+      "event": 3,
+      "article": 0,
+      "person": 1
+    },
+    "notes": [
+      "Rewrites never replace originals; they sit in proposedRewrite beside verbatimFragments.",
+      "Legal and financial strings (ABN, fees, contact) appear only where verified against a source and carry a verified flag; see docs/blockers.md F1-F19.",
+      "Animal slugs are normalised to name-haartid; the redirect map covers the two WordPress fallback slugs and the un-suffixed ones."
+    ]
+  },
+  "documents": {
+    "siteSettings": [
+      {
+        "sourceUrl": "https://haart.org.au/",
+        "sourceUrls": [
+          "https://haart.org.au/contact/",
+          "https://haart.org.au/donate/",
+          "https://www.acnc.gov.au/charity/charities/e71ee1f8-38af-e811-a962-000d3ad24a0d",
+          "https://www.savour-life.com.au/savourlife-pet-adoptions/rescue-groups/4534/HAART---Homeless-and-Abused-Animal-Rescue-Team"
+        ],
+        "contentType": "siteSettings",
+        "title": "Site settings (singleton)",
+        "verbatimBody": null,
+        "verbatimStatus": "fragment",
+        "verbatimFragments": [
+          {
+            "text": "Homeless & Abused Animal Rescue Team",
+            "source": "https://haart.org.au/ (title suffix)",
+            "capturedFrom": "search-index-quote"
+          },
+          {
+            "text": "Homeless and Abused Animal Rescue Team Inc.",
+            "source": "https://www.haart.org.au/sponsor-kennel/ (legacy title suffix)",
+            "capturedFrom": "search-index-quote"
+          },
+          {
+            "text": "Homeless And Abused Animal Rescue Team Association Inc",
+            "source": "ACNC register listing",
+            "capturedFrom": "search-index-quote"
+          },
+          {
+            "text": "info@haart.org.au",
+            "source": "https://haart.org.au/contact/",
+            "capturedFrom": "search-index-quote"
+          },
+          {
+            "text": "08 6336 9410",
+            "source": "https://haart.org.au/contact/",
+            "capturedFrom": "search-index-quote"
+          },
+          {
+            "text": "fundraising@haart.org.au",
+            "source": "perthisok.com quiz night listing",
+            "capturedFrom": "search-index-quote",
+            "note": "third party; confirm"
+          },
+          {
+            "text": "61 836 601 234",
+            "source": "savour-life.com.au rescue group 4534",
+            "capturedFrom": "search-index-quote",
+            "note": "ABN; unverified against ABN Lookup (blocker F1)"
+          },
+          {
+            "text": "Sign up to be the first to hear about news and events!",
+            "source": "https://haart.org.au/ (site-wide)",
+            "capturedFrom": "search-index-quote"
+          },
+          {
+            "text": "HAART is a not-for-profit, no-kill animal rescue.",
+            "source": "https://haart.org.au/",
+            "capturedFrom": "search-index-quote"
+          }
+        ],
+        "proposedRewrite": null,
+        "media": [],
+        "publishDate": null,
+        "lastModified": null,
+        "recommendation": "keep",
+        "reasoning": "Identity, contact and legal strings. Carried character for character where verified; unverified ones are flagged and not rendered until confirmed.",
+        "target": {
+          "sanityType": "siteSettings",
+          "_id": "siteSettings"
+        },
+        "fields": {
+          "organisationName": "HAART",
+          "organisationNameLong": "Homeless and Abused Animal Rescue Team",
+          "legalName": "Homeless And Abused Animal Rescue Team Association Inc",
+          "abn": {
+            "value": "61 836 601 234",
+            "verified": false,
+            "blocker": "F1"
+          },
+          "acnc": {
+            "registered": true,
+            "registerId": "e71ee1f8-38af-e811-a962-000d3ad24a0d",
+            "verified": false,
+            "blocker": "F2"
+          },
+          "dgrEndorsed": {
+            "value": null,
+            "verified": false,
+            "blocker": "F3"
+          },
+          "foundedYear": {
+            "value": 2012,
+            "foundedMonth": "January",
+            "verified": false,
+            "blocker": "F10"
+          },
+          "contact": {
+            "email": "info@haart.org.au",
+            "phone": "08 6336 9410",
+            "fundraisingEmail": {
+              "value": "fundraising@haart.org.au",
+              "verified": false,
+              "blocker": "F9"
+            },
+            "postalAddress": {
+              "value": null,
+              "blocker": "F9"
+            },
+            "location": "Perth, Western Australia"
+          },
+          "social": {
+            "facebook": "https://www.facebook.com/haartav",
+            "facebookPageId": "193581934021729",
+            "facebookAuction": "https://www.facebook.com/haartauction",
+            "instagram": {
+              "value": "https://www.instagram.com/haart_perth/",
+              "verified": false,
+              "blocker": "F11",
+              "alternative": "https://www.instagram.com/h.a.a.r.t/"
+            },
+            "x": "https://x.com/haartav",
+            "petrescue": "https://www.petrescue.com.au/groups/10046"
+          },
+          "donate": {
+            "oneOffLink": null,
+            "monthlyLink": null,
+            "oneOffCoverFeesLink": null,
+            "monthlyCoverFeesLink": null,
+            "paypalGivingFundLink": null,
+            "bankDetails": {
+              "accountName": null,
+              "bsb": null,
+              "accountNumber": null,
+              "reference": null,
+              "blocker": "F4"
+            },
+            "containersForChangeId": {
+              "value": null,
+              "blocker": "F5"
+            }
+          },
+          "newsletter": {
+            "embedUrl": null,
+            "blocker": "F18"
+          },
+          "fees": {
+            "catStandard": {
+              "value": 200,
+              "currency": "AUD",
+              "verified": true,
+              "source": "https://haart.org.au/adopt/cats/"
+            },
+            "dogNote": {
+              "value": "All adoption fees include microchipping and sterilisation as well as up to date vaccinations, flea treatment and worming.",
+              "verified": true
+            },
+            "dogBands": {
+              "value": null,
+              "blocker": "F6"
+            }
+          }
+        },
+        "blockers": [
+          "F1",
+          "F2",
+          "F3",
+          "F4",
+          "F5",
+          "F9",
+          "F10",
+          "F11",
+          "F18"
+        ]
+      }
+    ],
+    "page": [
+      {
+        "sourceUrl": "https://haart.org.au/",
+        "sourceUrls": [],
+        "contentType": "page",
+        "title": "Home",
+        "verbatimBody": null,
+        "verbatimStatus": "fragment",
+        "verbatimFragments": [
+          {
+            "text": "HAART is a not-for-profit, no-kill animal rescue.",
+            "source": "https://haart.org.au/",
+            "capturedFrom": "search-index-quote"
+          },
+          {
+            "text": "We receive no government funding and are run entirely by a small group of volunteers.",
+            "source": "https://haart.org.au/",
+            "capturedFrom": "search-index-quote",
+            "note": "index shows third person ('receives no government funding and is run entirely by a small group of volunteers'); first person assumed, confirm with crawl"
+          },
+          {
+            "text": "HAART doesn't operate a shelter, so all of our animals are placed with our foster carers across Perth, Western Australia.",
+            "source": "https://haart.org.au/",
+            "capturedFrom": "search-index-quote",
+            "note": "index shows 'their'; first person assumed"
+          },
+          {
+            "text": "Help save a life by adopting a dog",
+            "source": "https://haart.org.au/",
+            "capturedFrom": "search-index-quote",
+            "note": "fragment; continues 'many needing to find a loving and caring family in a forever home'"
+          },
+          {
+            "text": "Sign up to be the first to hear about news and events!",
+            "source": "https://haart.org.au/",
+            "capturedFrom": "search-index-quote"
+          },
+          {
+            "text": "Rock Music Bingo",
+            "source": "https://haart.org.au/",
+            "capturedFrom": "search-index-quote",
+            "note": "event block: 'tickets available at the door', 'heaps of prizes to win', '4, The Esplanade, Mt Pleasant'; no date indexed"
+          },
+          {
+            "text": "Take your containers to your local drop off point and donate the proceeds to HAART with our scheme ID",
+            "source": "https://haart.org.au/ or /donate/",
+            "capturedFrom": "search-index-quote"
+          },
+          {
+            "text": "Once Off Donation",
+            "source": "https://haart.org.au/ navigation",
+            "capturedFrom": "search-index-quote"
+          },
+          {
+            "text": "Regular Giving",
+            "source": "https://haart.org.au/ navigation",
+            "capturedFrom": "search-index-quote"
+          }
+        ],
+        "proposedRewrite": "Hero: 'Perth's foster-based, no-kill rescue.' Sub: 'No shelter, no government funding, no animal put to sleep for want of space. Just volunteers and a network of foster homes across Perth.' Then the four actions (Donate, Adopt, Foster, Volunteer), the animals-needing-fosters strip, latest animals, the 14-day events strip (conditional), a rescue story, the funding line as a stat band, partner logos.",
+        "media": [],
+        "publishDate": null,
+        "lastModified": null,
+        "recommendation": "rewrite",
+        "reasoning": "Structure changes completely; the sentences that carry the argument (no-kill, no funding, foster-based) are kept verbatim inside new sections.",
+        "target": {
+          "sanityType": "page",
+          "slug": "home",
+          "newUrl": "/"
+        },
+        "fields": {
+          "sections": [
+            "hero",
+            "actionGrid",
+            "fosterNeededStrip",
+            "animalGrid",
+            "eventsStrip",
+            "storyFeature",
+            "statBand",
+            "partnerLogos",
+            "newsletter"
+          ]
+        },
+        "blockers": []
+      },
+      {
+        "sourceUrl": "https://haart.org.au/about-our-rescue-mission/",
+        "sourceUrls": [],
+        "contentType": "page",
+        "title": "About Our Rescue",
+        "verbatimBody": null,
+        "verbatimStatus": "fragment",
+        "verbatimFragments": [
+          {
+            "text": "A group of like-minded individuals came together from other rescues with the idea of doing things different. From this we have grown to the rescue we are today.",
+            "source": "https://haart.org.au/about-our-rescue-mission/",
+            "capturedFrom": "search-index-quote"
+          },
+          {
+            "text": "HAART is a Not-For-Profit Charitable organisation that saves the lives of hundreds of animals each year, supported only by the generosity of the general public for our funding.",
+            "source": "https://haart.org.au/about-our-rescue-mission/",
+            "capturedFrom": "search-index-quote"
+          },
+          {
+            "text": "We don't have a premises with hundreds of animals awaiting adoption. Instead, we have a team of dedicated foster carers – people just like yourselves – who take scared, abused, and unwanted animals into their homes, give them the gift of life, and love them like their own, until we find them the perfect forever home.",
+            "source": "https://haart.org.au/about-our-rescue-mission/",
+            "capturedFrom": "search-index-quote",
+            "note": "Pet Fresh's rescue-groups page republishes this in third person; site wording first person per index"
+          },
+          {
+            "text": "HAART is exclusively no-kill and do not put animals to sleep just because they don't have room.",
+            "source": "https://haart.org.au/about-our-rescue-mission/",
+            "capturedFrom": "search-index-quote"
+          },
+          {
+            "text": "Our goal is to see the day when we are no longer needed.",
+            "source": "https://haart.org.au/about-our-rescue-mission/",
+            "capturedFrom": "search-index-quote",
+            "note": "index paraphrase: 'effectively wanting to put themselves out of a job, with the vision of a day when there are no more homeless animals'"
+          },
+          {
+            "text": "Our dream is to see every companion animal in a safe, loving forever home.",
+            "source": "Pet Fresh round-up poster (quoted) and savour-life listing",
+            "capturedFrom": "search-index-quote"
+          }
+        ],
+        "proposedRewrite": "Keep every sentence above. Add: founded January 2012 (once confirmed), what a year looks like in numbers (once supplied), how the foster model works in three steps, the ACNC and ABN line, and the free-desexing offer for accidental litters currently only on PetRescue.",
+        "media": [],
+        "publishDate": null,
+        "lastModified": null,
+        "recommendation": "rewrite",
+        "reasoning": "The existing copy is good and short; the page needs structure and trust signals, not new prose.",
+        "target": {
+          "sanityType": "page",
+          "slug": "about",
+          "newUrl": "/about"
+        },
+        "fields": {
+          "sections": [
+            "pageHeader",
+            "richText",
+            "stepList",
+            "statBand",
+            "trustBand",
+            "cta"
+          ]
+        },
+        "blockers": []
+      },
+      {
+        "sourceUrl": "https://haart.org.au/adopt/",
+        "sourceUrls": [],
+        "contentType": "page",
+        "title": "Adopt",
+        "verbatimBody": null,
+        "verbatimStatus": "fragment",
+        "verbatimFragments": [
+          {
+            "text": "HAART dreams of a world where every companion animal is in a loving, caring and secure home, and by adopting, you could be part of this vision.",
+            "source": "https://haart.org.au/adopt/",
+            "capturedFrom": "search-index-quote"
+          },
+          {
+            "text": "Complete our pre-adoption form.",
+            "source": "savour-life.com.au (HAART's own listing text)",
+            "capturedFrom": "search-index-quote",
+            "note": "process: 'Within seven days we will call to discuss your application, then arrange a home check to ensure the home and fencing are suitable, as the safety of our dogs is of the utmost importance'; third person in source"
+          },
+          {
+            "text": "email info@haart.org.au with the pre-adoption questionnaire, after which HAART will contact you and arrange a meet and greet with the foster carer, yard check, and further adoption forms",
+            "source": "petrescue.com.au group 10046",
+            "capturedFrom": "search-index-quote",
+            "note": "index paraphrase of process"
+          },
+          {
+            "text": "reduced adoption fees when adopting multiple animals together",
+            "source": "petrescue.com.au group 10046",
+            "capturedFrom": "search-index-quote",
+            "note": "not on site; reconcile (blocker F6)"
+          }
+        ],
+        "proposedRewrite": "Overview page: two species tiles, 'How adoption works' in four steps (questionnaire, call within seven days, meet and greet with the foster carer plus yard check, adoption forms and fee), fees stated as a range per species with inclusions, then 'Ready?' buttons to the questionnaires.",
+        "media": [],
+        "publishDate": null,
+        "lastModified": null,
+        "recommendation": "rewrite",
+        "reasoning": "Currently a thin hub. The process exists in HAART's own words on two third-party sites and is missing from the site.",
+        "target": {
+          "sanityType": "page",
+          "slug": "adopt",
+          "newUrl": "/adopt"
+        },
+        "fields": {
+          "sections": [
+            "pageHeader",
+            "speciesTiles",
+            "stepList",
+            "feeTable",
+            "faq",
+            "cta"
+          ]
+        },
+        "blockers": [
+          "F6"
+        ]
+      },
+      {
+        "sourceUrl": "https://haart.org.au/adopt/dogs/",
+        "sourceUrls": [],
+        "contentType": "page",
+        "title": "Dog Adoptions",
+        "verbatimBody": null,
+        "verbatimStatus": "fragment",
+        "verbatimFragments": [
+          {
+            "text": "All of the dogs listed are available for adoption.",
+            "source": "https://haart.org.au/adopt/dogs/",
+            "capturedFrom": "search-index-quote"
+          },
+          {
+            "text": "All adoption fees include microchipping and sterilisation as well as up to date vaccinations, flea treatment and worming.",
+            "source": "https://haart.org.au/adopt/dogs/",
+            "capturedFrom": "search-index-quote"
+          }
+        ],
+        "proposedRewrite": "Listing page driven by the animal feed with filters (status, size, age band, good with kids/cats/dogs) and the fee inclusions line kept verbatim beneath the heading.",
+        "media": [],
+        "publishDate": null,
+        "lastModified": null,
+        "recommendation": "keep",
+        "reasoning": "URL and intent kept; the listing becomes data-driven.",
+        "target": {
+          "sanityType": "page",
+          "slug": "adopt-dogs",
+          "newUrl": "/adopt/dogs"
+        },
+        "fields": {
+          "sections": [
+            "pageHeader",
+            "animalListing"
+          ]
+        },
+        "blockers": []
+      },
+      {
+        "sourceUrl": "https://haart.org.au/adopt/cats/",
+        "sourceUrls": [
+          "https://www.haart.org.au/adoption-gallery-cats/"
+        ],
+        "contentType": "page",
+        "title": "Cat Adoptions",
+        "verbatimBody": null,
+        "verbatimStatus": "fragment",
+        "verbatimFragments": [
+          {
+            "text": "All of the cats listed are available for adoption.",
+            "source": "https://haart.org.au/adopt/cats/",
+            "capturedFrom": "search-index-quote"
+          },
+          {
+            "text": "The standard fee for adopting a cat with HAART is $200 and this includes vet check, vaccinations, flea and worming, microchipping and sterilisation.",
+            "source": "https://haart.org.au/adopt/cats/",
+            "capturedFrom": "search-index-quote"
+          }
+        ],
+        "proposedRewrite": "Same listing component as dogs; fee line kept verbatim.",
+        "media": [],
+        "publishDate": null,
+        "lastModified": null,
+        "recommendation": "merge",
+        "reasoning": "Legacy /adoption-gallery-cats/ on www duplicates this page; redirect it here.",
+        "target": {
+          "sanityType": "page",
+          "slug": "adopt-cats",
+          "newUrl": "/adopt/cats"
+        },
+        "fields": {
+          "sections": [
+            "pageHeader",
+            "animalListing"
+          ]
+        },
+        "blockers": []
+      },
+      {
+        "sourceUrl": "https://haart.org.au/adopt/pre-adoption-questionnaire-dogs/",
+        "sourceUrls": [],
+        "contentType": "page",
+        "title": "Pre-Adoption Questionnaire - Dogs",
+        "verbatimBody": null,
+        "verbatimStatus": "fragment",
+        "verbatimFragments": [
+          {
+            "text": "designed for those considering adopting one of our dogs",
+            "source": "https://haart.org.au/adopt/pre-adoption-questionnaire-dogs/",
+            "capturedFrom": "search-index-quote",
+            "note": "index paraphrase; the form's field list was not indexed and must come from the crawl"
+          }
+        ],
+        "proposedRewrite": "Same intent, rebuilt as an accessible multi-step form with the process explained above it. Field list to be reproduced from the crawl of the current form.",
+        "media": [],
+        "publishDate": null,
+        "lastModified": null,
+        "recommendation": "rewrite",
+        "reasoning": "Form fields are binding operational content and must be reproduced; the crawl script captures them.",
+        "target": {
+          "sanityType": "page",
+          "slug": "adopt-apply-dogs",
+          "newUrl": "/adopt/apply/dogs"
+        },
+        "fields": {
+          "sections": [
+            "pageHeader",
+            "formEmbed"
+          ],
+          "form": "preAdoptionDogs"
+        },
+        "blockers": []
+      },
+      {
+        "sourceUrl": "https://haart.org.au/adopt/pre-adoption-questionnaire-cats/",
+        "sourceUrls": [],
+        "contentType": "page",
+        "title": "Pre-Adoption Questionnaire - Cats",
+        "verbatimBody": null,
+        "verbatimStatus": "missing",
+        "verbatimFragments": [
+          {
+            "text": "Cat Pre-adoption Questionnaire",
+            "source": "https://haart.org.au/forms/",
+            "capturedFrom": "search-index-quote"
+          }
+        ],
+        "proposedRewrite": "As for dogs.",
+        "media": [],
+        "publishDate": null,
+        "lastModified": null,
+        "recommendation": "rewrite",
+        "reasoning": "As for dogs.",
+        "target": {
+          "sanityType": "page",
+          "slug": "adopt-apply-cats",
+          "newUrl": "/adopt/apply/cats"
+        },
+        "fields": {
+          "sections": [
+            "pageHeader",
+            "formEmbed"
+          ],
+          "form": "preAdoptionCats"
+        },
+        "blockers": []
+      },
+      {
+        "sourceUrl": "https://haart.org.au/foster/",
+        "sourceUrls": [],
+        "contentType": "page",
+        "title": "Foster",
+        "verbatimBody": null,
+        "verbatimStatus": "fragment",
+        "verbatimFragments": [
+          {
+            "text": "By welcoming an animal into your home you are saving them from the streets, the pound or potentially being put to sleep.",
+            "source": "https://haart.org.au/foster/",
+            "capturedFrom": "search-index-quote"
+          },
+          {
+            "text": "Fostering an animal before they are adopted allows us to learn their temperament and needs so that we can find them the perfect forever home.",
+            "source": "https://haart.org.au/foster/",
+            "capturedFrom": "search-index-quote"
+          },
+          {
+            "text": "HAART has a team of dedicated foster carers – people just like yourselves – who take scared, abused, and unwanted animals into their homes, give them the gift of life, and love them like their own, until we find them the perfect forever home.",
+            "source": "https://haart.org.au/foster/",
+            "capturedFrom": "search-index-quote"
+          },
+          {
+            "text": "The main requirements for a potential foster carer are that they can provide a warm bed, a full belly, patience and lots of love.",
+            "source": "https://haart.org.au/foster/dogs/",
+            "capturedFrom": "search-index-quote"
+          }
+        ],
+        "proposedRewrite": "Keep all four sentences. Add: 'What fostering actually involves' (typical duration, what HAART supplies, who pays the vet, transport to vet and adoption meets), 'Common worries' as an FAQ (I work full time; I have my own dog; I rent; what if it doesn't work out; will I get attached), 'Animals who need a foster now' strip, then the two application buttons.",
+        "media": [],
+        "publishDate": null,
+        "lastModified": null,
+        "recommendation": "rewrite",
+        "reasoning": "Highest-impact page for a foster-based rescue; currently one paragraph and two form links. Specific support answers need HAART confirmation (blocker F15) and ship marked as such.",
+        "target": {
+          "sanityType": "page",
+          "slug": "foster",
+          "newUrl": "/foster"
+        },
+        "fields": {
+          "sections": [
+            "pageHeader",
+            "richText",
+            "iconList",
+            "faq",
+            "fosterNeededStrip",
+            "cta"
+          ]
+        },
+        "blockers": [
+          "F15"
+        ]
+      },
+      {
+        "sourceUrl": "https://haart.org.au/foster/dogs/",
+        "sourceUrls": [],
+        "contentType": "page",
+        "title": "Foster Carer Application - Dogs",
+        "verbatimBody": null,
+        "verbatimStatus": "fragment",
+        "verbatimFragments": [
+          {
+            "text": "The main requirements for a potential foster carer are that they can provide a warm bed, a full belly, patience and lots of love.",
+            "source": "https://haart.org.au/foster/dogs/",
+            "capturedFrom": "search-index-quote"
+          }
+        ],
+        "proposedRewrite": "Form rebuilt; field list from the crawl.",
+        "media": [],
+        "publishDate": null,
+        "lastModified": null,
+        "recommendation": "rewrite",
+        "reasoning": "Form page.",
+        "target": {
+          "sanityType": "page",
+          "slug": "foster-apply-dogs",
+          "newUrl": "/foster/apply/dogs"
+        },
+        "fields": {
+          "sections": [
+            "pageHeader",
+            "formEmbed"
+          ],
+          "form": "fosterDogs"
+        },
+        "blockers": []
+      },
+      {
+        "sourceUrl": "https://haart.org.au/foster/cats/",
+        "sourceUrls": [],
+        "contentType": "page",
+        "title": "Foster Carer Application - Cats",
+        "verbatimBody": null,
+        "verbatimStatus": "missing",
+        "verbatimFragments": [
+          {
+            "text": "Cat Foster Application",
+            "source": "https://haart.org.au/forms/",
+            "capturedFrom": "search-index-quote"
+          }
+        ],
+        "proposedRewrite": "Form rebuilt; field list from the crawl.",
+        "media": [],
+        "publishDate": null,
+        "lastModified": null,
+        "recommendation": "rewrite",
+        "reasoning": "Form page. URL inferred from the dogs pattern and the forms index; confirm with crawl.",
+        "target": {
+          "sanityType": "page",
+          "slug": "foster-apply-cats",
+          "newUrl": "/foster/apply/cats"
+        },
+        "fields": {
+          "sections": [
+            "pageHeader",
+            "formEmbed"
+          ],
+          "form": "fosterCats"
+        },
+        "blockers": []
+      },
+      {
+        "sourceUrl": "https://haart.org.au/forms/",
+        "sourceUrls": [],
+        "contentType": "page",
+        "title": "Forms",
+        "verbatimBody": null,
+        "verbatimStatus": "fragment",
+        "verbatimFragments": [
+          {
+            "text": "Dog Pre-adoption Questionnaire",
+            "source": "https://haart.org.au/forms/",
+            "capturedFrom": "search-index-quote"
+          },
+          {
+            "text": "Cat Pre-adoption Questionnaire",
+            "source": "https://haart.org.au/forms/",
+            "capturedFrom": "search-index-quote"
+          },
+          {
+            "text": "Dog Foster Application",
+            "source": "https://haart.org.au/forms/",
+            "capturedFrom": "search-index-quote"
+          },
+          {
+            "text": "Cat Foster Application",
+            "source": "https://haart.org.au/forms/",
+            "capturedFrom": "search-index-quote"
+          }
+        ],
+        "proposedRewrite": "Keep as a plain index of every form with one line each, because volunteers send people here.",
+        "media": [],
+        "publishDate": null,
+        "lastModified": null,
+        "recommendation": "keep",
+        "reasoning": "Volunteers rely on it; costs nothing.",
+        "target": {
+          "sanityType": "page",
+          "slug": "forms",
+          "newUrl": "/forms"
+        },
+        "fields": {
+          "sections": [
+            "pageHeader",
+            "linkList"
+          ]
+        },
+        "blockers": []
+      },
+      {
+        "sourceUrl": "https://haart.org.au/donate/",
+        "sourceUrls": [],
+        "contentType": "page",
+        "title": "Donate",
+        "verbatimBody": null,
+        "verbatimStatus": "fragment",
+        "verbatimFragments": [
+          {
+            "text": "Once Off Donation",
+            "source": "https://haart.org.au/ navigation",
+            "capturedFrom": "search-index-quote"
+          },
+          {
+            "text": "Regular Giving",
+            "source": "https://haart.org.au/ navigation",
+            "capturedFrom": "search-index-quote"
+          },
+          {
+            "text": "food, litter and bedding",
+            "source": "https://haart.org.au/donate/",
+            "capturedFrom": "search-index-quote",
+            "note": "context: 'donate or help provide supplies we need, such as food, litter and bedding'"
+          },
+          {
+            "text": "Take your containers to your local drop off point and donate the proceeds to HAART with our scheme ID",
+            "source": "https://haart.org.au/donate/",
+            "capturedFrom": "search-index-quote"
+          }
+        ],
+        "proposedRewrite": "One page: amount presets, one-off or monthly toggle (nothing preselected), cover-the-fees option, the 'no government funding' line beside the button, then other ways to give: bank transfer (when supplied), Containers for Change with the scheme ID and a copy button, supplies wishlist, bequests (contact), and links to Shop, Events and Partners.",
+        "media": [],
+        "publishDate": null,
+        "lastModified": null,
+        "recommendation": "rewrite",
+        "reasoning": "Primary conversion page; currently under-developed.",
+        "target": {
+          "sanityType": "page",
+          "slug": "donate",
+          "newUrl": "/donate"
+        },
+        "fields": {
+          "sections": [
+            "pageHeader",
+            "donateWidget",
+            "statBand",
+            "otherWaysToGive",
+            "faq"
+          ]
+        },
+        "blockers": [
+          "F3",
+          "F4",
+          "F5"
+        ]
+      },
+      {
+        "sourceUrl": "https://haart.org.au/contact/",
+        "sourceUrls": [],
+        "contentType": "page",
+        "title": "Contact Us",
+        "verbatimBody": null,
+        "verbatimStatus": "fragment",
+        "verbatimFragments": [
+          {
+            "text": "Fill in the form and we will get back to you as soon as possible.",
+            "source": "https://haart.org.au/contact/",
+            "capturedFrom": "search-index-quote",
+            "note": "index paraphrase"
+          },
+          {
+            "text": "HAART is run entirely by volunteers",
+            "source": "https://haart.org.au/contact/",
+            "capturedFrom": "search-index-quote",
+            "note": "context: asks for patience on response times"
+          },
+          {
+            "text": "info@haart.org.au",
+            "source": "https://haart.org.au/contact/",
+            "capturedFrom": "search-index-quote"
+          },
+          {
+            "text": "08 6336 9410",
+            "source": "https://haart.org.au/contact/",
+            "capturedFrom": "search-index-quote"
+          }
+        ],
+        "proposedRewrite": "Keep. Add a 'which form do you actually need?' router above the general form so adoption and foster enquiries go to the right place.",
+        "media": [],
+        "publishDate": null,
+        "lastModified": null,
+        "recommendation": "keep",
+        "reasoning": "Works; small improvement.",
+        "target": {
+          "sanityType": "page",
+          "slug": "contact",
+          "newUrl": "/contact"
+        },
+        "fields": {
+          "sections": [
+            "pageHeader",
+            "contactDetails",
+            "formEmbed"
+          ],
+          "form": "contact"
+        },
+        "blockers": []
+      },
+      {
+        "sourceUrl": "https://haart.org.au/friends-of-haart/",
+        "sourceUrls": [
+          "https://www.haart.org.au/sponsor-kennel/",
+          "https://www.haart.org.au/sponsorship-application/"
+        ],
+        "contentType": "page",
+        "title": "Friends of HAART",
+        "verbatimBody": null,
+        "verbatimStatus": "fragment",
+        "verbatimFragments": [
+          {
+            "text": "HAART is supported by a myriad of businesses",
+            "source": "https://haart.org.au/friends-of-haart/",
+            "capturedFrom": "search-index-quote"
+          },
+          {
+            "text": "As a Kennel Sponsor, your support will make an incredible difference, providing bedding, blankets, toys and treats to keep dogs happy and healthy.",
+            "source": "https://www.haart.org.au/sponsor-kennel/",
+            "capturedFrom": "search-index-quote"
+          },
+          {
+            "text": "Corporate sponsorship of one of our 10 kennels is a great way to be tax effective.",
+            "source": "https://www.haart.org.au/sponsor-kennel/",
+            "capturedFrom": "search-index-quote",
+            "note": "'tax effective' depends on DGR status (blocker F3)"
+          },
+          {
+            "text": "Sponsorship starts at $2500 a year with discounts for 2 and 3 year options.",
+            "source": "https://www.haart.org.au/sponsor-kennel/",
+            "capturedFrom": "search-index-quote"
+          },
+          {
+            "text": "To sponsor a kennel, click the link for our sponsorship form.",
+            "source": "https://www.haart.org.au/sponsor-kennel/",
+            "capturedFrom": "search-index-quote"
+          }
+        ],
+        "proposedRewrite": "Becomes /partners: the partner directory (from the partner documents) plus the corporate offer (kennel sponsorship as supplied, once confirmed) and a partnership enquiry form replacing the legacy sponsorship application.",
+        "media": [],
+        "publishDate": null,
+        "lastModified": null,
+        "recommendation": "merge",
+        "reasoning": "Three pages across two site generations describe one relationship.",
+        "target": {
+          "sanityType": "page",
+          "slug": "partners",
+          "newUrl": "/partners"
+        },
+        "fields": {
+          "sections": [
+            "pageHeader",
+            "partnerGrid",
+            "richText",
+            "priceCards",
+            "formEmbed"
+          ],
+          "form": "partnership"
+        },
+        "blockers": [
+          "F3",
+          "F16"
+        ]
+      },
+      {
+        "sourceUrl": "https://www.haart.org.au/goodwill-wines/",
+        "sourceUrls": [],
+        "contentType": "page",
+        "title": "Goodwill Wines",
+        "verbatimBody": null,
+        "verbatimStatus": "fragment",
+        "verbatimFragments": [
+          {
+            "text": "Each case of Goodwill Wines varieties donates $20 to HAART.",
+            "source": "https://haart.org.au/ (fundraising block)",
+            "capturedFrom": "search-index-quote"
+          },
+          {
+            "text": "HAART has their own Goodwill Wines and each time someone buys a case from Goodwill Wines, HAART receives $20 from your purchase.",
+            "source": "https://www.haart.org.au/goodwill-wines/",
+            "capturedFrom": "search-index-quote",
+            "note": "index paraphrase; pronouns uncertain"
+          }
+        ],
+        "proposedRewrite": "Becomes a product document of type 'fundraiser' listed on /support and /shop, with the outbound link.",
+        "media": [],
+        "publishDate": null,
+        "lastModified": null,
+        "recommendation": "merge",
+        "reasoning": "A page for one affiliate product is over-structured; it is a product card.",
+        "target": {
+          "sanityType": "product",
+          "slug": "goodwill-wines",
+          "newUrl": "/support"
+        },
+        "fields": {},
+        "blockers": [
+          "F17"
+        ]
+      },
+      {
+        "sourceUrl": "https://haart.org.au/ (fundraising block)",
+        "sourceUrls": [],
+        "contentType": "page",
+        "title": "Entertainment Book",
+        "verbatimBody": null,
+        "verbatimStatus": "fragment",
+        "verbatimFragments": [
+          {
+            "text": "12 months of discounts with 20% of the purchase price going to the animals of HAART",
+            "source": "https://haart.org.au/",
+            "capturedFrom": "search-index-quote",
+            "note": "index paraphrase"
+          }
+        ],
+        "proposedRewrite": "Product document of type 'fundraiser'.",
+        "media": [],
+        "publishDate": null,
+        "lastModified": null,
+        "recommendation": "merge",
+        "reasoning": "As for Goodwill Wines.",
+        "target": {
+          "sanityType": "product",
+          "slug": "entertainment-book",
+          "newUrl": "/support"
+        },
+        "fields": {},
+        "blockers": [
+          "F17"
+        ]
+      },
+      {
+        "sourceUrl": "https://haart.org.au/ (header: shop with cart icon)",
+        "sourceUrls": [],
+        "contentType": "page",
+        "title": "Shop",
+        "verbatimBody": null,
+        "verbatimStatus": "missing",
+        "verbatimFragments": [],
+        "proposedRewrite": "/shop lists product documents with Square payment links. Product names, prices and images must come from the crawl (WooCommerce product pages were not indexed).",
+        "media": [],
+        "publishDate": null,
+        "lastModified": null,
+        "recommendation": "rewrite",
+        "reasoning": "Shop exists but no products were indexed; the crawl will enumerate /product/ URLs.",
+        "target": {
+          "sanityType": "page",
+          "slug": "shop",
+          "newUrl": "/shop"
+        },
+        "fields": {
+          "sections": [
+            "pageHeader",
+            "productGrid"
+          ]
+        },
+        "blockers": [
+          "C5"
+        ]
+      },
+      {
+        "sourceUrl": null,
+        "sourceUrls": [],
+        "contentType": "page",
+        "title": "Volunteer",
+        "verbatimBody": null,
+        "verbatimStatus": "missing",
+        "verbatimFragments": [],
+        "proposedRewrite": null,
+        "media": [],
+        "publishDate": null,
+        "lastModified": null,
+        "recommendation": "rewrite",
+        "reasoning": "No volunteer page exists; searches resolve to Contact. Fourth conversion action.",
+        "target": {
+          "sanityType": "page",
+          "slug": "volunteer",
+          "newUrl": "/volunteer"
+        },
+        "fields": {
+          "sections": [
+            "pageHeader",
+            "richText",
+            "iconList",
+            "faq",
+            "formEmbed",
+            "cta"
+          ]
+        },
+        "blockers": []
+      },
+      {
+        "sourceUrl": null,
+        "sourceUrls": [],
+        "contentType": "page",
+        "title": "Other ways to support",
+        "verbatimBody": null,
+        "verbatimStatus": "missing",
+        "verbatimFragments": [],
+        "proposedRewrite": null,
+        "media": [],
+        "publishDate": null,
+        "lastModified": null,
+        "recommendation": "rewrite",
+        "reasoning": "Gathers Goodwill Wines, Entertainment Book, Containers for Change, the online auction, wishlists and events under one hub.",
+        "target": {
+          "sanityType": "page",
+          "slug": "support",
+          "newUrl": "/support"
+        },
+        "fields": {
+          "sections": [
+            "pageHeader",
+            "productGrid",
+            "richText",
+            "linkList"
+          ]
+        },
+        "blockers": []
+      },
+      {
+        "sourceUrl": null,
+        "sourceUrls": [],
+        "contentType": "page",
+        "title": "Events",
+        "verbatimBody": null,
+        "verbatimStatus": "missing",
+        "verbatimFragments": [],
+        "proposedRewrite": null,
+        "media": [],
+        "publishDate": null,
+        "lastModified": null,
+        "recommendation": "rewrite",
+        "reasoning": "Automated from the Facebook events feed; the site currently lists one undated bingo night.",
+        "target": {
+          "sanityType": "page",
+          "slug": "events",
+          "newUrl": "/events"
+        },
+        "fields": {
+          "sections": [
+            "pageHeader",
+            "eventList"
+          ]
+        },
+        "blockers": []
+      },
+      {
+        "sourceUrl": null,
+        "sourceUrls": [],
+        "contentType": "page",
+        "title": "Rescue stories",
+        "verbatimBody": null,
+        "verbatimStatus": "missing",
+        "verbatimFragments": [],
+        "proposedRewrite": null,
+        "media": [],
+        "publishDate": null,
+        "lastModified": null,
+        "recommendation": "rewrite",
+        "reasoning": "Editorial hub for articles; nothing exists on the current site, the stories are in Facebook posts.",
+        "target": {
+          "sanityType": "page",
+          "slug": "stories",
+          "newUrl": "/stories"
+        },
+        "fields": {
+          "sections": [
+            "pageHeader",
+            "articleList"
+          ]
+        },
+        "blockers": []
+      },
+      {
+        "sourceUrl": null,
+        "sourceUrls": [],
+        "contentType": "page",
+        "title": "Privacy policy",
+        "verbatimBody": null,
+        "verbatimStatus": "missing",
+        "verbatimFragments": [],
+        "proposedRewrite": null,
+        "media": [],
+        "publishDate": null,
+        "lastModified": null,
+        "recommendation": "rewrite",
+        "reasoning": "Not found on the current site; required for the Privacy Act and for the analytics and forms the new site runs. Ships as a draft for adoption (blocker F13).",
+        "target": {
+          "sanityType": "page",
+          "slug": "privacy",
+          "newUrl": "/privacy"
+        },
+        "fields": {
+          "sections": [
+            "pageHeader",
+            "richText"
+          ]
+        },
+        "blockers": []
+      },
+      {
+        "sourceUrl": null,
+        "sourceUrls": [],
+        "contentType": "page",
+        "title": "Surrendering an animal",
+        "verbatimBody": null,
+        "verbatimStatus": "missing",
+        "verbatimFragments": [],
+        "proposedRewrite": null,
+        "media": [],
+        "publishDate": null,
+        "lastModified": null,
+        "recommendation": "rewrite",
+        "reasoning": "Not on the site; PetRescue describes the responsible-rehoming and free-desexing offer. Stub for confirmation (blocker F14).",
+        "target": {
+          "sanityType": "page",
+          "slug": "surrender",
+          "newUrl": "/surrender"
+        },
+        "fields": {
+          "sections": [
+            "pageHeader",
+            "richText",
+            "faq",
+            "cta"
+          ]
+        },
+        "blockers": []
+      }
+    ],
+    "animal": [
+      {
+        "sourceUrl": "https://haart.org.au/adopt/dogs/artie/",
+        "sourceUrls": [],
+        "contentType": "animal",
+        "title": "Artie HD21-041",
+        "verbatimBody": null,
+        "verbatimStatus": "fragment",
+        "verbatimFragments": [
+          {
+            "text": "Artie is a beautiful big boy who needs a family that has the time and patience to let him feel settled and safe.",
+            "source": "https://haart.org.au/adopt/dogs/artie/",
+            "capturedFrom": "search-index-quote"
+          },
+          {
+            "text": "He was a hand raised neonate pup who would now do best in an only dog home with older (13+) children due to his size.",
+            "source": "https://haart.org.au/adopt/dogs/artie/",
+            "capturedFrom": "search-index-quote"
+          },
+          {
+            "text": "He is dog reactive and currently working with a trainer, and his family will need to understand and follow the advice given to ensure he can be set up for success as he transitions to his forever home.",
+            "source": "https://haart.org.au/adopt/dogs/artie/",
+            "capturedFrom": "search-index-quote"
+          }
+        ],
+        "proposedRewrite": null,
+        "media": [],
+        "publishDate": null,
+        "lastModified": null,
+        "recommendation": "keep",
+        "reasoning": "Animal profiles are carried verbatim into the animal document (or matched to the PetRescue listing by HAART ID). Status is moved from the title into a field.",
+        "target": {
+          "sanityType": "animal",
+          "slug": "artie-hd21-041",
+          "newUrl": "/adopt/dogs/artie-hd21-041"
+        },
+        "fields": {
+          "species": "dog",
+          "name": "Artie",
+          "haartId": "HD21-041",
+          "status": "unknown",
+          "fosterNeeded": false,
+          "titleAsIndexed": null
+        },
+        "blockers": [
+          "F8"
+        ]
+      },
+      {
+        "sourceUrl": "https://haart.org.au/adopt/dogs/mowgli-hd24-026/",
+        "sourceUrls": [],
+        "contentType": "animal",
+        "title": "Mowgli HD24-026",
+        "verbatimBody": null,
+        "verbatimStatus": "missing",
+        "verbatimFragments": [],
+        "proposedRewrite": null,
+        "media": [],
+        "publishDate": null,
+        "lastModified": null,
+        "recommendation": "keep",
+        "reasoning": "Animal profiles are carried verbatim into the animal document (or matched to the PetRescue listing by HAART ID). Status is moved from the title into a field.",
+        "target": {
+          "sanityType": "animal",
+          "slug": "mowgli-hd24-026",
+          "newUrl": "/adopt/dogs/mowgli-hd24-026"
+        },
+        "fields": {
+          "species": "dog",
+          "name": "Mowgli",
+          "haartId": "HD24-026",
+          "status": "available",
+          "fosterNeeded": false,
+          "titleAsIndexed": null
+        },
+        "blockers": []
+      },
+      {
+        "sourceUrl": "https://haart.org.au/adopt/dogs/nova-hd24-049/",
+        "sourceUrls": [],
+        "contentType": "animal",
+        "title": "Nova HD24-049",
+        "verbatimBody": null,
+        "verbatimStatus": "fragment",
+        "verbatimFragments": [
+          {
+            "text": "Bull Arab x Huntaway",
+            "source": "https://haart.org.au/adopt/dogs/nova-hd24-049/",
+            "capturedFrom": "search-index-quote"
+          }
+        ],
+        "proposedRewrite": null,
+        "media": [],
+        "publishDate": null,
+        "lastModified": null,
+        "recommendation": "keep",
+        "reasoning": "Animal profiles are carried verbatim into the animal document (or matched to the PetRescue listing by HAART ID). Status is moved from the title into a field.",
+        "target": {
+          "sanityType": "animal",
+          "slug": "nova-hd24-049",
+          "newUrl": "/adopt/dogs/nova-hd24-049"
+        },
+        "fields": {
+          "species": "dog",
+          "name": "Nova",
+          "haartId": "HD24-049",
+          "status": "available",
+          "fosterNeeded": false,
+          "titleAsIndexed": null
+        },
+        "blockers": []
+      },
+      {
+        "sourceUrl": "https://haart.org.au/adopt/dogs/maxi-hd25-003/",
+        "sourceUrls": [],
+        "contentType": "animal",
+        "title": "Maxi HD25-003",
+        "verbatimBody": null,
+        "verbatimStatus": "fragment",
+        "verbatimFragments": [
+          {
+            "text": "Maxi is a loving, playful companion who will grow into a loyal family dog.",
+            "source": "https://haart.org.au/adopt/dogs/maxi-hd25-003/",
+            "capturedFrom": "search-index-quote"
+          }
+        ],
+        "proposedRewrite": null,
+        "media": [],
+        "publishDate": null,
+        "lastModified": null,
+        "recommendation": "keep",
+        "reasoning": "Animal profiles are carried verbatim into the animal document (or matched to the PetRescue listing by HAART ID). Status is moved from the title into a field.",
+        "target": {
+          "sanityType": "animal",
+          "slug": "maxi-hd25-003",
+          "newUrl": "/adopt/dogs/maxi-hd25-003"
+        },
+        "fields": {
+          "species": "dog",
+          "name": "Maxi",
+          "haartId": "HD25-003",
+          "status": "available",
+          "fosterNeeded": true,
+          "titleAsIndexed": "Maxi HD25-003 **foster carer needed**"
+        },
+        "blockers": [
+          "F7"
+        ]
+      },
+      {
+        "sourceUrl": "https://haart.org.au/adopt/dogs/tazzie-hd25-003/",
+        "sourceUrls": [],
+        "contentType": "animal",
+        "title": "Tazzie HD25-003",
+        "verbatimBody": null,
+        "verbatimStatus": "fragment",
+        "verbatimFragments": [
+          {
+            "text": "Male Kelpie X Staffy",
+            "source": "https://haart.org.au/adopt/dogs/tazzie-hd25-003/",
+            "capturedFrom": "search-index-quote"
+          },
+          {
+            "text": "Born 15/08/2024",
+            "source": "https://haart.org.au/adopt/dogs/tazzie-hd25-003/",
+            "capturedFrom": "search-index-quote"
+          },
+          {
+            "text": "Desexed and vaccinated",
+            "source": "https://haart.org.au/adopt/dogs/tazzie-hd25-003/",
+            "capturedFrom": "search-index-quote"
+          },
+          {
+            "text": "Adoption Cost: $625",
+            "source": "https://haart.org.au/adopt/dogs/tazzie-hd25-003/",
+            "capturedFrom": "search-index-quote"
+          }
+        ],
+        "proposedRewrite": null,
+        "media": [],
+        "publishDate": null,
+        "lastModified": null,
+        "recommendation": "keep",
+        "reasoning": "Animal profiles are carried verbatim into the animal document (or matched to the PetRescue listing by HAART ID). Status is moved from the title into a field.",
+        "target": {
+          "sanityType": "animal",
+          "slug": "tazzie-hd25-003",
+          "newUrl": "/adopt/dogs/tazzie-hd25-003"
+        },
+        "fields": {
+          "species": "dog",
+          "name": "Tazzie",
+          "haartId": "HD25-003",
+          "status": "available",
+          "fosterNeeded": false,
+          "titleAsIndexed": null,
+          "sex": "male",
+          "breed": "Kelpie X Staffy",
+          "dateOfBirth": "2024-08-15",
+          "fee": 625,
+          "desexed": true,
+          "vaccinated": true
+        },
+        "blockers": [
+          "F7"
+        ]
+      },
+      {
+        "sourceUrl": "https://haart.org.au/adopt/dogs/sage-hd25-031/",
+        "sourceUrls": [],
+        "contentType": "animal",
+        "title": "Sage HD25-031",
+        "verbatimBody": null,
+        "verbatimStatus": "fragment",
+        "verbatimFragments": [
+          {
+            "text": "Sage is a stunning German Shepherd X Mastiff mix and has a heart of gold and a playful spirit that will bring joy and laughter into your home.",
+            "source": "https://haart.org.au/adopt/dogs/sage-hd25-031/",
+            "capturedFrom": "search-index-quote"
+          }
+        ],
+        "proposedRewrite": null,
+        "media": [],
+        "publishDate": null,
+        "lastModified": null,
+        "recommendation": "keep",
+        "reasoning": "Animal profiles are carried verbatim into the animal document (or matched to the PetRescue listing by HAART ID). Status is moved from the title into a field.",
+        "target": {
+          "sanityType": "animal",
+          "slug": "sage-hd25-031",
+          "newUrl": "/adopt/dogs/sage-hd25-031"
+        },
+        "fields": {
+          "species": "dog",
+          "name": "Sage",
+          "haartId": "HD25-031",
+          "status": "available",
+          "fosterNeeded": true,
+          "titleAsIndexed": "Sage HD25-031 *FOSTER CARER NEEDED*",
+          "breed": "German Shepherd X Mastiff"
+        },
+        "blockers": []
+      },
+      {
+        "sourceUrl": "https://haart.org.au/adopt/dogs/jersey-hd25-120/",
+        "sourceUrls": [],
+        "contentType": "animal",
+        "title": "Jersey HD25-120",
+        "verbatimBody": null,
+        "verbatimStatus": "missing",
+        "verbatimFragments": [],
+        "proposedRewrite": null,
+        "media": [],
+        "publishDate": null,
+        "lastModified": null,
+        "recommendation": "keep",
+        "reasoning": "Animal profiles are carried verbatim into the animal document (or matched to the PetRescue listing by HAART ID). Status is moved from the title into a field.",
+        "target": {
+          "sanityType": "animal",
+          "slug": "jersey-hd25-120",
+          "newUrl": "/adopt/dogs/jersey-hd25-120"
+        },
+        "fields": {
+          "species": "dog",
+          "name": "Jersey",
+          "haartId": "HD25-120",
+          "status": "available",
+          "fosterNeeded": false,
+          "titleAsIndexed": null
+        },
+        "blockers": []
+      },
+      {
+        "sourceUrl": "https://haart.org.au/adopt/dogs/evie-hd25-121/",
+        "sourceUrls": [],
+        "contentType": "animal",
+        "title": "Evie HD25-121",
+        "verbatimBody": null,
+        "verbatimStatus": "missing",
+        "verbatimFragments": [],
+        "proposedRewrite": null,
+        "media": [],
+        "publishDate": null,
+        "lastModified": null,
+        "recommendation": "keep",
+        "reasoning": "Animal profiles are carried verbatim into the animal document (or matched to the PetRescue listing by HAART ID). Status is moved from the title into a field.",
+        "target": {
+          "sanityType": "animal",
+          "slug": "evie-hd25-121",
+          "newUrl": "/adopt/dogs/evie-hd25-121"
+        },
+        "fields": {
+          "species": "dog",
+          "name": "Evie",
+          "haartId": "HD25-121",
+          "status": "available",
+          "fosterNeeded": false,
+          "titleAsIndexed": null
+        },
+        "blockers": []
+      },
+      {
+        "sourceUrl": "https://haart.org.au/adopt/dogs/armani-hd25-308/",
+        "sourceUrls": [],
+        "contentType": "animal",
+        "title": "Armani HD25-308",
+        "verbatimBody": null,
+        "verbatimStatus": "fragment",
+        "verbatimFragments": [
+          {
+            "text": "Armani is a beautiful 2-year-old hound mix searching for a calm, understanding home where she can continue to flourish.",
+            "source": "https://haart.org.au/adopt/dogs/armani-hd25-308/",
+            "capturedFrom": "search-index-quote"
+          },
+          {
+            "text": "She thrives on routine and does best in a quiet adult-only home with no children.",
+            "source": "https://haart.org.au/adopt/dogs/armani-hd25-308/",
+            "capturedFrom": "search-index-quote"
+          }
+        ],
+        "proposedRewrite": null,
+        "media": [],
+        "publishDate": null,
+        "lastModified": null,
+        "recommendation": "keep",
+        "reasoning": "Animal profiles are carried verbatim into the animal document (or matched to the PetRescue listing by HAART ID). Status is moved from the title into a field.",
+        "target": {
+          "sanityType": "animal",
+          "slug": "armani-hd25-308",
+          "newUrl": "/adopt/dogs/armani-hd25-308"
+        },
+        "fields": {
+          "species": "dog",
+          "name": "Armani",
+          "haartId": "HD25-308",
+          "status": "available",
+          "fosterNeeded": false,
+          "titleAsIndexed": null,
+          "sex": "female",
+          "ageYears": 2,
+          "breed": "Hound mix",
+          "goodWithKids": false
+        },
+        "blockers": []
+      },
+      {
+        "sourceUrl": "https://haart.org.au/adopt/dogs/kuba-hd26-018/",
+        "sourceUrls": [],
+        "contentType": "animal",
+        "title": "Kuba HD26-018",
+        "verbatimBody": null,
+        "verbatimStatus": "fragment",
+        "verbatimFragments": [
+          {
+            "text": "Kuba is a gorgeous ~18-month-old Kelpie with a gentle nature and a playful streak.",
+            "source": "https://haart.org.au/adopt/dogs/kuba-hd26-018/",
+            "capturedFrom": "search-index-quote"
+          }
+        ],
+        "proposedRewrite": null,
+        "media": [],
+        "publishDate": null,
+        "lastModified": null,
+        "recommendation": "keep",
+        "reasoning": "Animal profiles are carried verbatim into the animal document (or matched to the PetRescue listing by HAART ID). Status is moved from the title into a field.",
+        "target": {
+          "sanityType": "animal",
+          "slug": "kuba-hd26-018",
+          "newUrl": "/adopt/dogs/kuba-hd26-018"
+        },
+        "fields": {
+          "species": "dog",
+          "name": "Kuba",
+          "haartId": "HD26-018",
+          "status": "available",
+          "fosterNeeded": false,
+          "titleAsIndexed": null,
+          "breed": "Kelpie",
+          "ageMonths": 18
+        },
+        "blockers": []
+      },
+      {
+        "sourceUrl": "https://haart.org.au/adopt/dogs/blackberry-hd26-025/",
+        "sourceUrls": [],
+        "contentType": "animal",
+        "title": "Blackberry HD26-025",
+        "verbatimBody": null,
+        "verbatimStatus": "fragment",
+        "verbatimFragments": [
+          {
+            "text": "Blackberry is an 8-month-old Staffy currently recovering from trauma to his leg and requires strict rehab.",
+            "source": "https://haart.org.au/adopt/dogs/blackberry-hd26-025/",
+            "capturedFrom": "search-index-quote"
+          },
+          {
+            "text": "He needs a quiet, low-stress home where he can feel safe and decompress.",
+            "source": "https://haart.org.au/adopt/dogs/blackberry-hd26-025/",
+            "capturedFrom": "search-index-quote"
+          }
+        ],
+        "proposedRewrite": null,
+        "media": [],
+        "publishDate": null,
+        "lastModified": null,
+        "recommendation": "keep",
+        "reasoning": "Animal profiles are carried verbatim into the animal document (or matched to the PetRescue listing by HAART ID). Status is moved from the title into a field.",
+        "target": {
+          "sanityType": "animal",
+          "slug": "blackberry-hd26-025",
+          "newUrl": "/adopt/dogs/blackberry-hd26-025"
+        },
+        "fields": {
+          "species": "dog",
+          "name": "Blackberry",
+          "haartId": "HD26-025",
+          "status": "available",
+          "fosterNeeded": false,
+          "titleAsIndexed": null,
+          "sex": "male",
+          "breed": "Staffy",
+          "ageMonths": 8,
+          "medicalNote": "recovering from leg trauma; strict rehab"
+        },
+        "blockers": []
+      },
+      {
+        "sourceUrl": "https://haart.org.au/adopt/dogs/petey-hd26-027/",
+        "sourceUrls": [],
+        "contentType": "animal",
+        "title": "Petey HD26-027",
+        "verbatimBody": null,
+        "verbatimStatus": "fragment",
+        "verbatimFragments": [
+          {
+            "text": "Petey is a lively little fellow who brings fun and affection and is ready for either energetic play sessions or cosy cuddles.",
+            "source": "https://haart.org.au/adopt/dogs/petey-hd26-027/",
+            "capturedFrom": "search-index-quote"
+          }
+        ],
+        "proposedRewrite": null,
+        "media": [],
+        "publishDate": null,
+        "lastModified": null,
+        "recommendation": "keep",
+        "reasoning": "Animal profiles are carried verbatim into the animal document (or matched to the PetRescue listing by HAART ID). Status is moved from the title into a field.",
+        "target": {
+          "sanityType": "animal",
+          "slug": "petey-hd26-027",
+          "newUrl": "/adopt/dogs/petey-hd26-027"
+        },
+        "fields": {
+          "species": "dog",
+          "name": "Petey",
+          "haartId": "HD26-027",
+          "status": "available",
+          "fosterNeeded": false,
+          "titleAsIndexed": null
+        },
+        "blockers": []
+      },
+      {
+        "sourceUrl": "https://haart.org.au/adopt/dogs/beau-hd26-030/",
+        "sourceUrls": [],
+        "contentType": "animal",
+        "title": "Beau HD26-030",
+        "verbatimBody": null,
+        "verbatimStatus": "fragment",
+        "verbatimFragments": [
+          {
+            "text": "Beau is a sweet, affectionate little guy with a big heart, but he's also an anxious dog who needs a very understanding home.",
+            "source": "https://haart.org.au/adopt/dogs/beau-hd26-030/",
+            "capturedFrom": "search-index-quote"
+          },
+          {
+            "text": "Because of his anxiety, he's looking for a special family who can give him the stability, patience, and routine he needs to feel safe, and someone who is home most of the time.",
+            "source": "https://haart.org.au/adopt/dogs/beau-hd26-030/",
+            "capturedFrom": "search-index-quote"
+          },
+          {
+            "text": "When he feels secure, Beau is an incredibly loving and loyal companion who thrives on routine, mental stimulation, and having a \"job\" to do.",
+            "source": "https://haart.org.au/adopt/dogs/beau-hd26-030/",
+            "capturedFrom": "search-index-quote"
+          },
+          {
+            "text": "His future family will need to be committed to continuing his treatment plan and supporting his anxiety, including medication and vet guidance if needed.",
+            "source": "https://haart.org.au/adopt/dogs/beau-hd26-030/",
+            "capturedFrom": "search-index-quote"
+          }
+        ],
+        "proposedRewrite": null,
+        "media": [],
+        "publishDate": null,
+        "lastModified": null,
+        "recommendation": "keep",
+        "reasoning": "Animal profiles are carried verbatim into the animal document (or matched to the PetRescue listing by HAART ID). Status is moved from the title into a field.",
+        "target": {
+          "sanityType": "animal",
+          "slug": "beau-hd26-030",
+          "newUrl": "/adopt/dogs/beau-hd26-030"
+        },
+        "fields": {
+          "species": "dog",
+          "name": "Beau",
+          "haartId": "HD26-030",
+          "status": "available",
+          "fosterNeeded": false,
+          "titleAsIndexed": null,
+          "sex": "male",
+          "medicalNote": "anxiety; ongoing treatment plan"
+        },
+        "blockers": []
+      },
+      {
+        "sourceUrl": "https://haart.org.au/adopt/dogs/troop-hd26-040/",
+        "sourceUrls": [],
+        "contentType": "animal",
+        "title": "Troop HD26-040",
+        "verbatimBody": null,
+        "verbatimStatus": "fragment",
+        "verbatimFragments": [
+          {
+            "text": "Troop is a 10-week-old Border Collie x Staffy with a big heart and an even bigger love for cuddles.",
+            "source": "https://haart.org.au/adopt/dogs/troop-hd26-040/",
+            "capturedFrom": "search-index-quote"
+          },
+          {
+            "text": "He's looking for a loyal little companion who always wants to be by your side.",
+            "source": "https://haart.org.au/adopt/dogs/troop-hd26-040/",
+            "capturedFrom": "search-index-quote"
+          }
+        ],
+        "proposedRewrite": null,
+        "media": [],
+        "publishDate": null,
+        "lastModified": null,
+        "recommendation": "keep",
+        "reasoning": "Animal profiles are carried verbatim into the animal document (or matched to the PetRescue listing by HAART ID). Status is moved from the title into a field.",
+        "target": {
+          "sanityType": "animal",
+          "slug": "troop-hd26-040",
+          "newUrl": "/adopt/dogs/troop-hd26-040"
+        },
+        "fields": {
+          "species": "dog",
+          "name": "Troop",
+          "haartId": "HD26-040",
+          "status": "available",
+          "fosterNeeded": false,
+          "titleAsIndexed": null,
+          "sex": "male",
+          "breed": "Border Collie x Staffy",
+          "ageWeeks": 10,
+          "litter": "Anzac puppies"
+        },
+        "blockers": []
+      },
+      {
+        "sourceUrl": "https://haart.org.au/adopt/dogs/dawn-hd26-041/",
+        "sourceUrls": [],
+        "contentType": "animal",
+        "title": "Dawn HD26-041",
+        "verbatimBody": null,
+        "verbatimStatus": "fragment",
+        "verbatimFragments": [
+          {
+            "text": "Dawn is a 10-week-old Border Collie x Staffy with a confident and independent spirit who is a brave little girl.",
+            "source": "https://haart.org.au/adopt/dogs/dawn-hd26-041/",
+            "capturedFrom": "search-index-quote"
+          }
+        ],
+        "proposedRewrite": null,
+        "media": [],
+        "publishDate": null,
+        "lastModified": null,
+        "recommendation": "keep",
+        "reasoning": "Animal profiles are carried verbatim into the animal document (or matched to the PetRescue listing by HAART ID). Status is moved from the title into a field.",
+        "target": {
+          "sanityType": "animal",
+          "slug": "dawn-hd26-041",
+          "newUrl": "/adopt/dogs/dawn-hd26-041"
+        },
+        "fields": {
+          "species": "dog",
+          "name": "Dawn",
+          "haartId": "HD26-041",
+          "status": "available",
+          "fosterNeeded": false,
+          "titleAsIndexed": null,
+          "sex": "female",
+          "breed": "Border Collie x Staffy",
+          "ageWeeks": 10,
+          "litter": "Anzac puppies"
+        },
+        "blockers": []
+      },
+      {
+        "sourceUrl": "https://haart.org.au/adopt/dogs/3380-2/",
+        "sourceUrls": [],
+        "contentType": "animal",
+        "title": "Poppy HD26-042",
+        "verbatimBody": null,
+        "verbatimStatus": "fragment",
+        "verbatimFragments": [
+          {
+            "text": "Poppy is an American Staffy x Border Collie mix and one of our Anzac puppies who is already stealing hearts wherever she goes.",
+            "source": "https://haart.org.au/adopt/dogs/3380-2/",
+            "capturedFrom": "search-index-quote"
+          }
+        ],
+        "proposedRewrite": null,
+        "media": [],
+        "publishDate": null,
+        "lastModified": null,
+        "recommendation": "keep",
+        "reasoning": "Animal profiles are carried verbatim into the animal document (or matched to the PetRescue listing by HAART ID). Status is moved from the title into a field.",
+        "target": {
+          "sanityType": "animal",
+          "slug": "poppy-hd26-042",
+          "newUrl": "/adopt/dogs/poppy-hd26-042"
+        },
+        "fields": {
+          "species": "dog",
+          "name": "Poppy",
+          "haartId": "HD26-042",
+          "status": "available",
+          "fosterNeeded": false,
+          "titleAsIndexed": null,
+          "sex": "female",
+          "breed": "American Staffy x Border Collie",
+          "litter": "Anzac puppies",
+          "slugNote": "source slug is a WordPress fallback (3380-2); regenerated as poppy-hd26-042 with a redirect"
+        },
+        "blockers": []
+      },
+      {
+        "sourceUrl": "https://haart.org.au/adopt/dogs/rosemary-hd26-44/",
+        "sourceUrls": [],
+        "contentType": "animal",
+        "title": "Rosemary HD26-44",
+        "verbatimBody": null,
+        "verbatimStatus": "fragment",
+        "verbatimFragments": [
+          {
+            "text": "Rosemary (known as Rosie) is believed to be an American Staffy x Border Collie mix expected to grow into a medium-large dog (around 25–30kg when fully grown).",
+            "source": "https://haart.org.au/adopt/dogs/rosemary-hd26-44/",
+            "capturedFrom": "search-index-quote"
+          },
+          {
+            "text": "Sweet",
+            "source": "https://haart.org.au/adopt/dogs/rosemary-hd26-44/",
+            "capturedFrom": "search-index-quote"
+          }
+        ],
+        "proposedRewrite": null,
+        "media": [],
+        "publishDate": null,
+        "lastModified": null,
+        "recommendation": "keep",
+        "reasoning": "Animal profiles are carried verbatim into the animal document (or matched to the PetRescue listing by HAART ID). Status is moved from the title into a field.",
+        "target": {
+          "sanityType": "animal",
+          "slug": "rosemary-hd26-044",
+          "newUrl": "/adopt/dogs/rosemary-hd26-044"
+        },
+        "fields": {
+          "species": "dog",
+          "name": "Rosemary",
+          "haartId": "HD26-044",
+          "status": "available",
+          "fosterNeeded": false,
+          "titleAsIndexed": null,
+          "sex": "female",
+          "breed": "American Staffy x Border Collie",
+          "litter": "Anzac puppies",
+          "idNote": "source ID not zero-padded (HD26-44); normalised"
+        },
+        "blockers": []
+      },
+      {
+        "sourceUrl": "https://haart.org.au/adopt/dogs/monty-hd26-045/",
+        "sourceUrls": [],
+        "contentType": "animal",
+        "title": "Monty HD26-045",
+        "verbatimBody": null,
+        "verbatimStatus": "fragment",
+        "verbatimFragments": [
+          {
+            "text": "Monty is a Border Collie x Staffy with a tender heart, featuring soulful puppy-dog eyes and a playful nature.",
+            "source": "https://haart.org.au/adopt/dogs/monty-hd26-045/",
+            "capturedFrom": "search-index-quote"
+          }
+        ],
+        "proposedRewrite": null,
+        "media": [],
+        "publishDate": null,
+        "lastModified": null,
+        "recommendation": "keep",
+        "reasoning": "Animal profiles are carried verbatim into the animal document (or matched to the PetRescue listing by HAART ID). Status is moved from the title into a field.",
+        "target": {
+          "sanityType": "animal",
+          "slug": "monty-hd26-045",
+          "newUrl": "/adopt/dogs/monty-hd26-045"
+        },
+        "fields": {
+          "species": "dog",
+          "name": "Monty",
+          "haartId": "HD26-045",
+          "status": "available",
+          "fosterNeeded": false,
+          "titleAsIndexed": null,
+          "sex": "male",
+          "breed": "Border Collie x Staffy",
+          "litter": "Anzac puppies"
+        },
+        "blockers": []
+      },
+      {
+        "sourceUrl": "https://haart.org.au/adopt/dogs/creed-hd26-050/",
+        "sourceUrls": [],
+        "contentType": "animal",
+        "title": "Creed HD26-050",
+        "verbatimBody": null,
+        "verbatimStatus": "fragment",
+        "verbatimFragments": [
+          {
+            "text": "Creed is a big, lovable boy who is a Mastiff x Ridgeback weighing around 35kg.",
+            "source": "https://haart.org.au/adopt/dogs/creed-hd26-050/",
+            "capturedFrom": "search-index-quote"
+          },
+          {
+            "text": "He's fantastic with kids, cats, and other dogs, making him a wonderfully well-rounded companion.",
+            "source": "https://haart.org.au/adopt/dogs/creed-hd26-050/",
+            "capturedFrom": "search-index-quote"
+          },
+          {
+            "text": "Creed enjoys nice strolls followed by quality couch time and cuddles, and at approaching his 5th birthday, he has left his puppy antics behind and is ready to settle into a relaxed, loving home.",
+            "source": "https://haart.org.au/adopt/dogs/creed-hd26-050/",
+            "capturedFrom": "search-index-quote"
+          }
+        ],
+        "proposedRewrite": null,
+        "media": [],
+        "publishDate": null,
+        "lastModified": null,
+        "recommendation": "keep",
+        "reasoning": "Animal profiles are carried verbatim into the animal document (or matched to the PetRescue listing by HAART ID). Status is moved from the title into a field.",
+        "target": {
+          "sanityType": "animal",
+          "slug": "creed-hd26-050",
+          "newUrl": "/adopt/dogs/creed-hd26-050"
+        },
+        "fields": {
+          "species": "dog",
+          "name": "Creed",
+          "haartId": "HD26-050",
+          "status": "available",
+          "fosterNeeded": false,
+          "titleAsIndexed": null,
+          "sex": "male",
+          "breed": "Mastiff x Ridgeback",
+          "weightKg": 35,
+          "ageYears": 4,
+          "goodWithKids": true,
+          "goodWithCats": true,
+          "goodWithDogs": true
+        },
+        "blockers": []
+      },
+      {
+        "sourceUrl": "https://haart.org.au/adopt/dogs/arabella-hd26-051/",
+        "sourceUrls": [],
+        "contentType": "animal",
+        "title": "Arabella HD26-051",
+        "verbatimBody": null,
+        "verbatimStatus": "fragment",
+        "verbatimFragments": [
+          {
+            "text": "Arabella is a 7-year-old medium-sized Kelpie x Shar Pei mix who enjoys her daily walks, loves chasing the ball and bringing it back, and enjoys trips to the beach where she can splash around in the water.",
+            "source": "https://haart.org.au/adopt/dogs/arabella-hd26-051/",
+            "capturedFrom": "search-index-quote"
+          },
+          {
+            "text": "She is a loving girl who enjoys cuddles, playtime, car rides, and settles well at home, coping great with full-time workers.",
+            "source": "https://haart.org.au/adopt/dogs/arabella-hd26-051/",
+            "capturedFrom": "search-index-quote"
+          }
+        ],
+        "proposedRewrite": null,
+        "media": [],
+        "publishDate": null,
+        "lastModified": null,
+        "recommendation": "keep",
+        "reasoning": "Animal profiles are carried verbatim into the animal document (or matched to the PetRescue listing by HAART ID). Status is moved from the title into a field.",
+        "target": {
+          "sanityType": "animal",
+          "slug": "arabella-hd26-051",
+          "newUrl": "/adopt/dogs/arabella-hd26-051"
+        },
+        "fields": {
+          "species": "dog",
+          "name": "Arabella",
+          "haartId": "HD26-051",
+          "status": "available",
+          "fosterNeeded": false,
+          "titleAsIndexed": null,
+          "sex": "female",
+          "breed": "Kelpie x Shar Pei",
+          "ageYears": 7,
+          "size": "medium"
+        },
+        "blockers": []
+      },
+      {
+        "sourceUrl": "https://haart.org.au/adopt/dogs/indi-hd26-065/",
+        "sourceUrls": [],
+        "contentType": "animal",
+        "title": "Indi HD26 - 065",
+        "verbatimBody": null,
+        "verbatimStatus": "fragment",
+        "verbatimFragments": [
+          {
+            "text": "Indi is a 10-year-old Border Collie who is ready for a quieter lifestyle after years helping keep an eye on youngsters.",
+            "source": "https://haart.org.au/adopt/dogs/indi-hd26-065/",
+            "capturedFrom": "search-index-quote"
+          }
+        ],
+        "proposedRewrite": null,
+        "media": [],
+        "publishDate": null,
+        "lastModified": null,
+        "recommendation": "keep",
+        "reasoning": "Animal profiles are carried verbatim into the animal document (or matched to the PetRescue listing by HAART ID). Status is moved from the title into a field.",
+        "target": {
+          "sanityType": "animal",
+          "slug": "indi-hd26-065",
+          "newUrl": "/adopt/dogs/indi-hd26-065"
+        },
+        "fields": {
+          "species": "dog",
+          "name": "Indi",
+          "haartId": "HD26-065",
+          "status": "available",
+          "fosterNeeded": false,
+          "titleAsIndexed": null,
+          "breed": "Border Collie",
+          "ageYears": 10,
+          "idNote": "source ID contains spaces (HD26 - 065); normalised"
+        },
+        "blockers": []
+      },
+      {
+        "sourceUrl": "https://haart.org.au/adopt/cats/charlotte-hc20-011/",
+        "sourceUrls": [],
+        "contentType": "animal",
+        "title": "Charlotte HC20-011",
+        "verbatimBody": null,
+        "verbatimStatus": "fragment",
+        "verbatimFragments": [
+          {
+            "text": "Domestic Medium Hair",
+            "source": "https://haart.org.au/adopt/cats/charlotte-hc20-011/",
+            "capturedFrom": "search-index-quote"
+          },
+          {
+            "text": "A Gentle Soul Looking for Patient Love",
+            "source": "https://haart.org.au/adopt/cats/charlotte-hc20-011/",
+            "capturedFrom": "search-index-quote"
+          }
+        ],
+        "proposedRewrite": null,
+        "media": [],
+        "publishDate": null,
+        "lastModified": null,
+        "recommendation": "keep",
+        "reasoning": "Animal profiles are carried verbatim into the animal document (or matched to the PetRescue listing by HAART ID). Status is moved from the title into a field.",
+        "target": {
+          "sanityType": "animal",
+          "slug": "charlotte-hc20-011",
+          "newUrl": "/adopt/cats/charlotte-hc20-011"
+        },
+        "fields": {
+          "species": "cat",
+          "name": "Charlotte",
+          "haartId": "HC20-011",
+          "status": "on_hold",
+          "fosterNeeded": false,
+          "titleAsIndexed": "Charlotte HC20-011 ** On Hold**",
+          "breed": "Domestic Medium Hair"
+        },
+        "blockers": [
+          "F8"
+        ]
+      },
+      {
+        "sourceUrl": "https://haart.org.au/adopt/cats/wayne-hc21-027/",
+        "sourceUrls": [],
+        "contentType": "animal",
+        "title": "Wayne HC21-027",
+        "verbatimBody": null,
+        "verbatimStatus": "missing",
+        "verbatimFragments": [],
+        "proposedRewrite": null,
+        "media": [],
+        "publishDate": null,
+        "lastModified": null,
+        "recommendation": "keep",
+        "reasoning": "Animal profiles are carried verbatim into the animal document (or matched to the PetRescue listing by HAART ID). Status is moved from the title into a field.",
+        "target": {
+          "sanityType": "animal",
+          "slug": "wayne-hc21-027",
+          "newUrl": "/adopt/cats/wayne-hc21-027"
+        },
+        "fields": {
+          "species": "cat",
+          "name": "Wayne",
+          "haartId": "HC21-027",
+          "status": "unknown",
+          "fosterNeeded": false,
+          "titleAsIndexed": null
+        },
+        "blockers": [
+          "F8"
+        ]
+      },
+      {
+        "sourceUrl": "https://haart.org.au/adopt/cats/thing-hc25-020/",
+        "sourceUrls": [],
+        "contentType": "animal",
+        "title": "Thing HC25-020",
+        "verbatimBody": null,
+        "verbatimStatus": "fragment",
+        "verbatimFragments": [
+          {
+            "text": "one of our hand-raised Halloween kittens",
+            "source": "https://haart.org.au/adopt/cats/thing-hc25-020/",
+            "capturedFrom": "search-index-quote"
+          }
+        ],
+        "proposedRewrite": null,
+        "media": [],
+        "publishDate": null,
+        "lastModified": null,
+        "recommendation": "keep",
+        "reasoning": "Animal profiles are carried verbatim into the animal document (or matched to the PetRescue listing by HAART ID). Status is moved from the title into a field.",
+        "target": {
+          "sanityType": "animal",
+          "slug": "thing-hc25-020",
+          "newUrl": "/adopt/cats/thing-hc25-020"
+        },
+        "fields": {
+          "species": "cat",
+          "name": "Thing",
+          "haartId": "HC25-020",
+          "status": "on_hold",
+          "fosterNeeded": false,
+          "titleAsIndexed": "Thing HC25-020 ** On Hold**"
+        },
+        "blockers": []
+      },
+      {
+        "sourceUrl": "https://haart.org.au/adopt/cats/nia-hc25-024/",
+        "sourceUrls": [],
+        "contentType": "animal",
+        "title": "Nia HC25-024",
+        "verbatimBody": null,
+        "verbatimStatus": "fragment",
+        "verbatimFragments": [
+          {
+            "text": "Nia is a 17 year old girl who has spent too long roughing it after being abandoned several times.",
+            "source": "https://haart.org.au/adopt/cats/nia-hc25-024/",
+            "capturedFrom": "search-index-quote"
+          }
+        ],
+        "proposedRewrite": null,
+        "media": [],
+        "publishDate": null,
+        "lastModified": null,
+        "recommendation": "keep",
+        "reasoning": "Animal profiles are carried verbatim into the animal document (or matched to the PetRescue listing by HAART ID). Status is moved from the title into a field.",
+        "target": {
+          "sanityType": "animal",
+          "slug": "nia-hc25-024",
+          "newUrl": "/adopt/cats/nia-hc25-024"
+        },
+        "fields": {
+          "species": "cat",
+          "name": "Nia",
+          "haartId": "HC25-024",
+          "status": "on_hold",
+          "fosterNeeded": false,
+          "titleAsIndexed": "Nia HC25-024 ** On Hold**",
+          "sex": "female",
+          "ageYears": 17
+        },
+        "blockers": []
+      },
+      {
+        "sourceUrl": "https://haart.org.au/adopt/cats/charlie-hc25-025/",
+        "sourceUrls": [],
+        "contentType": "animal",
+        "title": "Charlie HC25-025",
+        "verbatimBody": null,
+        "verbatimStatus": "fragment",
+        "verbatimFragments": [
+          {
+            "text": "Cat social and learning to accept canine companions.",
+            "source": "https://haart.org.au/adopt/cats/charlie-hc25-025/",
+            "capturedFrom": "search-index-quote"
+          }
+        ],
+        "proposedRewrite": null,
+        "media": [],
+        "publishDate": null,
+        "lastModified": null,
+        "recommendation": "keep",
+        "reasoning": "Animal profiles are carried verbatim into the animal document (or matched to the PetRescue listing by HAART ID). Status is moved from the title into a field.",
+        "target": {
+          "sanityType": "animal",
+          "slug": "charlie-hc25-025",
+          "newUrl": "/adopt/cats/charlie-hc25-025"
+        },
+        "fields": {
+          "species": "cat",
+          "name": "Charlie",
+          "haartId": "HC25-025",
+          "status": "available",
+          "fosterNeeded": false,
+          "titleAsIndexed": null,
+          "goodWithCats": true
+        },
+        "blockers": []
+      },
+      {
+        "sourceUrl": "https://haart.org.au/adopt/cats/bosley-hc25-026/",
+        "sourceUrls": [],
+        "contentType": "animal",
+        "title": "Bosley HC25-026",
+        "verbatimBody": null,
+        "verbatimStatus": "fragment",
+        "verbatimFragments": [
+          {
+            "text": "Despite his busy schedule of exploration, Bosley is not averse to a bit of affection. He enjoys a cuddle, though not for too long as he has plenty of adventures waiting for him.",
+            "source": "https://haart.org.au/adopt/cats/bosley-hc25-026/",
+            "capturedFrom": "search-index-quote"
+          }
+        ],
+        "proposedRewrite": null,
+        "media": [],
+        "publishDate": null,
+        "lastModified": null,
+        "recommendation": "keep",
+        "reasoning": "Animal profiles are carried verbatim into the animal document (or matched to the PetRescue listing by HAART ID). Status is moved from the title into a field.",
+        "target": {
+          "sanityType": "animal",
+          "slug": "bosley-hc25-026",
+          "newUrl": "/adopt/cats/bosley-hc25-026"
+        },
+        "fields": {
+          "species": "cat",
+          "name": "Bosley",
+          "haartId": "HC25-026",
+          "status": "available",
+          "fosterNeeded": false,
+          "titleAsIndexed": null,
+          "sex": "male"
+        },
+        "blockers": []
+      },
+      {
+        "sourceUrl": "https://haart.org.au/adopt/cats/sabrina-hc25-028-2/",
+        "sourceUrls": [],
+        "contentType": "animal",
+        "title": "Sabrina HC25-028",
+        "verbatimBody": null,
+        "verbatimStatus": "fragment",
+        "verbatimFragments": [
+          {
+            "text": "Living comfortably in a multi-cat household.",
+            "source": "https://haart.org.au/adopt/cats/sabrina-hc25-028-2/",
+            "capturedFrom": "search-index-quote"
+          }
+        ],
+        "proposedRewrite": null,
+        "media": [],
+        "publishDate": null,
+        "lastModified": null,
+        "recommendation": "keep",
+        "reasoning": "Animal profiles are carried verbatim into the animal document (or matched to the PetRescue listing by HAART ID). Status is moved from the title into a field.",
+        "target": {
+          "sanityType": "animal",
+          "slug": "sabrina-hc25-028",
+          "newUrl": "/adopt/cats/sabrina-hc25-028"
+        },
+        "fields": {
+          "species": "cat",
+          "name": "Sabrina",
+          "haartId": "HC25-028",
+          "status": "available",
+          "fosterNeeded": false,
+          "titleAsIndexed": null,
+          "sex": "female",
+          "goodWithCats": true,
+          "slugNote": "source slug has a duplicate suffix (-2); regenerated with a redirect"
+        },
+        "blockers": []
+      },
+      {
+        "sourceUrl": "https://haart.org.au/adopt/cats/evie-hc25-035/",
+        "sourceUrls": [],
+        "contentType": "animal",
+        "title": "Evie HC25-035",
+        "verbatimBody": null,
+        "verbatimStatus": "fragment",
+        "verbatimFragments": [
+          {
+            "text": "Evie is a cheeky and inquisitive kitten with boundless energy who loves playtime.",
+            "source": "https://haart.org.au/adopt/cats/evie-hc25-035/",
+            "capturedFrom": "search-index-quote"
+          }
+        ],
+        "proposedRewrite": null,
+        "media": [],
+        "publishDate": null,
+        "lastModified": null,
+        "recommendation": "keep",
+        "reasoning": "Animal profiles are carried verbatim into the animal document (or matched to the PetRescue listing by HAART ID). Status is moved from the title into a field.",
+        "target": {
+          "sanityType": "animal",
+          "slug": "evie-hc25-035",
+          "newUrl": "/adopt/cats/evie-hc25-035"
+        },
+        "fields": {
+          "species": "cat",
+          "name": "Evie",
+          "haartId": "HC25-035",
+          "status": "available",
+          "fosterNeeded": false,
+          "titleAsIndexed": null,
+          "sex": "female",
+          "ageBand": "kitten"
+        },
+        "blockers": []
+      },
+      {
+        "sourceUrl": "https://haart.org.au/adopt/cats/farrah-hc25-040/",
+        "sourceUrls": [],
+        "contentType": "animal",
+        "title": "Farrah HC25-040",
+        "verbatimBody": null,
+        "verbatimStatus": "missing",
+        "verbatimFragments": [],
+        "proposedRewrite": null,
+        "media": [],
+        "publishDate": null,
+        "lastModified": null,
+        "recommendation": "keep",
+        "reasoning": "Animal profiles are carried verbatim into the animal document (or matched to the PetRescue listing by HAART ID). Status is moved from the title into a field.",
+        "target": {
+          "sanityType": "animal",
+          "slug": "farrah-hc25-040",
+          "newUrl": "/adopt/cats/farrah-hc25-040"
+        },
+        "fields": {
+          "species": "cat",
+          "name": "Farrah",
+          "haartId": "HC25-040",
+          "status": "available",
+          "fosterNeeded": false,
+          "titleAsIndexed": null
+        },
+        "blockers": []
+      },
+      {
+        "sourceUrl": "https://haart.org.au/adopt/cats/alex-hc25-041/",
+        "sourceUrls": [],
+        "contentType": "animal",
+        "title": "Alex HC25-041",
+        "verbatimBody": null,
+        "verbatimStatus": "fragment",
+        "verbatimFragments": [
+          {
+            "text": "He's very cat social and is currently living happily with a dog, so with a slow and considerate introduction, he could adapt well to a canine companion in his new home.",
+            "source": "https://haart.org.au/adopt/cats/alex-hc25-041/",
+            "capturedFrom": "search-index-quote"
+          }
+        ],
+        "proposedRewrite": null,
+        "media": [],
+        "publishDate": null,
+        "lastModified": null,
+        "recommendation": "keep",
+        "reasoning": "Animal profiles are carried verbatim into the animal document (or matched to the PetRescue listing by HAART ID). Status is moved from the title into a field.",
+        "target": {
+          "sanityType": "animal",
+          "slug": "alex-hc25-041",
+          "newUrl": "/adopt/cats/alex-hc25-041"
+        },
+        "fields": {
+          "species": "cat",
+          "name": "Alex",
+          "haartId": "HC25-041",
+          "status": "available",
+          "fosterNeeded": false,
+          "titleAsIndexed": null,
+          "sex": "male",
+          "goodWithCats": true,
+          "goodWithDogs": true
+        },
+        "blockers": []
+      },
+      {
+        "sourceUrl": "https://haart.org.au/adopt/cats/tiffany-hc25-042/",
+        "sourceUrls": [],
+        "contentType": "animal",
+        "title": "Tiffany HC25-042",
+        "verbatimBody": null,
+        "verbatimStatus": "fragment",
+        "verbatimFragments": [
+          {
+            "text": "Tiffany is anything but shy; she's always ready to step forward and has fought her way through life with determination and resilience. Now, she's looking ahead with enthusiasm, ready for the next chapter.",
+            "source": "https://haart.org.au/adopt/cats/tiffany-hc25-042/",
+            "capturedFrom": "search-index-quote"
+          }
+        ],
+        "proposedRewrite": null,
+        "media": [],
+        "publishDate": null,
+        "lastModified": null,
+        "recommendation": "keep",
+        "reasoning": "Animal profiles are carried verbatim into the animal document (or matched to the PetRescue listing by HAART ID). Status is moved from the title into a field.",
+        "target": {
+          "sanityType": "animal",
+          "slug": "tiffany-hc25-042",
+          "newUrl": "/adopt/cats/tiffany-hc25-042"
+        },
+        "fields": {
+          "species": "cat",
+          "name": "Tiffany",
+          "haartId": "HC25-042",
+          "status": "available",
+          "fosterNeeded": false,
+          "titleAsIndexed": null,
+          "sex": "female"
+        },
+        "blockers": []
+      },
+      {
+        "sourceUrl": "https://haart.org.au/adopt/cats/john-wayne/",
+        "sourceUrls": [],
+        "contentType": "animal",
+        "title": "John Wayne HC26-002",
+        "verbatimBody": null,
+        "verbatimStatus": "fragment",
+        "verbatimFragments": [
+          {
+            "text": "Domestic Short Hair kitten",
+            "source": "https://haart.org.au/adopt/cats/john-wayne/",
+            "capturedFrom": "search-index-quote"
+          },
+          {
+            "text": "curious confident, brave, and ready to explore by your side",
+            "source": "https://haart.org.au/adopt/cats/john-wayne/",
+            "capturedFrom": "search-index-quote"
+          },
+          {
+            "text": "Calm, cuddly, and ready to slot right into family life.",
+            "source": "https://haart.org.au/adopt/cats/john-wayne/",
+            "capturedFrom": "search-index-quote"
+          }
+        ],
+        "proposedRewrite": null,
+        "media": [],
+        "publishDate": null,
+        "lastModified": null,
+        "recommendation": "keep",
+        "reasoning": "Animal profiles are carried verbatim into the animal document (or matched to the PetRescue listing by HAART ID). Status is moved from the title into a field.",
+        "target": {
+          "sanityType": "animal",
+          "slug": "john-wayne-hc26-002",
+          "newUrl": "/adopt/cats/john-wayne-hc26-002"
+        },
+        "fields": {
+          "species": "cat",
+          "name": "John Wayne",
+          "haartId": "HC26-002",
+          "status": "on_hold",
+          "fosterNeeded": false,
+          "titleAsIndexed": "John Wayne HC26-002 ** On Hold **",
+          "breed": "Domestic Short Hair",
+          "ageBand": "kitten"
+        },
+        "blockers": []
+      },
+      {
+        "sourceUrl": "https://haart.org.au/adopt/cats/grace-kelly-hc26-005/",
+        "sourceUrls": [],
+        "contentType": "animal",
+        "title": "Grace Kelly HC26-005",
+        "verbatimBody": null,
+        "verbatimStatus": "fragment",
+        "verbatimFragments": [
+          {
+            "text": "Domestic Short Hair kitten who is fluffy, adventurous, and leads the way, described as the ringleader of the group.",
+            "source": "https://haart.org.au/adopt/cats/grace-kelly-hc26-005/",
+            "capturedFrom": "search-index-quote"
+          }
+        ],
+        "proposedRewrite": null,
+        "media": [],
+        "publishDate": null,
+        "lastModified": null,
+        "recommendation": "keep",
+        "reasoning": "Animal profiles are carried verbatim into the animal document (or matched to the PetRescue listing by HAART ID). Status is moved from the title into a field.",
+        "target": {
+          "sanityType": "animal",
+          "slug": "grace-kelly-hc26-005",
+          "newUrl": "/adopt/cats/grace-kelly-hc26-005"
+        },
+        "fields": {
+          "species": "cat",
+          "name": "Grace Kelly",
+          "haartId": "HC26-005",
+          "status": "on_hold",
+          "fosterNeeded": false,
+          "titleAsIndexed": "Grace Kelly HC26-005 *On Hold**",
+          "breed": "Domestic Short Hair",
+          "ageBand": "kitten"
+        },
+        "blockers": []
+      },
+      {
+        "sourceUrl": "https://haart.org.au/adopt/cats/lucky-hc26-009/",
+        "sourceUrls": [],
+        "contentType": "animal",
+        "title": "Lucky HC26-009",
+        "verbatimBody": null,
+        "verbatimStatus": "fragment",
+        "verbatimFragments": [
+          {
+            "text": "Lucky is a quiet and calm kitten who loves hanging out with people and enjoys cuddles and play.",
+            "source": "https://haart.org.au/adopt/cats/lucky-hc26-009/",
+            "capturedFrom": "search-index-quote"
+          },
+          {
+            "text": "A tiny, curious kitten that's always up for exploring.",
+            "source": "https://haart.org.au/adopt/cats/lucky-hc26-009/",
+            "capturedFrom": "search-index-quote"
+          }
+        ],
+        "proposedRewrite": null,
+        "media": [],
+        "publishDate": null,
+        "lastModified": null,
+        "recommendation": "keep",
+        "reasoning": "Animal profiles are carried verbatim into the animal document (or matched to the PetRescue listing by HAART ID). Status is moved from the title into a field.",
+        "target": {
+          "sanityType": "animal",
+          "slug": "lucky-hc26-009",
+          "newUrl": "/adopt/cats/lucky-hc26-009"
+        },
+        "fields": {
+          "species": "cat",
+          "name": "Lucky",
+          "haartId": "HC26-009",
+          "status": "available",
+          "fosterNeeded": false,
+          "titleAsIndexed": null,
+          "ageBand": "kitten"
+        },
+        "blockers": []
+      },
+      {
+        "sourceUrl": "https://haart.org.au/adopt/cats/jasper-hc26-010/",
+        "sourceUrls": [],
+        "contentType": "animal",
+        "title": "Jasper HC26-010",
+        "verbatimBody": null,
+        "verbatimStatus": "fragment",
+        "verbatimFragments": [
+          {
+            "text": "Jasper is a playful and adventurous kitten who loves chasing toys and climbing.",
+            "source": "https://haart.org.au/adopt/cats/jasper-hc26-010/",
+            "capturedFrom": "search-index-quote"
+          },
+          {
+            "text": "Currently living with his sister and loves a good romp and rumble, but would also be happy as a solo cat.",
+            "source": "https://haart.org.au/adopt/cats/jasper-hc26-010/",
+            "capturedFrom": "search-index-quote"
+          }
+        ],
+        "proposedRewrite": null,
+        "media": [],
+        "publishDate": null,
+        "lastModified": null,
+        "recommendation": "keep",
+        "reasoning": "Animal profiles are carried verbatim into the animal document (or matched to the PetRescue listing by HAART ID). Status is moved from the title into a field.",
+        "target": {
+          "sanityType": "animal",
+          "slug": "jasper-hc26-010",
+          "newUrl": "/adopt/cats/jasper-hc26-010"
+        },
+        "fields": {
+          "species": "cat",
+          "name": "Jasper",
+          "haartId": "HC26-010",
+          "status": "available",
+          "fosterNeeded": false,
+          "titleAsIndexed": null,
+          "sex": "male",
+          "ageBand": "kitten"
+        },
+        "blockers": []
+      }
+    ],
+    "partner": [
+      {
+        "sourceUrl": "https://haart.org.au/friends-of-haart/",
+        "sourceUrls": [],
+        "contentType": "partner",
+        "title": "Pet Fresh",
+        "verbatimBody": null,
+        "verbatimStatus": "fragment",
+        "verbatimFragments": [
+          {
+            "text": "We've developed a balanced RAW diet that's made fresh to suit both dogs and cats, of any breeds, sizes and ages, all conveniently delivered to your door.",
+            "source": "https://haart.org.au/friends-of-haart/",
+            "capturedFrom": "search-index-quote"
+          }
+        ],
+        "proposedRewrite": null,
+        "media": [],
+        "publishDate": null,
+        "lastModified": null,
+        "recommendation": "keep",
+        "reasoning": "Partner directory entry; logo and link must come from the crawl.",
+        "target": {
+          "sanityType": "partner",
+          "slug": "pet-fresh"
+        },
+        "fields": {
+          "name": "Pet Fresh",
+          "category": "food",
+          "url": "https://www.petfresh.com.au/",
+          "description": "We've developed a balanced RAW diet that's made fresh to suit both dogs and cats, of any breeds, sizes and ages, all conveniently delivered to your door."
+        },
+        "blockers": []
+      },
+      {
+        "sourceUrl": "https://haart.org.au/friends-of-haart/",
+        "sourceUrls": [],
+        "contentType": "partner",
+        "title": "Pawpals Daycare & Parlour",
+        "verbatimBody": null,
+        "verbatimStatus": "fragment",
+        "verbatimFragments": [
+          {
+            "text": "Owned and operated by certified experts in canine behaviour, Pawpals features 4 separate play areas including tunnels, ramps and paddling pools.",
+            "source": "https://haart.org.au/friends-of-haart/",
+            "capturedFrom": "search-index-quote"
+          },
+          {
+            "text": "Also offers multiple grooming options for pets.",
+            "source": "https://haart.org.au/friends-of-haart/",
+            "capturedFrom": "search-index-quote"
+          }
+        ],
+        "proposedRewrite": null,
+        "media": [],
+        "publishDate": null,
+        "lastModified": null,
+        "recommendation": "keep",
+        "reasoning": "Partner directory entry; logo and link must come from the crawl.",
+        "target": {
+          "sanityType": "partner",
+          "slug": "pawpals-daycare-and-parlour"
+        },
+        "fields": {
+          "name": "Pawpals Daycare & Parlour",
+          "category": "boarding-grooming",
+          "url": null,
+          "description": "Owned and operated by certified experts in canine behaviour, Pawpals features 4 separate play areas including tunnels, ramps and paddling pools."
+        },
+        "blockers": []
+      },
+      {
+        "sourceUrl": "https://haart.org.au/friends-of-haart/",
+        "sourceUrls": [],
+        "contentType": "partner",
+        "title": "PETstock VET Cannington",
+        "verbatimBody": null,
+        "verbatimStatus": "fragment",
+        "verbatimFragments": [
+          {
+            "text": "At PETstock VET Cannington we're making caring for your pet as easy as possible, with flexible payment options.",
+            "source": "https://haart.org.au/friends-of-haart/",
+            "capturedFrom": "search-index-quote"
+          }
+        ],
+        "proposedRewrite": null,
+        "media": [],
+        "publishDate": null,
+        "lastModified": null,
+        "recommendation": "keep",
+        "reasoning": "Partner directory entry; logo and link must come from the crawl.",
+        "target": {
+          "sanityType": "partner",
+          "slug": "petstock-vet-cannington"
+        },
+        "fields": {
+          "name": "PETstock VET Cannington",
+          "category": "veterinary",
+          "url": null,
+          "description": "At PETstock VET Cannington we're making caring for your pet as easy as possible, with flexible payment options."
+        },
+        "blockers": []
+      },
+      {
+        "sourceUrl": "https://haart.org.au/friends-of-haart/",
+        "sourceUrls": [],
+        "contentType": "partner",
+        "title": "Pet boarding partner (name not indexed)",
+        "verbatimBody": null,
+        "verbatimStatus": "fragment",
+        "verbatimFragments": [
+          {
+            "text": "We cater for all sizes of dogs and can even board your cat in standard or luxury cattery.",
+            "source": "https://haart.org.au/friends-of-haart/",
+            "capturedFrom": "search-index-quote"
+          }
+        ],
+        "proposedRewrite": null,
+        "media": [],
+        "publishDate": null,
+        "lastModified": null,
+        "recommendation": "keep",
+        "reasoning": "Partner directory entry; logo and link must come from the crawl.",
+        "target": {
+          "sanityType": "partner",
+          "slug": "pet-boarding-partner-(name-not-indexed)"
+        },
+        "fields": {
+          "name": "Pet boarding partner (name not indexed)",
+          "category": "boarding",
+          "url": null,
+          "description": "We cater for all sizes of dogs and can even board your cat in standard or luxury cattery."
+        },
+        "blockers": []
+      },
+      {
+        "sourceUrl": "https://haart.org.au/friends-of-haart/",
+        "sourceUrls": [],
+        "contentType": "partner",
+        "title": "Veterinary partner (name not indexed)",
+        "verbatimBody": null,
+        "verbatimStatus": "fragment",
+        "verbatimFragments": [
+          {
+            "text": "surgical suites, dentistry, and medical facilities",
+            "source": "https://haart.org.au/friends-of-haart/",
+            "capturedFrom": "search-index-quote"
+          }
+        ],
+        "proposedRewrite": null,
+        "media": [],
+        "publishDate": null,
+        "lastModified": null,
+        "recommendation": "keep",
+        "reasoning": "Partner directory entry; logo and link must come from the crawl.",
+        "target": {
+          "sanityType": "partner",
+          "slug": "veterinary-partner-(name-not-indexed)"
+        },
+        "fields": {
+          "name": "Veterinary partner (name not indexed)",
+          "category": "veterinary",
+          "url": null,
+          "description": "surgical suites, dentistry, and medical facilities"
+        },
+        "blockers": []
+      },
+      {
+        "sourceUrl": "https://haart.org.au/friends-of-haart/",
+        "sourceUrls": [],
+        "contentType": "partner",
+        "title": "Animal photography partner (name not indexed)",
+        "verbatimBody": null,
+        "verbatimStatus": "fragment",
+        "verbatimFragments": [
+          {
+            "text": "Professional animal photography services",
+            "source": "https://haart.org.au/friends-of-haart/",
+            "capturedFrom": "search-index-quote"
+          }
+        ],
+        "proposedRewrite": null,
+        "media": [],
+        "publishDate": null,
+        "lastModified": null,
+        "recommendation": "keep",
+        "reasoning": "Partner directory entry; logo and link must come from the crawl.",
+        "target": {
+          "sanityType": "partner",
+          "slug": "animal-photography-partner-(name-not-indexed)"
+        },
+        "fields": {
+          "name": "Animal photography partner (name not indexed)",
+          "category": "photography",
+          "url": null,
+          "description": "Professional animal photography services"
+        },
+        "blockers": []
+      },
+      {
+        "sourceUrl": "https://haart.org.au/friends-of-haart/",
+        "sourceUrls": [],
+        "contentType": "partner",
+        "title": "Fashion and lifestyle boutique (name not indexed)",
+        "verbatimBody": null,
+        "verbatimStatus": "fragment",
+        "verbatimFragments": [
+          {
+            "text": "Fashion and lifestyle boutique",
+            "source": "https://haart.org.au/friends-of-haart/",
+            "capturedFrom": "search-index-quote"
+          }
+        ],
+        "proposedRewrite": null,
+        "media": [],
+        "publishDate": null,
+        "lastModified": null,
+        "recommendation": "keep",
+        "reasoning": "Partner directory entry; logo and link must come from the crawl.",
+        "target": {
+          "sanityType": "partner",
+          "slug": "fashion-and-lifestyle-boutique-(name-not-indexed)"
+        },
+        "fields": {
+          "name": "Fashion and lifestyle boutique (name not indexed)",
+          "category": "retail",
+          "url": null,
+          "description": "Fashion and lifestyle boutique"
+        },
+        "blockers": []
+      }
+    ],
+    "product": [
+      {
+        "sourceUrl": "https://www.haart.org.au/goodwill-wines/",
+        "sourceUrls": [],
+        "contentType": "product",
+        "title": "Goodwill Wines",
+        "verbatimBody": null,
+        "verbatimStatus": "fragment",
+        "verbatimFragments": [
+          {
+            "text": "Each case of Goodwill Wines varieties donates $20 to HAART.",
+            "source": "https://haart.org.au/",
+            "capturedFrom": "search-index-quote"
+          }
+        ],
+        "proposedRewrite": null,
+        "media": [],
+        "publishDate": null,
+        "lastModified": null,
+        "recommendation": "keep",
+        "reasoning": "Affiliate fundraiser; becomes a product of kind 'fundraiser' with an outbound link.",
+        "target": {
+          "sanityType": "product",
+          "slug": "goodwill-wines"
+        },
+        "fields": {
+          "kind": "fundraiser",
+          "externalUrl": null,
+          "donationPerUnit": 20
+        },
+        "blockers": [
+          "F17"
+        ]
+      },
+      {
+        "sourceUrl": "https://haart.org.au/",
+        "sourceUrls": [],
+        "contentType": "product",
+        "title": "Entertainment Book",
+        "verbatimBody": null,
+        "verbatimStatus": "fragment",
+        "verbatimFragments": [
+          {
+            "text": "12 months of discounts with 20% of the purchase price going to the animals of HAART",
+            "source": "https://haart.org.au/",
+            "capturedFrom": "search-index-quote"
+          }
+        ],
+        "proposedRewrite": null,
+        "media": [],
+        "publishDate": null,
+        "lastModified": null,
+        "recommendation": "keep",
+        "reasoning": "Affiliate fundraiser.",
+        "target": {
+          "sanityType": "product",
+          "slug": "entertainment-book"
+        },
+        "fields": {
+          "kind": "fundraiser",
+          "externalUrl": null,
+          "donationPercent": 20
+        },
+        "blockers": [
+          "F17"
+        ]
+      },
+      {
+        "sourceUrl": "https://www.facebook.com/haartauction",
+        "sourceUrls": [],
+        "contentType": "product",
+        "title": "HAART Online Auction",
+        "verbatimBody": null,
+        "verbatimStatus": "fragment",
+        "verbatimFragments": [
+          {
+            "text": "online auction to raise money for Homeless and Abused Animal Rescue Team inc",
+            "source": "facebook.com/haartauction (index)",
+            "capturedFrom": "search-index-quote"
+          }
+        ],
+        "proposedRewrite": null,
+        "media": [],
+        "publishDate": null,
+        "lastModified": null,
+        "recommendation": "keep",
+        "reasoning": "Recurring fundraiser with its own Facebook page (966 likes); listed as a fundraiser card linking out.",
+        "target": {
+          "sanityType": "product",
+          "slug": "online-auction"
+        },
+        "fields": {
+          "kind": "fundraiser",
+          "externalUrl": "https://www.facebook.com/haartauction"
+        },
+        "blockers": []
+      },
+      {
+        "sourceUrl": "https://www.haart.org.au/sponsor-kennel/",
+        "sourceUrls": [],
+        "contentType": "product",
+        "title": "Kennel sponsorship",
+        "verbatimBody": null,
+        "verbatimStatus": "fragment",
+        "verbatimFragments": [
+          {
+            "text": "Sponsorship starts at $2500 a year with discounts for 2 and 3 year options.",
+            "source": "https://www.haart.org.au/sponsor-kennel/",
+            "capturedFrom": "search-index-quote"
+          }
+        ],
+        "proposedRewrite": null,
+        "media": [],
+        "publishDate": null,
+        "lastModified": null,
+        "recommendation": "keep",
+        "reasoning": "Corporate offer; modelled as a product of kind 'sponsorship' shown on /partners.",
+        "target": {
+          "sanityType": "product",
+          "slug": "kennel-sponsorship"
+        },
+        "fields": {
+          "kind": "sponsorship",
+          "priceFrom": 2500,
+          "priceUnit": "year"
+        },
+        "blockers": [
+          "F16",
+          "F3"
+        ]
+      }
+    ],
+    "event": [
+      {
+        "sourceUrl": "https://haart.org.au/",
+        "sourceUrls": [],
+        "contentType": "event",
+        "title": "Rock Music Bingo",
+        "verbatimBody": null,
+        "verbatimStatus": "fragment",
+        "verbatimFragments": [
+          {
+            "text": "tickets available at the door",
+            "source": "https://haart.org.au/",
+            "capturedFrom": "search-index-quote"
+          },
+          {
+            "text": "heaps of prizes to win",
+            "source": "https://haart.org.au/",
+            "capturedFrom": "search-index-quote"
+          },
+          {
+            "text": "4, The Esplanade, Mt Pleasant",
+            "source": "https://haart.org.au/",
+            "capturedFrom": "search-index-quote"
+          }
+        ],
+        "proposedRewrite": null,
+        "media": [],
+        "publishDate": null,
+        "lastModified": null,
+        "recommendation": "drop",
+        "reasoning": "Undated; events are automated from the Facebook feed. Kept here so the venue string can seed a test fixture.",
+        "target": {
+          "sanityType": "event"
+        },
+        "fields": {
+          "location": "4 The Esplanade, Mount Pleasant WA 6153"
+        },
+        "blockers": []
+      },
+      {
+        "sourceUrl": "https://perthisok.com/events/quiz-night-for-animal-rescue-charity-haart/",
+        "sourceUrls": [],
+        "contentType": "event",
+        "title": "HAART Annual Quiz Night",
+        "verbatimBody": null,
+        "verbatimStatus": "fragment",
+        "verbatimFragments": [
+          {
+            "text": "a fun-packed night of quizzing, prizes, a raffle and silent auction",
+            "source": "perthisok.com",
+            "capturedFrom": "search-index-quote"
+          },
+          {
+            "text": "Bamboozled Quizmasters",
+            "source": "perthisok.com",
+            "capturedFrom": "search-index-quote"
+          },
+          {
+            "text": "buy a table of 8, or come alone and join a table",
+            "source": "perthisok.com",
+            "capturedFrom": "search-index-quote"
+          },
+          {
+            "text": "bring your own food and snacks",
+            "source": "perthisok.com",
+            "capturedFrom": "search-index-quote"
+          }
+        ],
+        "proposedRewrite": null,
+        "media": [],
+        "publishDate": null,
+        "lastModified": null,
+        "recommendation": "drop",
+        "reasoning": "Historical listing; used only as fixture data for the events component.",
+        "target": {
+          "sanityType": "event"
+        },
+        "fields": {},
+        "blockers": []
+      },
+      {
+        "sourceUrl": "https://www.winthropvillage.com.au/adoption-day-with-haart",
+        "sourceUrls": [],
+        "contentType": "event",
+        "title": "Adoption Day with HAART",
+        "verbatimBody": null,
+        "verbatimStatus": "fragment",
+        "verbatimFragments": [
+          {
+            "text": "offer pats and cuddles and teach everything there is to know about fostering or adopting a rescue animal",
+            "source": "winthropvillage.com.au",
+            "capturedFrom": "search-index-quote"
+          }
+        ],
+        "proposedRewrite": null,
+        "media": [],
+        "publishDate": "2021-07-24",
+        "lastModified": null,
+        "recommendation": "drop",
+        "reasoning": "Historical; fixture only.",
+        "target": {
+          "sanityType": "event"
+        },
+        "fields": {},
+        "blockers": []
+      }
+    ],
+    "article": [],
+    "person": [
+      {
+        "sourceUrl": null,
+        "sourceUrls": [],
+        "contentType": "person",
+        "title": "HAART team",
+        "verbatimBody": null,
+        "verbatimStatus": "missing",
+        "verbatimFragments": [],
+        "proposedRewrite": null,
+        "media": [],
+        "publishDate": null,
+        "lastModified": null,
+        "recommendation": "keep",
+        "reasoning": "Default author for articles; no named staff or foster profiles exist on the current site, so no team page is created.",
+        "target": {
+          "sanityType": "person",
+          "slug": "haart-team"
+        },
+        "fields": {
+          "name": "HAART team",
+          "role": "Volunteers"
+        },
+        "blockers": []
+      }
+    ]
+  },
+  "externalSources": [
+    {
+      "source": "https://www.petrescue.com.au/groups/10046",
+      "kind": "rescue platform listing",
+      "verbatimFragments": [
+        "Homeless and Abused Animal Rescue Team is a dedicated and caring team of volunteers helping to save the lives of companion animals, working from death row in council pounds to responsible rehoming of private surrenders.",
+        "offers free desexing for the parents of 'accidental' litters upon the surrender of those litters for responsible rehoming as sterilized animals",
+        "advance public knowledge regarding the importance of sterilization, microchipping, vaccination, socialization and training, and endeavour to help achieve a No Kill society",
+        "reduced adoption fees when adopting multiple animals together",
+        "For information on all available animals contact info@haart.org.au"
+      ],
+      "contradictions": [
+        {
+          "topic": "multi-animal discount",
+          "site": "not mentioned",
+          "external": "reduced adoption fees when adopting multiple animals together",
+          "carriedForward": "external (PetRescue), marked unverified",
+          "blocker": "F6"
+        }
+      ]
+    },
+    {
+      "source": "https://www.savour-life.com.au/savourlife-pet-adoptions/rescue-groups/4534/HAART---Homeless-and-Abused-Animal-Rescue-Team",
+      "kind": "directory",
+      "verbatimFragments": [
+        "HAART is a not for profit and 100% volunteer run rescue based in Perth, WA.",
+        "We are foster based, meaning our dogs are kept in loving family homes until adopted.",
+        "Within seven days we will call to discuss your application, then arrange a home check to ensure the home and fencing are suitable, as the safety of our dogs is of the utmost importance.",
+        "ABN 61 836 601 234"
+      ],
+      "contradictions": [
+        {
+          "topic": "response time",
+          "site": "we will get back to you as soon as possible",
+          "external": "within seven days",
+          "carriedForward": "external (more specific), marked unverified"
+        }
+      ]
+    },
+    {
+      "source": "https://mygivingcircle.org/homeless-and-abused-animal-rescue-team-association-inc-haart",
+      "kind": "giving platform",
+      "verbatimFragments": [
+        "HAART is a not-for-profit, 100% no-kill animal rescue charity based in Perth, Western Australia.",
+        "Each year, HAART rescues and re-homes 100's of animals that would otherwise be euthanised, go homeless or continue to be neglected.",
+        "HAART relies solely on the generosity of the general public and supporters for all funding and receives no government or local authority funding.",
+        "Since HAART was founded in January 2012, countless animals' lives have been saved."
+      ],
+      "contradictions": []
+    },
+    {
+      "source": "https://www.acnc.gov.au/charity/charities/e71ee1f8-38af-e811-a962-000d3ad24a0d",
+      "kind": "regulator",
+      "verbatimFragments": [
+        "rehomes unwanted pets from local pounds and private surrenders, and assists with vaccinations, microchips and sterilisation to rehome dogs/puppies",
+        "educates the public about animal welfare"
+      ],
+      "contradictions": []
+    },
+    {
+      "source": "https://www.petfresh.com.au/rescue-groups/",
+      "kind": "partner",
+      "verbatimFragments": [
+        "Pet Fresh is a proud supporter of many rescue charities in Perth, having held many fundraisers for G.A.W.A and H.A.A.R.T."
+      ],
+      "contradictions": []
+    },
+    {
+      "source": "Google Drive: Images for Customer Display/haart.png (Pet Fresh poster, July 2022)",
+      "kind": "partner collateral",
+      "verbatimFragments": [
+        "Would you like to Round up for HAART?",
+        "HAART is a not-for-profit, no-kill animal rescue.",
+        "Receiving no government funding and are run entirely by their small, but amazing, group of volunteers.",
+        "\" Our dream is to see every companion animal in a safe, loving forever home. \"",
+        "Find our more info at HAART.ORG.AU",
+        "FB @haartav"
+      ],
+      "contradictions": []
+    }
+  ]
+}
