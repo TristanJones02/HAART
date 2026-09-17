@@ -1,0 +1,99 @@
+@import "tailwindcss";
+@import "../styles/tokens.css";
+
+@layer base {
+  html {
+    color-scheme: light;
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background: var(--color-paper-0);
+    color: var(--color-charcoal-900);
+    font-family: var(--font-body);
+    font-size: var(--text-body);
+    line-height: var(--text-body--line-height);
+    text-rendering: optimizeLegibility;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: var(--font-display);
+    color: var(--color-charcoal-900);
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  a {
+    color: inherit;
+    text-decoration-thickness: from-font;
+    text-underline-offset: 0.15em;
+  }
+
+  ::selection {
+    background: var(--color-red-100);
+    color: var(--color-charcoal-900);
+  }
+
+  /* One focus style everywhere: visible ring that survives on red surfaces. */
+  :focus-visible {
+    outline: 2px solid var(--color-red-600);
+    outline-offset: 2px;
+    box-shadow: var(--shadow-focus);
+    border-radius: var(--radius-control);
+  }
+
+  /* Reduced motion: remove smooth scrolling and any CSS transitions/animations. */
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+
+  /* Images never overflow their container and hold their space. */
+  img, video {
+    max-width: 100%;
+    height: auto;
+    display: block;
+  }
+}
+
+@layer components {
+  .skip-link {
+    position: absolute;
+    left: 1rem;
+    top: -100%;
+    z-index: 100;
+    padding: 0.5rem 0.75rem;
+    background: var(--color-paper-0);
+    color: var(--color-charcoal-900);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-control);
+    font-weight: 600;
+  }
+  .skip-link:focus {
+    top: 1rem;
+  }
+}
+
+@utility container-site {
+  width: 100%;
+  max-width: var(--container-site);
+  margin-inline: auto;
+  padding-inline: 1rem;
+  @media (width >= 40rem) {
+    padding-inline: 1.5rem;
+  }
+}
+
+@utility text-balance {
+  text-wrap: balance;
+}

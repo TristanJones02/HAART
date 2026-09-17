@@ -1,0 +1,52 @@
+{
+  "name": "haart-web",
+  "version": "0.1.0",
+  "private": true,
+  "description": "haart.org.au rebuild: Next.js App Router site for the Homeless and Abused Animal Rescue Team",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "crawl": "tsx scripts/crawl-inventory.ts",
+    "import:content": "tsx scripts/import-content.ts",
+    "sync:events": "tsx scripts/sync-events.ts",
+    "studio": "pnpm --filter haart-studio dev",
+    "studio:deploy": "pnpm --filter haart-studio deploy",
+    "check": "pnpm lint && pnpm typecheck && pnpm test && pnpm build"
+  },
+  "dependencies": {
+    "@portabletext/react": "^8.0.1",
+    "@sanity/client": "^8.6.2",
+    "@sanity/image-url": "^2.1.1",
+    "lucide-react": "^1.47.0",
+    "motion": "^13.4.0",
+    "next": "16.3.5",
+    "node-ical": "^0.27.2",
+    "react": "19.2.8",
+    "react-dom": "19.2.8",
+    "resend": "^6.28.1",
+    "zod": "^4.6.5"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4.3.3",
+    "@types/node": "^22.20.3",
+    "@types/react": "^19.2.8",
+    "@types/react-dom": "^19.2.8",
+    "cheerio": "^1.2.0",
+    "eslint": "^9",
+    "eslint-config-next": "16.3.5",
+    "image-size": "^2.0.4",
+    "tailwindcss": "^4.3.3",
+    "tsx": "^4.23.13",
+    "typescript": "^5.9.3",
+    "vitest": "^5.0.1"
+  },
+  "packageManager": "pnpm@10.33.0",
+  "engines": {
+    "node": ">=22.12"
+  }
+}
