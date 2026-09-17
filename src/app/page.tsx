@@ -8,7 +8,6 @@ export async function generateMetadata(): Promise<Metadata> {
   return { ...m, title: 'HAART: Homeless and Abused Animal Rescue Team, Perth' };
 }
 
-export default async function HomePage(props: PageProps<'/'>) {
-  const searchParams = await props.searchParams;
-  return <BuilderPage slug="home" searchParams={searchParams} />;
+export default async function HomePage() {
+  return <BuilderPage slug="home" />;
 }

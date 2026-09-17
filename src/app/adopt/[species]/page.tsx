@@ -20,5 +20,5 @@ export default async function ListingPage(props: PageProps<'/adopt/[species]'>) 
   const { species } = await props.params;
   const slug = SPECIES[species as keyof typeof SPECIES];
   if (!slug) notFound();
-  return <BuilderPage slug={slug} searchParams={await props.searchParams} />;
+  return <BuilderPage slug={slug} />;
 }

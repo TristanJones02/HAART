@@ -10,6 +10,7 @@ export async function AnimalListingSection({ section, surface }: SectionProps<'s
   return (
     <Section surface={surface}>
       <Container>
+        <h2 className="sr-only">{section.species === 'dog' ? 'All dogs' : 'All cats'}</h2>
         {section.intro ? <p className="mb-6 max-w-prose text-lead text-charcoal-700">{section.intro}</p> : null}
         {animals.length ? (
           <AnimalGrid animals={animals} species={section.species} />

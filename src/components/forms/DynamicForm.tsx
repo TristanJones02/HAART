@@ -8,6 +8,7 @@ import type { FieldDef, FormDefinition } from '@/lib/forms/definitions';
 import { formFields } from '@/lib/forms/definitions';
 import { labelParts, plainLabel } from '@/lib/forms/label';
 import { FORM_ID_FIELD, HONEYPOT_FIELD, REDIRECT_FIELD, parseSubmission } from '@/lib/forms/schema';
+import { prefillFromSearchParams } from '@/lib/forms/prefill';
 import { Button } from '@/components/ui/Button';
 import { Checkbox, CheckboxGroup } from '@/components/ui/Checkbox';
 import { Fieldset } from '@/components/ui/Fieldset';
@@ -26,6 +27,11 @@ export type DynamicFormProps = {
    * When omitted the component reads the query string itself after mount.
    */
   initialStatus?: 'sent' | 'error';
+  /**
+   * Read `?animal=` from the page URL after hydration and fill the matching
+   * empty field. Lets application pages stay static while still pre-filling.
+   */
+  prefillFromUrl?: boolean;
   className?: string;
 };
 
@@ -109,7 +115,7 @@ function inputMode(field: FieldDef): 'numeric' | 'tel' | 'email' | undefined {
   return undefined;
 }
 
-export function DynamicForm({ definition, prefill, initialStatus, className = '' }: DynamicFormProps) {
+export function DynamicForm({ definition, prefill, initialStatus, prefillFromUrl = false, className = '' }: DynamicFormProps) {
   const pathname = usePathname() ?? '/';
   const uid = useId().replace(/[^A-Za-z0-9_-]/g, '');
   const fieldId = useCallback((name: string) => `form-${uid}-${name}`, [uid]);
@@ -126,6 +132,18 @@ export function DynamicForm({ definition, prefill, initialStatus, className = ''
   );
   const summaryRef = useRef<HTMLDivElement>(null);
   const successRef = useRef<HTMLDivElement>(null);
+  const formRef = useRef<HTMLFormElement>(null);
+
+  // Fill empty fields from ?animal= after hydration (DOM update, not state),
+  // so application pages can be prerendered and still pre-fill.
+  useEffect(() => {
+    if (!prefillFromUrl || !formRef.current) return;
+    const values = prefillFromSearchParams(new URLSearchParams(window.location.search));
+    for (const [name, value] of Object.entries(values)) {
+      const el = formRef.current.elements.namedItem(name);
+      if (el instanceof HTMLInputElement && !el.value) el.value = value;
+    }
+  }, [prefillFromUrl]);
 
   useEffect(() => {
     if (status.kind === 'invalid' || status.kind === 'failed') summaryRef.current?.focus();
@@ -290,7 +308,7 @@ export function DynamicForm({ definition, prefill, initialStatus, className = ''
       </div>
 
       {status.kind !== 'sent' ? (
-        <form method="post" action="/api/forms" noValidate={hydrated} onSubmit={onSubmit} className="flex flex-col gap-10">
+        <form ref={formRef} method="post" action="/api/forms" noValidate={hydrated} onSubmit={onSubmit} className="flex flex-col gap-10">
           {status.kind === 'invalid' && errorEntries.length ? (
             <div ref={summaryRef} role="alert" tabIndex={-1} className="rounded-card border-2 border-red-600 bg-red-50 p-4 text-charcoal-900 sm:p-6">
               <h2 className="font-display text-h3 text-red-700">There is a problem</h2>

@@ -3,9 +3,9 @@
 import { LazyMotion, MotionConfig } from 'motion/react';
 import type { ReactNode } from 'react';
 
-// domMax is needed for layout animations on the animal grid; loaded lazily so
-// the initial bundle stays small.
-const loadFeatures = () => import('motion/react').then((mod) => mod.domMax);
+// domAnimation covers entrances, hover and press. The animal grid loads domMax
+// (layout animations) on top through its own nested LazyMotion.
+const loadFeatures = () => import('motion/react').then((mod) => mod.domAnimation);
 
 /**
  * App-wide motion settings: spring by default, and `reducedMotion="user"`

@@ -1,11 +1,18 @@
 'use client';
 
-import { useId, useState } from 'react';
+import { useId, useState, useSyncExternalStore } from 'react';
 import type { SiteSettings } from '@/lib/content/types';
 import { track } from '@/lib/analytics';
 import { UiIcon } from '@/components/ui/Icon';
 
 type Frequency = 'once' | 'monthly';
+
+const noopSubscribe = () => () => {};
+/** ?frequency=monthly from a campaign link, read after hydration; null on the server. */
+const readUrlFrequency = (): Frequency | null => {
+  const f = new URLSearchParams(window.location.search).get('frequency');
+  return f === 'monthly' || f === 'once' ? f : null;
+};
 
 /**
  * Amount presets and a one-off / monthly choice with equal weight. Nothing is
@@ -13,9 +20,11 @@ type Frequency = 'once' | 'monthly';
  * option swaps to the grossed-up payment link; if that link does not exist,
  * the option is not shown. A missing link never renders a dead button.
  */
-export function DonateWidget({ amounts, links, initialFrequency }: { amounts: number[]; links: SiteSettings['donate']; initialFrequency: Frequency | null }) {
+export function DonateWidget({ amounts, links }: { amounts: number[]; links: SiteSettings['donate'] }) {
   const id = useId();
-  const [frequency, setFrequency] = useState<Frequency | null>(initialFrequency);
+  const urlFrequency = useSyncExternalStore(noopSubscribe, readUrlFrequency, () => null);
+  const [chosenFrequency, setFrequency] = useState<Frequency | null>(null);
+  const frequency = chosenFrequency ?? urlFrequency;
   const [amount, setAmount] = useState<number | null>(null);
   const [custom, setCustom] = useState('');
   const [coverFees, setCoverFees] = useState(false);

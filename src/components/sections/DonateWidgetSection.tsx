@@ -3,10 +3,8 @@ import { DonateWidget } from '@/components/donate/DonateWidget';
 import { getSiteSettings } from '@/lib/content/settings';
 import type { SectionProps } from './SectionRenderer';
 
-export async function DonateWidgetSection({ section, searchParams }: SectionProps<'section.donateWidget'>) {
+export async function DonateWidgetSection({ section }: SectionProps<'section.donateWidget'>) {
   const settings = await getSiteSettings();
-  const freq = searchParams?.frequency;
-  const initialFrequency = freq === 'monthly' ? 'monthly' : freq === 'once' ? 'once' : null;
   const id = `s-${section._key}`;
   return (
     <Section surface="paper-50" labelledBy={id} className="border-b border-border">
@@ -29,7 +27,7 @@ export async function DonateWidgetSection({ section, searchParams }: SectionProp
             </dl>
           ) : null}
         </div>
-        <DonateWidget amounts={section.amounts} links={settings.donate} initialFrequency={initialFrequency} />
+        <DonateWidget amounts={section.amounts} links={settings.donate} />
       </Container>
     </Section>
   );

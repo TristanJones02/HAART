@@ -48,3 +48,17 @@ Things that cannot be resolved without a person, a credential or access this ses
 | C8 | Analytics | Plausible chosen. Site not yet added. | `NEXT_PUBLIC_PLAUSIBLE_DOMAIN` |
 | C9 | Domain and hosting | Not connected. Vercel Hobby is not licensed for commercial use but is fine for a charity; Cloudflare Pages is the alternative. | `NEXT_PUBLIC_SITE_URL` |
 | C10 | Mail for form submissions | Forms post to a Next route that forwards by email. Needs a transactional sender (Resend free tier suggested). | `RESEND_API_KEY`, `FORMS_TO_EMAIL` |
+
+## Added during the build
+
+| # | Item | Detail |
+|---|---|---|
+| F20 | Form field lists | Reconstructed from the audit, not copied from the live forms. Replace with the crawl's `crawl.forms` output. Specific guesses to confirm with HAART: the seven-day call-back promise in the adoption success message; landlord permission as a required question with a "not applicable" option; cat containment options (indoor only, enclosure, free to roam) with no policy statement; fence height as free text with no minimum; the hours-alone and foster-duration bands; the volunteer role list; contact topics including "Surrendering an animal" and "Media"; partnership type "Kennel or program sponsorship" (depends on F16). |
+| F21 | Foster page specifics | The "What fostering actually involves" list (vet costs covered, supplies available, two to eight weeks, some driving, a coordinator on the phone) is the industry norm written as HAART's practice. Confirm each line or edit it in the Studio before launch. |
+| F22 | Home page numbers | The stat band shows "100% volunteer run, $0 government funding, 0 animals put to sleep for space, rescuing since 2012". The first three are HAART's own statements; 2012 depends on F10. Add real counts (animals rehomed this year) when HAART supplies them. |
+| F23 | Sample stories | Four sample articles exist so the story system can be seen working. They are clearly labelled "Sample" and must be deleted or replaced before launch. |
+| F24 | Partner names | Three Friends of HAART entries were indexed by description only ("name to confirm" in the seed). The crawl will capture the names and logos. |
+| F25 | PetRescue API shape | The adapter's field names, response envelope and `Authorization: Bearer` header are assumptions marked `TODO(tristan)` in `src/lib/animals/petrescue.ts`; verify with the first real response. |
+| F26 | Facebook export format | The iCal parser assumes UIDs like `e123@facebook.com`, UTC times, the event page in a `URL:` line and again at the end of `DESCRIPTION`, and `LOCATION` as "Venue, Street, Suburb STATE Postcode". Check the first real feed against `fixtures/sample-events.ics`. |
+| F27 | Studio build in this environment | `sanity build` could not complete here because Sanity's auto-update manifest host is blocked by the egress proxy; the Studio typechecks and the config is standard. Build it once from a normal connection. |
+| F28 | Newsletter box wording | The home page newsletter block only renders once a signup page URL is set in Site settings (F18). |

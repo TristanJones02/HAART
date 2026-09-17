@@ -35,8 +35,6 @@ export type SectionProps<T extends Section['_type']> = {
   section: Extract<Section, { _type: T }>;
   surface: 'paper-0' | 'paper-50' | 'paper-100';
   index: number;
-  /** Search params passed down for form prefill and donate frequency. */
-  searchParams?: Record<string, string | string[] | undefined>;
 };
 
 /**
@@ -44,14 +42,14 @@ export type SectionProps<T extends Section['_type']> = {
  * position; sections that render nothing (empty strips) do not consume a slot,
  * which is why the alternation is tracked with a counter rather than the array index.
  */
-export async function SectionRenderer({ sections, searchParams }: { sections: Section[]; searchParams?: SectionProps<'section.hero'>['searchParams'] }) {
+export async function SectionRenderer({ sections }: { sections: Section[] }) {
   const out: React.ReactNode[] = [];
   let slot = 0;
   for (const section of sections) {
     // Full-bleed blocks (hero, page header) sit outside the alternation.
     const isChrome = section._type === 'section.hero' || section._type === 'section.pageHeader';
     const surface = isChrome ? 'paper-0' : surfaceForIndex(slot);
-    const node = await renderSection(section, surface, slot, searchParams);
+    const node = await renderSection(section, surface, slot);
     if (node) {
       out.push(<div key={section._key}>{node}</div>);
       if (!isChrome) slot += 1;
@@ -60,8 +58,8 @@ export async function SectionRenderer({ sections, searchParams }: { sections: Se
   return <>{out}</>;
 }
 
-async function renderSection(section: Section, surface: SectionProps<'section.hero'>['surface'], index: number, searchParams?: SectionProps<'section.hero'>['searchParams']) {
-  const p = { surface, index, searchParams };
+async function renderSection(section: Section, surface: SectionProps<'section.hero'>['surface'], index: number) {
+  const p = { surface, index };
   switch (section._type) {
     case 'section.hero':
       return <Hero section={section} {...p} />;

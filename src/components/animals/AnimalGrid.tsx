@@ -1,12 +1,15 @@
 'use client';
 
-import { AnimatePresence, LayoutGroup, m, useReducedMotion } from 'motion/react';
+import { AnimatePresence, LayoutGroup, LazyMotion, m, useReducedMotion } from 'motion/react';
 import { useMemo, useState } from 'react';
 import type { Animal, Species } from '@/lib/content/types';
 import { applyFilters, sortAnimals } from '@/lib/animals/types';
 import { AnimalCard } from './AnimalCard';
 
 type Filters = { ageBand: string; size: string; goodWithKids: boolean; goodWithCats: boolean; goodWithDogs: boolean; fosterNeeded: boolean; includeAdopted: boolean; sort: 'newest' | 'name' | 'age' };
+
+// Layout animations need Motion's larger feature set; loaded only on listing pages.
+const loadMax = () => import('motion/react').then((mod) => mod.domMax);
 
 const initial: Filters = { ageBand: '', size: '', goodWithKids: false, goodWithCats: false, goodWithDogs: false, fosterNeeded: false, includeAdopted: false, sort: 'newest' };
 
@@ -106,6 +109,7 @@ export function AnimalGrid({ animals, species }: { animals: Animal[]; species: S
         {list.length === 0 ? 'No animals match those filters.' : `${list.length} ${species === 'dog' ? 'dog' : 'cat'}${list.length === 1 ? '' : 's'}`}
       </p>
 
+      <LazyMotion features={loadMax}>
       <LayoutGroup>
         <m.ul layout={!reduce} className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           <AnimatePresence initial={false}>
@@ -117,6 +121,7 @@ export function AnimalGrid({ animals, species }: { animals: Animal[]; species: S
           </AnimatePresence>
         </m.ul>
       </LayoutGroup>
+      </LazyMotion>
     </div>
   );
 }

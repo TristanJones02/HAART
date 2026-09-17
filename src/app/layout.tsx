@@ -11,8 +11,8 @@ import './globals.css';
 
 // Self-hosted through next/font (downloaded at build, served from this origin),
 // with size-adjusted fallbacks so text never shifts when the font arrives.
-const nunito = Nunito({ subsets: ['latin'], weight: ['700', '800', '900'], variable: '--font-nunito', display: 'swap', adjustFontFallback: true });
-const sourceSans = Source_Sans_3({ subsets: ['latin'], weight: ['400', '600', '700'], variable: '--font-source-sans', display: 'swap', adjustFontFallback: true });
+const nunito = Nunito({ subsets: ['latin'], weight: ['700', '800', '900'], variable: '--font-nunito', display: 'optional', adjustFontFallback: true });
+const sourceSans = Source_Sans_3({ subsets: ['latin'], weight: ['400', '600', '700'], variable: '--font-source-sans', display: 'optional', adjustFontFallback: true });
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),

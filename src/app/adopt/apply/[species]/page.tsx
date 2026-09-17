@@ -2,6 +2,9 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { BuilderPage, pageMetadata } from '@/lib/content/pageRoute';
 
+export const revalidate = 300;
+
+
 const SPECIES = { dogs: 'adopt-apply-dogs', cats: 'adopt-apply-cats' } as const;
 
 export function generateStaticParams() {
@@ -18,5 +21,5 @@ export default async function AdoptApplyPage(props: PageProps<'/adopt/apply/[spe
   const { species } = await props.params;
   const slug = SPECIES[species as keyof typeof SPECIES];
   if (!slug) notFound();
-  return <BuilderPage slug={slug} searchParams={await props.searchParams} />;
+  return <BuilderPage slug={slug} />;
 }

@@ -36,7 +36,7 @@ export async function EventListSection({ section, surface }: SectionProps<'secti
         {past.length ? (
           <>
             <h2 className="mt-14 mb-6 text-h2">Recent events</h2>
-            <ul className="grid gap-4 md:grid-cols-2 lg:grid-cols-3 opacity-90">
+            <ul className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
               {past.map((e) => (
                 <li key={e.uid} className="h-full">
                   <EventCard event={e} />

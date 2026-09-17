@@ -91,3 +91,25 @@ Two additions: Charcoal 550 `#6b6b6b` for small muted text on tints; Amber 700 `
 ## D17. Content that could not be captured verbatim is marked, never invented
 
 Inventory items carry `verbatimStatus` of `complete`, `fragment` or `missing`. Rewrites live in `proposedRewrite` beside `verbatimBody`. Legal and financial strings are copied only when verified and otherwise left empty with a blocker reference.
+
+## D18. Builder pages are static; query parameters are read on the client
+
+**Decision.** No page-builder route reads `searchParams` on the server. `?animal=` prefill, `?frequency=` on donate and `?sent=1` after a no-JavaScript form post are read after hydration (`useSyncExternalStore` or a DOM-only effect). Every builder page is therefore prerendered with a 300-second revalidate and served with `s-maxage=300, stale-while-revalidate`.
+**Why.** The first build had the home page as a dynamic route with `Cache-Control: no-store`: every visit was a function invocation and the back-forward cache failed. For a charity, CDN-cached static pages are the difference between near-zero hosting cost and a bill.
+**Rejected.** Suspense around `useSearchParams` (emits the fallback into static HTML, so no-JS users lose the form).
+
+## D19. Motion features split
+
+**Decision.** `LazyMotion` loads `domAnimation` globally; the animal grid nests a second `LazyMotion` with `domMax` because layout animations need it. Total blocking time on the home page dropped from 210 ms to 30 ms.
+
+## D20. Import script does not upload placeholder images
+
+**Decision.** `scripts/import-content.ts` writes animals and articles without photos so the Studio's required-photo validation flags every record still needing a real image. Real media upload is wired behind `--upload-media` for after the crawl has captured the old site's images.
+
+## D21. Unknown animal status imports as "on hold"
+
+**Decision.** The three animals whose current status could not be determined (blocker F8) import as "on hold" so they do not show as available; they are listed in the blockers for confirmation. The Studio deliberately has no "unknown" status.
+
+## D22. Events sync tolerates an empty calendar but not a non-calendar response
+
+**Decision.** An empty but valid iCal is treated as "no upcoming events" (after two missed runs, future Facebook events are marked cancelled). A non-calendar response, such as a login page when the export key has expired, is a hard failure that changes nothing and is recorded in `syncStatus`. This protects the events page from a rotated key wiping it.

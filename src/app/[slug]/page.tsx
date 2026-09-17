@@ -18,6 +18,5 @@ export async function generateMetadata(props: PageProps<'/[slug]'>): Promise<Met
 export default async function GenericPage(props: PageProps<'/[slug]'>) {
   const { slug } = await props.params;
   if (DEDICATED_SLUGS.has(slug)) notFound();
-  const searchParams = await props.searchParams;
-  return <BuilderPage slug={slug} searchParams={searchParams} />;
+  return <BuilderPage slug={slug} />;
 }

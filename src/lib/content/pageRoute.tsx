@@ -5,8 +5,6 @@ import { getPage } from '@/lib/content/pages';
 import { buildMetadata } from '@/lib/seo/metadata';
 import { portableToText } from '@/lib/sanity/portable';
 
-type SearchParams = Record<string, string | string[] | undefined>;
-
 /** Metadata for a page-builder page, falling back to its first lead paragraph. */
 export async function pageMetadata(slug: string, path: string): Promise<Metadata> {
   const page = await getPage(slug);
@@ -17,11 +15,15 @@ export async function pageMetadata(slug: string, path: string): Promise<Metadata
   return buildMetadata({ title: page.title, description, path, seo: page.seo, noIndex: page.seo?.noIndex });
 }
 
-/** Renders a page-builder page or 404s. */
-export async function BuilderPage({ slug, searchParams }: { slug: string; searchParams?: SearchParams }) {
+/**
+ * Renders a page-builder page or 404s. Builder pages never read search
+ * params on the server, so they prerender and cache at the CDN; query
+ * parameters (?animal=, ?frequency=, ?sent=) are read client-side.
+ */
+export async function BuilderPage({ slug }: { slug: string }) {
   const page = await getPage(slug);
   if (!page) notFound();
-  return <SectionRenderer sections={page.sections} searchParams={searchParams} />;
+  return <SectionRenderer sections={page.sections} />;
 }
 
 /** Slugs served by dedicated routes rather than the generic [slug] route. */
