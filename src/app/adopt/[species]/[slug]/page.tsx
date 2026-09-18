@@ -127,8 +127,7 @@ export default async function AnimalPage(props: PageProps<'/adopt/[species]/[slu
                       <RuleLink href={`/foster/apply/${species}?animal=${encodeURIComponent(animal.slug)}`}>Foster {animal.name}</RuleLink>
                     </p>
                   ) : null}
-                  {/* The tear-off belongs to this column, not to the viewport: the bleed is neutralised. */}
-                  <TearOff tabFill="paper" className="ml-0 w-full max-w-full" />
+                  <TearOff tabFill="paper" />
                 </div>
               )}
 

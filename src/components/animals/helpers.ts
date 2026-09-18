@@ -1,4 +1,3 @@
-import { createElement } from 'react';
 import type { Animal, AnimalStatus } from '@/lib/content/types';
 import type { IndexRow } from '@/components/art';
 import { ageBandOf, statusLabel } from '@/lib/animals/types';
@@ -149,19 +148,11 @@ export function plateCaption(a: Animal): string {
 // Index rows. A missing value renders "Ask us" rather than collapsing the row.
 // ---------------------------------------------------------------------------
 
-/**
- * Index values sit in a flex row that cannot shrink, so a long breed would
- * otherwise run past the card's own rule. Capped and wrapped instead: nothing
- * on this site truncates a value, it just takes a second line.
- */
-const fit = (v: string | null | undefined): IndexRow['value'] =>
-  v ? createElement('span', { className: 'block max-w-[15ch] text-right [overflow-wrap:anywhere]' }, v) : null;
-
 /** The two fact rows on an animal card. */
 export function cardFacts(a: Animal): IndexRow[] {
   return [
-    { label: 'Breed', value: fit(a.breed) },
-    { label: 'Age', value: fit(ageLabel(a)) },
+    { label: 'Breed', value: a.breed },
+    { label: 'Age', value: ageLabel(a) },
   ];
 }
 
@@ -174,21 +165,21 @@ export function profileFacts(a: Animal, fee: string | null): IndexRow[] {
   const yesNo = (v: boolean | undefined) => (v === undefined ? null : v ? 'Yes' : 'No');
   const kids = triLabel(a.goodWith.kids);
   return [
-    { label: 'Catalogue number', value: fit(a.haartId) },
-    { label: 'Status', value: fit(statusLabel(a.status)) },
-    { label: 'Species', value: fit(a.species === 'dog' ? 'Dog' : 'Cat') },
-    { label: 'Breed', value: fit(a.breed) },
-    { label: 'Age', value: fit(ageLabel(a)) },
-    { label: 'Sex', value: fit(a.sex ? (a.sex === 'male' ? 'Male' : 'Female') : null) },
-    { label: 'Size', value: fit(a.size ? sizeLabel(a.size) : null) },
-    { label: 'Weight', value: fit(typeof a.weightKg === 'number' ? `${a.weightKg} kg` : null) },
-    { label: 'Good with children', value: fit(a.goodWith.kidsAgeNote ? `${kids} — ${a.goodWith.kidsAgeNote}` : kids) },
-    { label: 'Good with cats', value: fit(triLabel(a.goodWith.cats)) },
-    { label: 'Good with dogs', value: fit(triLabel(a.goodWith.dogs)) },
-    { label: 'Desexed', value: fit(yesNo(a.desexed)) },
-    { label: 'Vaccinated', value: fit(yesNo(a.vaccinated)) },
-    { label: 'Microchipped', value: fit(yesNo(a.microchipped)) },
-    { label: 'Adoption fee', value: fit(fee) },
+    { label: 'Catalogue number', value: a.haartId },
+    { label: 'Status', value: statusLabel(a.status) },
+    { label: 'Species', value: a.species === 'dog' ? 'Dog' : 'Cat' },
+    { label: 'Breed', value: a.breed },
+    { label: 'Age', value: ageLabel(a) },
+    { label: 'Sex', value: a.sex ? (a.sex === 'male' ? 'Male' : 'Female') : null },
+    { label: 'Size', value: a.size ? sizeLabel(a.size) : null },
+    { label: 'Weight', value: typeof a.weightKg === 'number' ? `${a.weightKg} kg` : null },
+    { label: 'Good with children', value: a.goodWith.kidsAgeNote ? `${kids} — ${a.goodWith.kidsAgeNote}` : kids },
+    { label: 'Good with cats', value: triLabel(a.goodWith.cats) },
+    { label: 'Good with dogs', value: triLabel(a.goodWith.dogs) },
+    { label: 'Desexed', value: yesNo(a.desexed) },
+    { label: 'Vaccinated', value: yesNo(a.vaccinated) },
+    { label: 'Microchipped', value: yesNo(a.microchipped) },
+    { label: 'Adoption fee', value: fee },
   ];
 }
 
