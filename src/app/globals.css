@@ -18,6 +18,7 @@
   }
 
   .canvas-paper {
+    --logo-heart: var(--color-red-600);
     --rubric: var(--color-terracotta-600);
     --canvas: var(--color-paper-0);
     --text-strong: var(--color-charcoal-900);
@@ -30,6 +31,7 @@
   }
 
   .canvas-cream {
+    --logo-heart: var(--color-red-600);
     --rubric: var(--color-terracotta-600);
     --canvas: var(--color-paper-50);
     --text-strong: var(--color-charcoal-900);
@@ -43,6 +45,7 @@
 
   /* charcoal-550 is 4.24:1 on sand, so muted steps up to charcoal-700. */
   .canvas-sand {
+    --logo-heart: var(--color-red-600);
     --rubric: var(--color-terracotta-600);
     --canvas: var(--color-sand-100);
     --text-strong: var(--color-charcoal-900);
@@ -56,6 +59,7 @@
 
   /* red-600 is 2.33:1 on ink, so the rule and every red signal step up to red-200. */
   .canvas-ink {
+    --logo-heart: var(--color-red-200);
     --rubric: var(--color-red-200);
     --canvas: var(--color-ink-950);
     --text-strong: var(--color-sand-100);

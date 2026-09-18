@@ -28,7 +28,7 @@ Existing tokens keep their hex values. Nine tokens are added. `paper-100` surviv
 
 | Token | Hex | Role | Status |
 |---|---|---|---|
-| `--color-red-600` | `#b50806` | The brand. Masthead rules, folio-bar rules, primary button fill, selected control fill, red display type and stat figures on light canvases, foster-needed status bar and word, the printer's quad in rubrics and the wordmark, folio numeral outlines, Ember plate ink, Signal plate ground. **Decorative only on ink** (2.33:1). | existing |
+| `--color-red-600` | `#b50806` | The brand. Masthead rules, folio-bar rules, primary button fill, selected control fill, red display type and stat figures on light canvases, foster-needed status bar and word, the printer's quad in rubrics and buttons, the heart in the logomark, folio numeral outlines, Ember plate ink, Signal plate ground. **Decorative only on ink** (2.33:1). | existing |
 | `--color-red-700` | `#8f0605` | Hover and press on red fills; red text on red-50; Signal plate tint. | existing |
 | `--color-red-200` | `#f6a8a2` | **NEW.** The only red permitted to carry text or meaning on ink. Rubrics, foster-needed flags, folio numeral outlines, footer column headings and the Perth skyline on dark bands. Banned on light canvases (1.90:1 on white). | new |
 | `--color-red-100` | `#f9dcda` | Ember plate tint; hairline on red grounds; urgent badge border on light. | existing |
@@ -149,7 +149,7 @@ Sentence case everywhere. The only uppercase styles are `--text-rubric` and `--t
 4. **The rule-link.** The secondary call to action site-wide, replacing the bordered secondary button: Nunito 800 1.125rem in the strong text colour, with a 3px red underline drawn by a pseudo-element that runs `scaleX(0.35) → scaleX(1)` from the left on hover and focus-visible.
 5. **The lede paragraph.** The first paragraph of an animal write-up or article body sets at `--text-lede` with a 4px red-600 left rule at 20px offset. *This replaces Register's drop cap, which is dropped entirely — it is the one device that tips the journal conceit into twee and the most fragile thing in the direction against volunteer prose. A 180-character guard does not save a first paragraph that is one line of admin.*
 6. **The pull quote.** On animal profiles and articles: the `summary` field (one sentence by definition — never a sentence parsed out of prose), Nunito 800 at `clamp(1.5rem, 3.2vw, 2.5rem)`, with a 96×3px red rule above it and the attribution below in rubric style.
-7. **The printer's quad.** A 9×9px red-600 square. It opens every rubric, sits after the wordmark, and prefixes the primary button's label. One mark, used everywhere, replacing the current circle so the wordmark and the typography are one system.
+7. **The printer's quad.** A 9×9px red-600 square. It opens every rubric and prefixes the primary button's label. One mark, used everywhere, replacing the current circle. *(It originally also sat after the wordmark; the wordmark is now HAART's own artwork, which needs no ornament beside it.)*
 
 **Explicitly not used:** no drop cap, no last-word or last-two-words colouring (positional word-colouring lands well once and badly often; a volunteer heading ending in "and more" looks broken), no rotation, no mixed sizes inside one heading, no italic headings, no all-caps headings, no script face, no text over a photograph anywhere except the story card's gradient (see §6.7).
 
@@ -283,8 +283,11 @@ Nothing on this site renders as a grey box. Every photo slot has a designed answ
 | `Kennel` | `art/Kennel.tsx` | 480×360, single-weight line, stroke 2.5. A kennel drawn in outline with the door **open**: pentagon body `M60 190 L240 60 L420 190 V330 H60 Z`, roof overhang `M40 196 L240 52 L440 196`, door arch `M170 330 V240 A70 70 0 0 1 310 240 V330` drawn as an *empty* opening, and the door itself as a rounded rect rotated −68° about its left hinge at (170,330). A bowl at the step: `<ellipse cx=390 cy=326 rx=26 ry=10>`. No animal inside — the empty kennel is the message. | red-200 on ink | The foster page header, once. *(Graft: On the lead, named by judge 1 — "the best message on that page.")* |
 | `Quad` | `art/Quad.tsx` | A 9×9px square. | red-600 / red-200 | Before every rubric, after the wordmark, before the primary button's label |
 | `Grain` | CSS only, in `globals.css` | `background-image: radial-gradient(circle at 1px 1px, var(--grain) 1px, transparent 0); background-size: 4px 4px`. `--grain` is `rgba(61,61,61,.055)` on sand and `rgba(243,227,207,.05)` on ink; unset on paper and cream. | — | Sand and ink canvases only. Costs nothing, renders on the compositor, gives the bands the tooth of uncoated stock. |
-| Favicon | `public/art/icon.svg` | The printer's quad on a transparent ground at 32×32, plus a 1px charcoal frame. | red-600 | Favicon |
-| OG mark | `public/art/og-mark.svg` | Wordmark + quad + a 4px red rule, on sand-100. | — | `opengraph-image.tsx` |
+| `Logomark` | `layout/Logomark.tsx`, data in `layout/logoPaths.ts` | **HAART's own mark**, traced from the artwork: a cat sitting in front of a dog, an open heart across them. viewBox `0 0 200 263.97`. The animals are one shape with two holes; the heart is two, split where the cat's back crosses the stroke. Every ring is a subpath of its own shape so `fill-rule="evenodd"` can punch the holes out. | silhouette `currentColor`, heart `var(--logo-heart)` = red-600 / red-200 on ink | Header, footer, favicon, OG card |
+| `Logotype` | same file | The lowercase **"haart"** from the same artwork, viewBox `0 0 200 58.44`. Five shapes, one per letter, counters as holes. Not Nunito — it is a lighter, rounder face than anything in the type system, which is the point: it is the logo, not the typography. | `currentColor` | Beside or under the `Logomark` |
+| `Wordmark` | `layout/Wordmark.tsx` | The lockup. `stacked` holds the artwork's own 2.44:1 mark-to-logotype height ratio; inline cuts the mark back to ~1.9× so a portrait mark does not tower over a 60px header bar. Both SVGs carry an explicit width **and** height: an auto-width SVG measures as zero in a flex row. | — | Header, footer, mobile panel |
+| Favicon | `src/app/icon.svg`, `public/art/icon.svg` | The `Logomark` centred on a sand-100 square at 76% height. Legible down to 32px; at 16px it reads as a dark mass, which is what every animal-silhouette logo does at that size. | charcoal + red-600 | Favicon, web manifest |
+| OG card | `src/app/opengraph-image.tsx` | Sand ground, a red rule and the tagline, the real lockup at cover scale, the strapline, then the domain and the four actions. Satori renders it, so the colours are literal and both marks carry explicit width and height. | — | `opengraph-image.tsx` |
 
 **Ornament quota, enforced in review.** At most one 4px red rule and at most one `DashRule` per section. Hairlines are only ever 1px `charcoal-300` (paper), `sand-200` (sand) or `stone-400` at 40% (ink). Never two ornament types adjacent. The folio numeral appears once per section in the folio bar *or* once per card in a numbered index, never both in the same column. The partner poster's failure was quantity, not vocabulary.
 
@@ -314,12 +317,14 @@ Canvas is a property of the **block type**, not of its position. Positional alte
 
 Four canvases, each a class in `globals.css` that sets CSS variables so components never branch:
 
-| Class | Canvas | `--text-strong` | `--text-muted` | `--text-caption` | `--hairline` | `--rule` | `--focus-ring` | Grain |
-|---|---|---|---|---|---|---|---|---|
-| `.canvas-paper` | `paper-0` | charcoal-900 | charcoal-550 | terracotta-600 | charcoal-300 | red-600 | red (existing) | off |
-| `.canvas-cream` | `paper-50` | charcoal-900 | charcoal-550 | terracotta-600 | charcoal-300 | red-600 | red (existing) | off |
-| `.canvas-sand` | `sand-100` | charcoal-900 | **charcoal-700** | terracotta-600 | sand-200 | red-600 | red (existing) | on |
-| `.canvas-ink` | `ink-950` | sand-100 | sand-300 | **stone-400** | stone-400/40% | **red-200** | **3px sand-100, 2px offset** | on |
+| Class | Canvas | `--text-strong` | `--text-muted` | `--text-caption` | `--rubric` | `--hairline` | `--rule` | `--logo-heart` | `--focus-ring` | Grain |
+|---|---|---|---|---|---|---|---|---|---|---|
+| `.canvas-paper` | `paper-0` | charcoal-900 | charcoal-550 | terracotta-600 | terracotta-600 | charcoal-300 | red-600 | red-600 | red (existing) | off |
+| `.canvas-cream` | `paper-50` | charcoal-900 | charcoal-550 | terracotta-600 | terracotta-600 | charcoal-300 | red-600 | red-600 | red (existing) | off |
+| `.canvas-sand` | `sand-100` | charcoal-900 | **charcoal-700** | terracotta-600 | terracotta-600 | sand-200 | red-600 | red-600 | red (existing) | on |
+| `.canvas-ink` | `ink-950` | sand-100 | sand-300 | **stone-400** | **red-200** | stone-400/40% | **red-200** | **red-200** | **3px sand-100, 2px offset** | on |
+
+`--rubric` is separate from `--text-caption` because on ink the rubric is red-200 while captions are stone-400; a FolioBar reading `--text-caption` came out grey. `--logo-heart` exists for the same reason: the heart in the `Logomark` is a red signal and has to step up on ink like every other one, and a logo component must not know which canvas it is on.
 
 Enforcing the banned muted colours through `--text-muted` rather than through a rule in a document is what makes `charcoal-550`-on-sand impossible rather than merely forbidden. *(Graft: Cut paper, named by judge 2.)*
 
@@ -447,7 +452,7 @@ Closing band on sand: "More dogs looking for a home" as a folio bar plus a four-
 
 72px desktop, 60px phone. `paper-0`, **no shadow ever**, closed by a full-viewport-width 2px `charcoal-900` bottom rule. `position: sticky; top: 0`. It does not shrink, fade or change on scroll — a guaranteed CLS and jank source for no gain.
 
-- **Wordmark** left: "haart" in Nunito 900 1.75rem ls −0.04em charcoal-900, followed by the 9×9px red `Quad` on the baseline with a 3px gap. A square, not the current circle, so the mark and the typography are one system.
+- **Wordmark** left: HAART's own lockup — the `Logomark` at 36px beside the `Logotype` at 19px, 10px gap, both charcoal-900 with the heart in red-600. *(Amended once Tristan supplied the logo file. The earlier spec set "haart" in Nunito 900 with the printer's quad; that was a stand-in drawn before the artwork existed, and a rescue with a real mark should use it. The `Quad` stays everywhere else — rubrics, buttons — so the ornament system is unchanged.)*
 - **Nav** centre-right: Source Sans 3 600 0.9375rem charcoal-900, 24px gaps, 44px tap height. The active item carries a 3px red-600 underline sitting **flush on the header's bottom rule**, not floating above it. Items with children show a 6px chevron.
 - **Donate** right: a square red-600 button, 44px tall, 20px horizontal padding, Nunito 800, white, with a cream `Quad` before the label. Always visible at every breakpoint, never inside the menu.
 - **Dropdowns** open as a full-width **contents panel** below the header rule, not a floating rounded menu: `paper-0`, a 2px `charcoal-900` bottom rule, `container-site` inside, a row of link groups each with a rubric heading and its links separated by 1px hairlines. It reads like a magazine's contents page.
@@ -457,7 +462,7 @@ Closing band on sand: "More dogs looking for a home" as a folio bar plus a four-
 
 The ink canvas, grain on. Opens with a full-bleed `DashRule` in red-200 sitting directly on the boundary, and immediately below it the **`Skyline`** at 120px desktop / 80px phone, full width, red-200, with the dog and cat sitting at the far right looking at the city. 80px top padding under the skyline.
 
-- **Row 1:** the wordmark at 3rem in sand-100 with the red-200 quad; beside it in columns 7–12 the strapline in sand-100 italic 1.125rem.
+- **Row 1:** the **stacked** lockup at the artwork's own proportions — the `Logomark` at 100px above the `Logotype` at 41px, sand-100 with the heart stepped up to red-200 (red-600 is 2.33:1 on ink); beside it in columns 7–12 the strapline in sand-100 italic 1.125rem.
 - **Row 2**, 56px below: a four-column grid divided by 1px `stone-400` hairlines at 25% opacity. Column headings in `--text-rubric` red-200; links in sand-100 0.9375rem, 12px row gaps, 44px tap targets. Contact details take the first column, phone and email as `RuleLink`s.
 - **Row 3:** the acknowledgement of country, given real prominence rather than a grey afterthought — full width, its own box with a 1px `stone-400` border, 24px padding, sand-100 italic 0.9375rem at a 70ch measure.
 - **Row 4:** registered name, ABN, ACNC status, copyright, privacy and forms links in `stone-400` 0.75rem above a 1px `stone-400` rule.
@@ -555,7 +560,7 @@ Four engineers, no shared files. **Package A owns every file B, C and D depend o
 **The contract B, C and D code against**
 
 *Canvas classes:* `.canvas-paper` `.canvas-cream` `.canvas-sand` `.canvas-ink`
-*Canvas variables:* `--canvas` `--text-strong` `--text-muted` `--text-caption` `--hairline` `--rule` `--focus-ring` `--grain`
+*Canvas variables:* `--canvas` `--text-strong` `--text-muted` `--text-caption` `--rubric` `--hairline` `--rule` `--logo-heart` `--focus-ring` `--grain`
 *New colour tokens:* `--color-ink-950` `--color-sand-100` `--color-sand-200` `--color-sand-300` `--color-terracotta-600` `--color-stone-400` `--color-red-200` `--color-green-300` `--color-amber-300`
 *New type tokens:* `--text-masthead` `--text-masthead-2` `--text-masthead-3` `--text-section` `--text-feature` `--text-rollcall` `--text-cardname` `--text-figure` `--text-folio` `--text-deck` `--text-lede` `--text-rubric` `--text-caption` `--text-catalogue` `--text-index-label` `--text-index-value`
 *Utility classes:* `.folio-rule` `.dotted-leader` `.rule-link` `.numeral-outline` `.grain` `.bleed-rule` `.lede` `.sticker-ring`
