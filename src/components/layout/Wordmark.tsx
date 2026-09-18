@@ -3,28 +3,34 @@ import { Logomark, Logotype } from './Logomark';
 /**
  * The HAART lockup, traced from the organisation's own artwork.
  *
+ * **The mark has a minimum size and it is large.** It is a cat sitting in
+ * front of a dog with an open heart drawn across both — at 34px tall, which is
+ * all a 60px header bar can give it, that resolves to a dark blob with a red
+ * squiggle in it. It needs about 72px before the two animals separate and
+ * roughly 110px before the heart reads as a heart. So the inline lockup is the
+ * **logotype alone**, which is clean down to 22px, and the mark appears only
+ * where there is room for it: the footer, the 404, the favicon. Putting it in
+ * the header was the single thing that made the site look broken.
+ *
  * Both SVGs carry an explicit width AND height rather than `w-auto`: inside a
  * flex row an auto-width SVG is measured as zero and collapses, which clipped
- * the logotype's ascenders in the header. Each pair below keeps its mark's
- * true aspect — 200:263.97 for the mark, 200:58.44 for the logotype.
- *
- * `stacked` puts the mark above the logotype as the real logo does, and holds
- * the artwork's own 2.44:1 height relationship between them, so the footer and
- * the 404 read as the printed logo. Inline the mark is cut back to roughly
- * 1.9× the logotype, otherwise a portrait mark towers over a 60px header bar.
+ * the logotype's ascenders. Each pair below keeps its mark's true aspect —
+ * 200:263.97 for the mark, 200:58.44 for the logotype.
  */
+/** Logotype only. No mark: nothing in a header row is tall enough for it. */
 const INLINE = {
-  sm: { mark: 'h-[28px] w-[21px]', type: 'h-[15px] w-[51px]' },
-  md: { mark: 'h-[36px] w-[27px]', type: 'h-[19px] w-[65px]' },
-  lg: { mark: 'h-[44px] w-[33px]', type: 'h-[23px] w-[79px]' },
-  xl: { mark: 'h-[60px] w-[45px]', type: 'h-[32px] w-[110px]' },
+  sm: { mark: null, type: 'h-[19px] w-[65px]' },
+  md: { mark: null, type: 'h-[24px] w-[82px]' },
+  lg: { mark: null, type: 'h-[30px] w-[103px]' },
+  xl: { mark: null, type: 'h-[40px] w-[137px]' },
 } as const;
 
+/** Mark above logotype, at the artwork's own 2.44:1 ratio. Never below 72px. */
 const STACKED = {
-  sm: { mark: 'h-[44px] w-[33px]', type: 'h-[18px] w-[62px]' },
-  md: { mark: 'h-[56px] w-[42px]', type: 'h-[23px] w-[79px]' },
-  lg: { mark: 'h-[80px] w-[61px]', type: 'h-[33px] w-[113px]' },
-  xl: { mark: 'h-[100px] w-[76px]', type: 'h-[41px] w-[140px]' },
+  sm: { mark: 'h-[72px] w-[55px]', type: 'h-[30px] w-[103px]' },
+  md: { mark: 'h-[88px] w-[67px]', type: 'h-[36px] w-[123px]' },
+  lg: { mark: 'h-[110px] w-[83px]', type: 'h-[45px] w-[154px]' },
+  xl: { mark: 'h-[132px] w-[100px]', type: 'h-[54px] w-[185px]' },
 } as const;
 
 export function Wordmark({
@@ -45,8 +51,8 @@ export function Wordmark({
       role="img"
       aria-label="haart, Homeless and Abused Animal Rescue Team"
     >
-      <Logomark className={`${s.mark} shrink-0`} />
-      {markOnly ? null : <Logotype className={`${s.type} shrink-0`} />}
+      {s.mark ? <Logomark className={`${s.mark} shrink-0`} /> : null}
+      {markOnly && s.mark ? null : <Logotype className={`${s.type} shrink-0`} />}
     </span>
   );
 }
