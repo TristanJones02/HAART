@@ -20,14 +20,14 @@ export function EventCard({ event, past = false, detail = false }: { event: Even
   return (
     <article className="border-b border-[color:var(--hairline)] py-6 sm:flex sm:items-start sm:gap-6 sm:py-7">
       {/* Decorative: the accessible date is the <time> element below. */}
-      <DateBlock event={event} className={past ? 'opacity-70' : ''} />
+      <DateBlock event={event} past={past} />
 
       <span aria-hidden="true" className="hidden w-px self-stretch bg-[color:var(--hairline)] sm:block" />
 
       <div className="mt-3 min-w-0 flex-1 sm:mt-0">
         {past || event.cancelled ? (
           <p className="mb-2 flex flex-wrap items-center gap-3">
-            {event.cancelled ? <span className="bg-charcoal-900 px-2 py-1 text-index-label uppercase text-paper-0">Cancelled</span> : null}
+            {event.cancelled ? <span className="bg-charcoal-900 px-2 py-1 text-rubric uppercase text-paper-0">Cancelled</span> : null}
             {past ? <span className="text-index-label uppercase text-[color:var(--text-caption)]">Past</span> : null}
           </p>
         ) : null}
@@ -44,7 +44,7 @@ export function EventCard({ event, past = false, detail = false }: { event: Even
           ) : null}
         </p>
 
-        {description ? <p className="mt-2 max-w-prose text-small text-[color:var(--text-muted)]">{description}</p> : null}
+        {description ? <p className="mt-2 max-w-[62ch] text-small text-[color:var(--text-muted)]">{description}</p> : null}
 
         {event.facebookUrl || event.ticketLink ? (
           <p className="mt-4 flex flex-wrap items-center gap-x-8 gap-y-3">

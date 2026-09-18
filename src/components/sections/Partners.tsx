@@ -1,70 +1,75 @@
-import { Container, Section, SectionHeading } from '@/components/ui/Container';
+import { Container, Section } from '@/components/ui/Container';
 import { SmartImage } from '@/components/ui/SmartImage';
-import { UiIcon } from '@/components/ui/Icon';
-import { Stagger, StaggerItem } from '@/components/motion/Reveal';
+import { FolioBar, sectionHeadClass } from '@/components/art';
 import { getPartners } from '@/lib/content/partners';
+import type { Partner } from '@/lib/content/types';
 import type { SectionProps } from './SectionRenderer';
 
-export async function PartnerGrid({ section, surface }: SectionProps<'section.partnerGrid'>) {
+/**
+ * The "with thanks" index: names in Nunito 700 separated by 1px vertical
+ * hairlines, wrapping. It looks deliberate today with no logos at all, and
+ * when a logo arrives it slots into a 120x48 box between the same hairlines
+ * with nothing else changing.
+ */
+function PartnerIndex({ partners }: { partners: Partner[] }) {
+  return (
+    <ul className="flex flex-wrap items-center border-y border-[color:var(--hairline)] py-3">
+      {partners.map((p, i) => (
+        <li key={p.slug} className="flex items-center">
+          {i > 0 ? <span aria-hidden="true" className="mx-5 h-7 w-px flex-none bg-[color:var(--hairline)]" /> : null}
+          {p.url ? (
+            <a
+              href={p.url}
+              rel="noopener noreferrer"
+              target="_blank"
+              className="inline-flex min-h-11 items-center font-display text-[1.125rem] font-bold text-[color:var(--text-strong)] underline decoration-[color:var(--hairline)] decoration-1 underline-offset-[6px] hover:decoration-[color:var(--rule)] hover:decoration-2"
+            >
+              {p.logo ? <SmartImage image={p.logo} aspect="h-12 w-[120px]" sizes="120px" width={240} imgClassName="object-contain" /> : p.name}
+            </a>
+          ) : (
+            <span className="inline-flex min-h-11 items-center font-display text-[1.125rem] font-bold">
+              {p.logo ? <SmartImage image={p.logo} aspect="h-12 w-[120px]" sizes="120px" width={240} imgClassName="object-contain" /> : p.name}
+            </span>
+          )}
+        </li>
+      ))}
+    </ul>
+  );
+}
+
+export async function PartnerGrid({ section, canvas, index, topRule }: SectionProps<'section.partnerGrid'>) {
   const partners = await getPartners();
   if (!partners.length) return null;
   const id = `s-${section._key}`;
+  const heading = section.heading ?? 'Friends of HAART';
   return (
-    <Section surface={surface} labelledBy={section.heading ? id : undefined}>
+    <Section canvas={canvas} topRule={topRule} labelledBy={id}>
       <Container>
-        <SectionHeading id={id} heading={section.heading} lead={section.intro} />
-        <Stagger as="ul" className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {partners.map((p) => (
-            <StaggerItem key={p.slug} as="li" className="h-full">
-              <article className="flex h-full flex-col rounded-card border border-border bg-paper-0 p-5 shadow-card">
-                <div className="flex items-center gap-4">
-                  <div className="size-16 shrink-0 overflow-hidden rounded-control border border-border bg-paper-50">
-                    {p.logo ? <SmartImage image={p.logo} aspect="aspect-square" sizes="64px" width={128} imgClassName="object-contain p-1" /> : <div className="flex size-full items-center justify-center font-display text-h2 text-charcoal-300">{p.name.charAt(0)}</div>}
-                  </div>
-                  <div>
-                    <h3 className="text-h3">{p.name}</h3>
-                    {p.category ? <p className="text-small text-charcoal-550">{p.category}</p> : null}
-                  </div>
-                </div>
-                {p.description ? <p className="mt-4 flex-1 text-body text-charcoal-700">{p.description}</p> : null}
-                {p.url ? (
-                  <a href={p.url} className="mt-4 inline-flex items-center gap-1 text-small font-semibold text-red-600 hover:underline" rel="noopener noreferrer" target="_blank">
-                    Visit website
-                    <UiIcon name="ExternalLink" size={16} />
-                  </a>
-                ) : null}
-              </article>
-            </StaggerItem>
-          ))}
-        </Stagger>
+        <FolioBar rubric="With thanks" numeral={index + 1} />
+        <h2 id={id} className={sectionHeadClass(heading)}>
+          {heading}
+        </h2>
+        {section.intro ? <p className="mt-4 max-w-[34ch] text-deck italic text-[color:var(--text-muted)]">{section.intro}</p> : null}
+        <div className="mt-10">
+          <PartnerIndex partners={partners} />
+        </div>
       </Container>
     </Section>
   );
 }
 
-export async function PartnerLogos({ section, surface }: SectionProps<'section.partnerLogos'>) {
+export async function PartnerLogos({ section, canvas, topRule }: SectionProps<'section.partnerLogos'>) {
   const partners = await getPartners();
   if (!partners.length) return null;
   const id = `s-${section._key}`;
   return (
-    <Section surface={surface} tight labelledBy={id}>
+    <Section canvas={canvas} topRule={topRule} tight labelledBy={id}>
       <Container>
-        <h2 id={id} className="mb-6 text-center text-tiny uppercase tracking-caps text-charcoal-550">
+        <h2 id={id} className="sr-only">
           {section.heading ?? 'Supported by'}
         </h2>
-        <ul className="flex flex-wrap items-center justify-center gap-x-10 gap-y-4">
-          {partners.map((p) => (
-            <li key={p.slug} className="text-charcoal-700">
-              {p.url ? (
-                <a href={p.url} rel="noopener noreferrer" target="_blank" className="inline-flex h-12 items-center font-display text-lead font-bold hover:text-red-600">
-                  {p.logo ? <SmartImage image={p.logo} aspect="h-10 w-28" sizes="112px" width={224} imgClassName="object-contain" /> : p.name}
-                </a>
-              ) : (
-                <span className="inline-flex h-12 items-center font-display text-lead font-bold">{p.name}</span>
-              )}
-            </li>
-          ))}
-        </ul>
+        <FolioBar rubric={section.heading ?? 'Supported by'} />
+        <PartnerIndex partners={partners} />
       </Container>
     </Section>
   );

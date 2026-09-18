@@ -1,43 +1,42 @@
-import { Container, Section, SectionHeading } from '@/components/ui/Container';
-import { Reveal } from '@/components/motion/Reveal';
+import { FolioBar, sectionHeadClass } from '@/components/art';
+import { Container, Section } from '@/components/ui/Container';
 import type { SectionProps } from './SectionRenderer';
 
-export function FeeTable({ section, surface }: SectionProps<'section.feeTable'>) {
+/**
+ * A ledger, not a bordered table: label left, a dotted leader, the amount right
+ * at figure scale in red. An amount a volunteer has written as words rather
+ * than a number ("Set per dog") steps down so it cannot blow the row apart.
+ */
+export function FeeTable({ section, canvas, index, topRule }: SectionProps<'section.feeTable'>) {
   const id = `s-${section._key}`;
+  const rows = section.rows ?? [];
   return (
-    <Section surface={surface} labelledBy={section.heading ? id : undefined}>
+    <Section canvas={canvas} topRule={topRule} labelledBy={section.heading ? id : undefined}>
       <Container>
-        <SectionHeading id={id} heading={section.heading} />
-        <Reveal className="max-w-prose">
-          <table className="w-full border-collapse overflow-hidden rounded-card border border-border bg-paper-0 text-left">
-            <caption className="sr-only">Adoption fees</caption>
-            <thead>
-              <tr className="bg-paper-100 text-tiny uppercase tracking-caps text-charcoal-550">
-                <th scope="col" className="px-4 py-3 font-semibold">
-                  Animal
-                </th>
-                <th scope="col" className="px-4 py-3 font-semibold">
-                  Fee
-                </th>
-                <th scope="col" className="px-4 py-3 font-semibold">
-                  Note
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {section.rows.map((r, i) => (
-                <tr key={r._key ?? i} className="border-t border-border">
-                  <th scope="row" className="px-4 py-3 font-semibold">
-                    {r.label}
-                  </th>
-                  <td className="px-4 py-3 font-display text-h3 text-red-600">{r.amount}</td>
-                  <td className="px-4 py-3 text-charcoal-700">{r.note}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-          {section.inclusions ? <p className="mt-4 text-body text-charcoal-700">{section.inclusions}</p> : null}
-        </Reveal>
+        <FolioBar rubric="What it costs" numeral={index + 1} />
+        {section.heading ? (
+          <h2 id={id} className={sectionHeadClass(section.heading)}>
+            {section.heading}
+          </h2>
+        ) : null}
+        <dl className="mt-10 m-0 max-w-[62ch] border-t border-[color:var(--hairline)]">
+          {rows.map((r, i) => {
+            const isFigure = /^[$\d]/.test(r.amount.trim());
+            return (
+              <div key={r._key ?? i} className="border-b border-[color:var(--hairline)] py-6">
+                <div className="flex items-baseline gap-3">
+                  <dt className="font-display text-feature">{r.label}</dt>
+                  <span aria-hidden="true" className="dotted-leader" />
+                  <dd className={`m-0 flex-none text-right font-display tabular-nums text-[color:var(--rule)] ${isFigure ? 'text-figure' : 'text-feature'}`}>
+                    {r.amount}
+                  </dd>
+                </div>
+                {r.note ? <p className="mt-2 text-[0.8125rem] leading-[1.4] font-semibold italic text-[color:var(--text-caption)]">{r.note}</p> : null}
+              </div>
+            );
+          })}
+        </dl>
+        {section.inclusions ? <p className="mt-8 max-w-prose text-[color:var(--text-muted)]">{section.inclusions}</p> : null}
       </Container>
     </Section>
   );

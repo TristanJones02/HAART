@@ -16,7 +16,7 @@ export function IndexList({ rows, dense = false, className = '' }: { rows: Index
           <div key={row.label} className={`flex items-baseline gap-2 border-b border-[color:var(--hairline)] ${dense ? 'py-2' : 'py-3'} last:border-b-0`}>
             <dt className="flex-none text-index-label uppercase text-[color:var(--text-muted)]">{row.label}</dt>
             <span aria-hidden="true" className="dotted-leader" />
-            <dd className={`m-0 flex-none text-index-value ${missing ? 'italic text-[color:var(--text-caption)]' : 'text-[color:var(--text-strong)]'}`}>
+            <dd className={`m-0 min-w-0 shrink text-right text-index-value [overflow-wrap:anywhere] ${missing ? 'italic text-[color:var(--text-caption)]' : 'text-[color:var(--text-strong)]'}`}>
               {missing ? 'Ask us' : row.value}
             </dd>
           </div>

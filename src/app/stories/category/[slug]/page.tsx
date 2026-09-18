@@ -1,6 +1,8 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { Container, Section } from '@/components/ui/Container';
+import { FolioBar } from '@/components/art';
+import { mastheadClass } from '@/components/art/headingStep';
 import { ArticleCard } from '@/components/articles/ArticleCard';
 import { ArticleFilters } from '@/components/articles/ArticleFilters';
 import { Stagger, StaggerItem } from '@/components/motion/Reveal';
@@ -26,26 +28,26 @@ export default async function CategoryPage(props: PageProps<'/stories/category/[
   const [articles, categories, series] = await Promise.all([getArticles({ category: slug, limit: 50 }), getCategories(), getAllSeries()]);
   return (
     <>
-      <Section surface="paper-50" className="border-b border-border">
+      <Section canvas="ink">
         <Container>
-          <p className="mb-2 text-tiny uppercase tracking-caps text-red-600">Stories</p>
-          <h1 className="text-h1">{category.title}</h1>
-          {category.description ? <p className="mt-3 max-w-prose text-lead text-charcoal-700">{category.description}</p> : null}
+          <FolioBar rubric="Stories" right={`${articles.length} ${articles.length === 1 ? 'story' : 'stories'}`} />
+          <h1 className={mastheadClass(category.title)}>{category.title}</h1>
+          {category.description ? <p className="mt-6 max-w-[34ch] text-deck italic text-[color:var(--text-muted)]">{category.description}</p> : null}
         </Container>
       </Section>
-      <Section surface="paper-0">
+      <Section canvas="paper">
         <Container>
           <ArticleFilters categories={categories} series={series} active={`category:${slug}`} />
           {articles.length ? (
-            <Stagger as="ul" className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+            <Stagger as="ul" className="grid gap-x-8 gap-y-12 md:grid-cols-2 lg:grid-cols-3">
               {articles.map((a, i) => (
                 <StaggerItem key={a.slug} as="li" className="h-full">
-                  <ArticleCard article={a} priority={i < 3} />
+                  <ArticleCard article={a} index={i} priority={i < 3} />
                 </StaggerItem>
               ))}
             </Stagger>
           ) : (
-            <p className="text-lead">No stories in this category yet.</p>
+            <p className="text-deck italic text-[color:var(--text-muted)]">No stories in this category yet.</p>
           )}
         </Container>
       </Section>

@@ -1,36 +1,39 @@
-import { Container, Section, SectionHeading } from '@/components/ui/Container';
-import { Icon } from '@/components/ui/Icon';
+import { FolioBar, IndexList, type IndexRow } from '@/components/art';
+import { Container, Section } from '@/components/ui/Container';
 import { getSiteSettings } from '@/lib/content/settings';
 import type { SectionProps } from './SectionRenderer';
 
-/** Registration details, shown only where the value is marked verified in the Studio. */
-export async function TrustBand({ section, surface }: SectionProps<'section.trustBand'>) {
+/**
+ * Registration details as a ruled index. Values appear only where a committee
+ * member has marked them verified in the Studio; an unverified line renders as
+ * "Ask us" rather than as a confident guess, which is what the index is for.
+ */
+export async function TrustBand({ section, canvas, index, topRule }: SectionProps<'section.trustBand'>) {
   const s = await getSiteSettings();
-  const items: { label: string; value: string }[] = [];
-  if (section.showAbn !== false && s.abn.verified && s.abn.value) items.push({ label: 'ABN', value: s.abn.value });
-  if (section.showAcnc !== false && s.acncRegisterId.verified) items.push({ label: 'Charity status', value: 'Registered with the ACNC' });
-  if (section.showFounded !== false && s.foundedYear.verified && s.foundedYear.value) items.push({ label: 'Rescuing since', value: String(s.foundedYear.value) });
-  if (s.dgrEndorsed) items.push({ label: 'Tax', value: 'Gifts of $2 or more are tax deductible' });
-  items.push({ label: 'Legal name', value: s.legalName });
+  const rows: IndexRow[] = [{ label: 'Registered name', value: s.legalName }];
+  if (section.showAbn !== false) rows.push({ label: 'ABN', value: s.abn.verified ? s.abn.value : null });
+  if (section.showAcnc !== false) rows.push({ label: 'Charity status', value: s.acncRegisterId.verified ? 'Registered with the ACNC' : null });
+  if (section.showFounded !== false) rows.push({ label: 'Rescuing since', value: s.foundedYear.verified && s.foundedYear.value ? String(s.foundedYear.value) : null });
+  if (s.dgrEndorsed) rows.push({ label: 'Tax', value: 'Gifts of $2 or more are tax deductible' });
+
   const id = `s-${section._key}`;
   return (
-    <Section surface={surface} labelledBy={section.heading ? id : undefined}>
+    <Section canvas={canvas} topRule={topRule} labelledBy={section.heading ? id : undefined}>
       <Container>
-        <SectionHeading id={id} heading={section.heading} />
-        <dl className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {items.map((it) => (
-            <div key={it.label} className="flex gap-3 rounded-card border border-border bg-paper-0 p-4">
-              <span className="text-red-600">
-                <Icon name="badge-check" size={24} />
-              </span>
-              <div>
-                <dt className="text-tiny uppercase tracking-caps text-charcoal-550">{it.label}</dt>
-                <dd className="mt-1 text-body font-semibold">{it.value}</dd>
-              </div>
+        <FolioBar rubric="Registration details" numeral={index + 1} />
+        <div className="grid gap-8 lg:grid-cols-12 lg:gap-8">
+          {section.heading ? (
+            <div className="lg:col-span-4">
+              <h2 id={id} className="text-feature">
+                {section.heading}
+              </h2>
+              {section.note ? <p className="mt-4 max-w-[38ch] text-[0.9375rem] leading-[1.5] text-[color:var(--text-muted)]">{section.note}</p> : null}
             </div>
-          ))}
-        </dl>
-        {section.note && items.length < 3 ? <p className="mt-4 text-small text-charcoal-550">{section.note}</p> : null}
+          ) : null}
+          <div className="lg:col-span-8 lg:col-start-5">
+            <IndexList rows={rows} />
+          </div>
+        </div>
       </Container>
     </Section>
   );

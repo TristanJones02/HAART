@@ -1,23 +1,23 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { Container, Section, SectionHeading } from '@/components/ui/Container';
-import { StatusBadge } from '@/components/ui/Badge';
+import { Container, Section } from '@/components/ui/Container';
+import { StatusChip } from '@/components/ui/Badge';
 import { Button } from '@/components/ui/Button';
 import { Prose } from '@/components/ui/Prose';
-import { ShareButtons } from '@/components/ui/ShareButtons';
-import { UiIcon } from '@/components/ui/Icon';
+import { FolioBar, IndexList, Plate, Quad, RuleLink, TearOff, plateFor } from '@/components/art';
 import { Stagger, StaggerItem } from '@/components/motion/Reveal';
 import { AnimalCard } from '@/components/animals/AnimalCard';
 import { PhotoGallery } from '@/components/animals/PhotoGallery';
-import { animalFacts, feeLabel, triLabel } from '@/components/animals/helpers';
+import { animalFacts, feeLabel, plateCaption, plateSubject, profileFacts, statusKey } from '@/components/animals/helpers';
 import { getAnimal, getRelatedAnimals, listAnimals } from '@/lib/animals';
 import { getSiteSettings } from '@/lib/content/settings';
 import { buildMetadata, siteUrl } from '@/lib/seo/metadata';
 import { JsonLd, breadcrumbJsonLd } from '@/lib/seo/jsonld';
 import { resolveImageUrl } from '@/lib/sanity/image';
-import { portableToText } from '@/lib/sanity/portable';
+import { portableToText, textToPortable } from '@/lib/sanity/portable';
 import { EnquiryTracker } from '@/components/animals/EnquiryTracker';
+import type { PortableTextBlock } from '@/lib/content/types';
 
 export const revalidate = 300;
 
@@ -39,111 +39,156 @@ export async function generateMetadata(props: PageProps<'/adopt/[species]/[slug]
   });
 }
 
+/** Names step down rather than overflow; nothing on this site truncates a heading. */
+function nameClass(name: string): string {
+  if (name.length > 20) return 'text-masthead-3';
+  if (name.length > 12) return 'text-masthead-2';
+  return 'text-masthead';
+}
+
+const normalise = (s: string) => s.replace(/\s+/g, ' ').trim().toLowerCase();
+
 export default async function AnimalPage(props: PageProps<'/adopt/[species]/[slug]'>) {
   const { species, slug } = await props.params;
   const animal = await getAnimal(slug);
   if (!animal || (animal.species === 'dog' ? 'dogs' : 'cats') !== species) notFound();
   const [related, settings] = await Promise.all([getRelatedAnimals(animal, 4), getSiteSettings()]);
-  const facts = animalFacts(animal);
+
+  const deck = animalFacts(animal).join(' · ');
   const fee = feeLabel(animal, settings.fees.catStandard);
   const listingPath = `/adopt/${species}`;
   const applyPath = `/adopt/apply/${species}?animal=${encodeURIComponent(animal.slug)}`;
   const adopted = animal.status === 'adopted';
   const url = `${siteUrl}/adopt/${species}/${slug}`;
+  const plate = plateFor(plateSubject(animal));
 
-  const goodWith: { label: string; value: string; note?: string }[] = [
-    { label: 'Children', value: triLabel(animal.goodWith.kids), note: animal.goodWith.kidsAgeNote },
-    { label: 'Cats', value: triLabel(animal.goodWith.cats) },
-    { label: 'Other dogs', value: triLabel(animal.goodWith.dogs) },
-  ];
+  const blocks: PortableTextBlock[] = typeof animal.description === 'string' ? textToPortable(animal.description) : (animal.description ?? []);
+  const bodyText = portableToText(blocks);
+  const summary = animal.summary?.trim();
+  // The summary is the pull quote — unless a volunteer has used it as the
+  // write-up's opening line, in which case quoting it would just stutter.
+  const quote = summary && summary.length > 20 && !normalise(bodyText).startsWith(normalise(summary).slice(0, 40)) ? summary : null;
+  const head = quote && blocks.length > 2 ? blocks.slice(0, 2) : blocks;
+  const tail = quote && blocks.length > 2 ? blocks.slice(2) : [];
 
   return (
     <>
       <EnquiryTracker animal={animal.haartId} />
-      <Section surface="paper-50" className="border-b border-border">
+
+      <Section canvas="paper">
         <Container>
-          <nav aria-label="Breadcrumb" className="mb-6 text-small text-charcoal-550">
+          <nav aria-label="Breadcrumb" className="mb-6 text-[0.8125rem] text-charcoal-700">
             <ol className="flex flex-wrap gap-2">
               <li>
-                <Link href="/adopt" className="hover:text-red-600">
-                  Adopt
-                </Link>
+                <Link href="/adopt">Adopt</Link>
                 <span aria-hidden="true"> / </span>
               </li>
               <li>
-                <Link href={listingPath} className="hover:text-red-600">
-                  {species === 'dogs' ? 'Dogs' : 'Cats'}
-                </Link>
+                <Link href={listingPath}>{species === 'dogs' ? 'Dogs' : 'Cats'}</Link>
                 <span aria-hidden="true"> / </span>
               </li>
               <li aria-current="page">{animal.name}</li>
             </ol>
           </nav>
-          <div className="grid gap-8 lg:grid-cols-[1.2fr_1fr] lg:items-start">
-            <PhotoGallery photos={animal.photos} name={animal.name} />
-            <div>
-              <div className="flex flex-wrap gap-2">
-                <StatusBadge status={animal.status} />
-                {animal.fosterNeeded && !adopted ? <StatusBadge status="fosterNeeded" /> : null}
-              </div>
-              <h1 className="mt-4 text-h1">
-                {animal.name} <span className="block text-lead font-normal text-charcoal-550 sm:inline">{animal.haartId}</span>
-              </h1>
-              {facts.length ? <p className="mt-2 text-lead text-charcoal-700">{facts.join(' · ')}</p> : null}
-              {animal.summary ? <p className="mt-4 text-body text-charcoal-700">{animal.summary}</p> : null}
 
-              <dl className="mt-6 grid grid-cols-3 gap-3">
-                {goodWith.map((g) => (
-                  <div key={g.label} className="rounded-card border border-border bg-paper-0 p-3">
-                    <dt className="text-tiny uppercase tracking-caps text-charcoal-550">{g.label}</dt>
-                    <dd className="mt-1 font-display text-lead font-bold">
-                      {g.value}
-                      {g.note ? <span className="block text-small font-normal text-charcoal-550">{g.note}</span> : null}
-                    </dd>
-                  </div>
-                ))}
-              </dl>
+          <PhotoGallery
+            photos={animal.photos}
+            name={animal.name}
+            caption={plateCaption(animal)}
+            catalogue={animal.haartId}
+            placeholder={<Plate name={plate.name} colourway={plate.colourway} />}
+            chip={<StatusChip status={statusKey(animal)} />}
+          />
 
-              <div className="mt-6 rounded-card border border-border bg-paper-0 p-5">
-                <div className="flex items-baseline justify-between gap-4">
-                  <span className="text-small font-semibold text-charcoal-700">Adoption fee</span>
-                  <span className="font-display text-h2 text-red-600">{fee ?? 'Ask us'}</span>
+          {/* The name never sits on the band: no scrim, no text-shadow, no contrast guessing. */}
+          <h1 className={`mt-10 ${nameClass(animal.name)}`}>{animal.name}</h1>
+          {deck ? <p className="mt-4 max-w-[34ch] text-deck italic text-charcoal-700">{deck}</p> : null}
+
+          <div className="mt-12 grid gap-10 lg:grid-cols-12 lg:gap-8">
+            <aside className="lg:sticky lg:top-24 lg:col-span-4 lg:col-start-9 lg:row-start-1 lg:self-start">
+              <h2 className="sr-only">{animal.name}&apos;s record</h2>
+              <IndexList rows={profileFacts(animal, fee)} dense />
+              <p className="mt-3 text-small text-charcoal-700">{animal.feeNote ?? settings.fees.inclusions}</p>
+
+              {adopted ? (
+                <div className="mt-8">
+                  <p className="font-display text-feature">{animal.name} has been adopted.</p>
+                  <p className="mt-4">
+                    <RuleLink href={listingPath}>See who is still waiting</RuleLink>
+                  </p>
                 </div>
-                <p className="mt-1 text-small text-charcoal-550">{animal.feeNote ?? settings.fees.inclusions}</p>
-                <ul className="mt-3 flex flex-wrap gap-x-4 gap-y-1 text-small text-charcoal-700">
-                  {animal.desexed ? <li className="inline-flex items-center gap-1"><UiIcon name="Check" size={16} className="text-green-600" /> Desexed</li> : null}
-                  {animal.vaccinated ? <li className="inline-flex items-center gap-1"><UiIcon name="Check" size={16} className="text-green-600" /> Vaccinated</li> : null}
-                  {animal.microchipped ? <li className="inline-flex items-center gap-1"><UiIcon name="Check" size={16} className="text-green-600" /> Microchipped</li> : null}
-                </ul>
-                <div className="mt-5 flex flex-col gap-3">
-                  {adopted ? (
-                    <>
-                      <p className="text-body font-semibold">{animal.name} has been adopted.</p>
-                      <Button href={listingPath} variant="secondary">
-                        See who is still waiting
-                      </Button>
-                    </>
-                  ) : (
-                    <>
-                      <Button href={applyPath} size="lg" icon={<UiIcon name="ArrowRight" size={20} />}>
-                        Apply to adopt {animal.name}
-                      </Button>
-                      {animal.fosterNeeded ? (
-                        <Button href={`/foster/apply/${species}?animal=${encodeURIComponent(animal.slug)}`} variant="secondary" size="lg">
-                          Foster {animal.name}
-                        </Button>
-                      ) : null}
-                    </>
-                  )}
+              ) : (
+                <div className="relative mt-8 mb-14">
+                  <Button href={applyPath} size="lg" className="w-full">
+                    Apply to adopt {animal.name}
+                  </Button>
+                  {animal.fosterNeeded ? (
+                    <p className="mt-4">
+                      <RuleLink href={`/foster/apply/${species}?animal=${encodeURIComponent(animal.slug)}`}>Foster {animal.name}</RuleLink>
+                    </p>
+                  ) : null}
+                  {/* The tear-off belongs to this column, not to the viewport: the bleed is neutralised. */}
+                  <TearOff tabFill="paper" className="ml-0 w-full max-w-full" />
+                </div>
+              )}
+
+              <div className="mt-8 border-t border-[color:var(--hairline)] pt-6">
+                <p className="flex items-center gap-2 text-rubric uppercase text-[color:var(--rubric)]">
+                  <Quad />
+                  Share {animal.name}
+                </p>
+                <p className="mt-3 text-small text-charcoal-700">Most of our animals find their home through someone sharing them.</p>
+                <div className="mt-4 flex flex-col items-start gap-3">
+                  <RuleLink href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`} external>
+                    Share on Facebook
+                  </RuleLink>
+                  <a className="rule-link" href={`mailto:?subject=${encodeURIComponent(`${animal.name} is looking for a home`)}&body=${encodeURIComponent(url)}`}>
+                    Share by email
+                  </a>
                 </div>
               </div>
+
               {animal.petrescueUrl ? (
-                <p className="mt-3 text-small text-charcoal-550">
+                <p className="mt-6 text-small text-charcoal-700">
                   Also listed on{' '}
-                  <a href={animal.petrescueUrl} className="underline underline-offset-4 hover:text-red-600" rel="noopener noreferrer" target="_blank">
+                  <a href={animal.petrescueUrl} className="underline underline-offset-4" rel="noopener noreferrer" target="_blank">
                     PetRescue
                   </a>
                   .
+                </p>
+              ) : null}
+            </aside>
+
+            <div className="lg:col-span-7 lg:row-start-1">
+              <h2 className="sr-only">About {animal.name}</h2>
+              {blocks.length ? <Prose value={head} /> : <p className="text-body text-charcoal-700">We are still writing {animal.name}&apos;s full story. Ask us anything in the meantime.</p>}
+              {quote ? (
+                <figure className="my-10 max-w-[62ch]">
+                  <span aria-hidden="true" className="mb-5 block h-[3px] w-24 bg-red-600" />
+                  <blockquote className="font-display text-[clamp(1.5rem,3.2vw,2.5rem)] font-extrabold leading-[1.1] tracking-[-0.02em]">{quote}</blockquote>
+                  <figcaption className="mt-4 flex items-center gap-2 text-rubric uppercase text-[color:var(--rubric)]">
+                    <Quad />
+                    {animal.name} · {animal.haartId}
+                  </figcaption>
+                </figure>
+              ) : null}
+              {tail.length ? <Prose value={tail} className="[&>p:first-child]:border-l-0 [&>p:first-child]:pl-0 [&>p:first-child]:text-body" /> : null}
+
+              {animal.medicalNote ? (
+                <aside className="mt-10 max-w-[62ch] border-l-4 border-red-600 bg-paper-0 py-1 pl-5">
+                  <p className="flex items-center gap-2 text-rubric uppercase text-[color:var(--rubric)]">
+                    <Quad />
+                    Medical and behaviour note
+                  </p>
+                  <p className="mt-2 text-body">{animal.medicalNote}</p>
+                </aside>
+              ) : null}
+
+              {animal.story ? (
+                <p className="mt-10">
+                  <RuleLink href={`/stories/${animal.story.slug}`}>
+                    Read {animal.name}&apos;s story: {animal.story.title}
+                  </RuleLink>
                 </p>
               ) : null}
             </div>
@@ -151,64 +196,34 @@ export default async function AnimalPage(props: PageProps<'/adopt/[species]/[slu
         </Container>
       </Section>
 
-      <Section surface="paper-0">
-        <Container className="grid gap-10 lg:grid-cols-[1.2fr_1fr]">
-          <div>
-            <h2 className="text-h2">About {animal.name}</h2>
-            <Prose value={animal.description} className="mt-4 text-lead [&>p]:mb-5" />
-            {animal.medicalNote ? (
-              <aside className="mt-6 rounded-card border border-border bg-paper-100 p-4">
-                <h3 className="text-h3">Medical and behaviour note</h3>
-                <p className="mt-1 text-body text-charcoal-700">{animal.medicalNote}</p>
-              </aside>
-            ) : null}
-            {animal.story ? (
-              <p className="mt-6">
-                <Link href={`/stories/${animal.story.slug}`} className="font-semibold text-red-600 underline-offset-4 hover:underline">
-                  Read {animal.name}&apos;s story: {animal.story.title}
-                </Link>
-              </p>
-            ) : null}
-          </div>
-          <aside className="space-y-6">
-            <div className="rounded-card border border-border bg-paper-50 p-5">
-              <h2 className="text-h3">Share {animal.name}</h2>
-              <p className="mt-1 text-body text-charcoal-700">Most of our animals find their home through someone sharing them.</p>
-              <div className="mt-4">
-                <ShareButtons url={url} title={`${animal.name} is looking for a home through HAART`} />
-              </div>
-            </div>
-            <div className="rounded-card border border-border bg-paper-50 p-5">
-              <h2 className="text-h3">How adoption works</h2>
-              <ol className="mt-2 list-decimal space-y-1 pl-5 text-body text-charcoal-700">
-                <li>Fill in the questionnaire.</li>
-                <li>We call you within seven days.</li>
-                <li>Meet and greet with the foster carer, and a home check.</li>
-                <li>Adoption day.</li>
-              </ol>
-              <Link href="/adopt" className="mt-3 inline-block text-small font-semibold text-red-600 underline-offset-4 hover:underline">
-                Fees and questions
-              </Link>
-            </div>
-          </aside>
-        </Container>
-      </Section>
-
       {related.length ? (
-        <Section surface="paper-50">
+        <Section canvas="sand" labelledBy="more-animals">
           <Container>
-            <SectionHeading heading={`More ${species} looking for a home`} />
-            <Stagger as="ul" className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            <FolioBar rubric={`More ${species} looking for a home`} />
+            <h2 id="more-animals" className="sr-only">
+              More {species} looking for a home
+            </h2>
+            <Stagger as="ul" className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4 lg:gap-6">
               {related.map((a) => (
-                <StaggerItem key={a.slug} as="li" className="h-full">
+                <StaggerItem key={`${a.slug}-${a.haartId}`} as="li" className="h-full">
                   <AnimalCard animal={a} />
                 </StaggerItem>
               ))}
             </Stagger>
+            <p className="mt-10">
+              <RuleLink href={listingPath}>See every {species === 'dogs' ? 'dog' : 'cat'} on the register</RuleLink>
+            </p>
           </Container>
         </Section>
       ) : null}
-      <JsonLd data={breadcrumbJsonLd([{ name: 'Adopt', path: '/adopt' }, { name: species === 'dogs' ? 'Dogs' : 'Cats', path: listingPath }, { name: animal.name, path: `/adopt/${species}/${slug}` }])} />
+
+      <JsonLd
+        data={breadcrumbJsonLd([
+          { name: 'Adopt', path: '/adopt' },
+          { name: species === 'dogs' ? 'Dogs' : 'Cats', path: listingPath },
+          { name: animal.name, path: `/adopt/${species}/${slug}` },
+        ])}
+      />
     </>
   );
 }

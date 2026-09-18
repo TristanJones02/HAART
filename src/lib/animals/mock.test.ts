@@ -1,5 +1,3 @@
-import { existsSync } from 'node:fs';
-import path from 'node:path';
 import { describe, expect, it } from 'vitest';
 import { MOCK_ANIMALS, listedAtFromHaartId } from '@/lib/mock/animals';
 import { createMockSource, mockSource } from './mock';

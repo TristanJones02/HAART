@@ -1,33 +1,72 @@
 import { Container, Section } from '@/components/ui/Container';
 import { DonateWidget } from '@/components/donate/DonateWidget';
+import { FolioBar, IndexList, Plate, PlateFrame, mastheadClass } from '@/components/art';
+import { MastheadRise, RiseItem } from '@/components/motion/MastheadRise';
 import { getSiteSettings } from '@/lib/content/settings';
 import type { SectionProps } from './SectionRenderer';
 
-export async function DonateWidgetSection({ section }: SectionProps<'section.donateWidget'>) {
+/**
+ * The appeal (§6.8). A masthead cover with the second and last `signal`
+ * plate on the site bleeding off the right, then the gift widget in columns
+ * 1-7 and "What your gift does" as an editorial price index in 9-12.
+ */
+export async function DonateWidgetSection({ section, canvas, topRule }: SectionProps<'section.donateWidget'>) {
   const settings = await getSiteSettings();
   const id = `s-${section._key}`;
+  const heading = section.heading ?? 'Give to the animals';
+  const impact = section.impactLines ?? [];
+
   return (
-    <Section surface="paper-50" labelledBy={id} className="border-b border-border">
-      <Container className="grid gap-10 lg:grid-cols-[1fr_1.1fr] lg:items-start">
-        <div className="max-w-prose">
-          <p className="mb-2 text-tiny uppercase tracking-caps text-red-600">Donate</p>
-          <h1 id={id} className="text-h1">
-            {section.heading ?? 'Give to the animals'}
-          </h1>
-          {section.text ? <p className="mt-4 text-lead text-charcoal-700">{section.text}</p> : null}
-          {settings.dgrEndorsed ? <p className="mt-4 text-body text-charcoal-700">HAART is a Deductible Gift Recipient. Gifts of $2 or more are tax deductible and you will receive a receipt by email.</p> : null}
-          {section.impactLines?.length ? (
-            <dl className="mt-6 space-y-2">
-              {section.impactLines.map((l) => (
-                <div key={l._key ?? l.amount} className="flex gap-3">
-                  <dt className="w-16 shrink-0 font-display text-lead font-bold text-red-600">${l.amount}</dt>
-                  <dd className="text-body text-charcoal-700">{l.text}</dd>
-                </div>
-              ))}
-            </dl>
+    <Section canvas={canvas} topRule={topRule} labelledBy={id}>
+      <Container>
+        <div className="grid gap-x-8 gap-y-10 lg:grid-cols-12 lg:items-center">
+          <MastheadRise className="lg:col-span-7">
+            <RiseItem>
+              <FolioBar rubric="Donate" />
+            </RiseItem>
+            <RiseItem>
+              <h1 id={id} className={mastheadClass(heading)}>
+                {heading}
+              </h1>
+            </RiseItem>
+            <RiseItem>
+              <span aria-hidden="true" className="mt-6 block h-1 w-10 bg-[color:var(--rule)]" />
+            </RiseItem>
+            {section.text ? (
+              <RiseItem>
+                <p className="mt-6 max-w-[34ch] text-deck italic text-[color:var(--text-muted)]">{section.text}</p>
+              </RiseItem>
+            ) : null}
+            {settings.dgrEndorsed ? (
+              <RiseItem>
+                <p className="mt-5 max-w-[62ch] text-body">HAART is a Deductible Gift Recipient. Gifts of $2 or more are tax deductible and you will receive a receipt by email.</p>
+              </RiseItem>
+            ) : null}
+          </MastheadRise>
+
+          {/* The page's one piece of red mass, running off the right margin. */}
+          <div className="-mr-4 sm:mr-[min(-1.5rem,calc(var(--container-site)_/_2_-_1.5rem_-_50vw))] lg:col-span-5">
+            <PlateFrame ratio="4/5" border={2} edges="left">
+              <Plate name="cat-loaf" colourway="signal" />
+            </PlateFrame>
+          </div>
+        </div>
+
+        <div className="mt-14 grid gap-x-8 gap-y-12 lg:grid-cols-12">
+          <div className="lg:col-span-7">
+            <DonateWidget amounts={section.amounts} links={settings.donate} />
+          </div>
+
+          {impact.length ? (
+            <div className="lg:col-span-4 lg:col-start-9">
+              <h2 className="text-feature">What your gift does</h2>
+              <IndexList
+                className="mt-5 [&_dd]:max-w-[22ch] [&_dd]:text-[0.9375rem] [&_dd]:font-normal [&_dd]:leading-snug [&_dt]:font-display [&_dt]:text-[2rem] [&_dt]:font-black [&_dt]:leading-none [&_dt]:tracking-[-0.02em] [&_dt]:normal-case [&_dt]:tabular-nums [&_dt]:text-[color:var(--rule)]"
+                rows={impact.map((l) => ({ label: `$${l.amount}`, value: l.text }))}
+              />
+            </div>
           ) : null}
         </div>
-        <DonateWidget amounts={section.amounts} links={settings.donate} />
       </Container>
     </Section>
   );

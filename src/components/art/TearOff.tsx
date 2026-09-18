@@ -23,7 +23,7 @@ export function TearOff({
     <svg
       aria-hidden="true"
       focusable="false"
-      className={`bleed-rule absolute left-0 top-full h-14 ${className}`}
+      className={`absolute inset-x-0 top-full h-14 w-full ${className}`}
       height="56"
       preserveAspectRatio="none"
       viewBox="0 0 520 56"

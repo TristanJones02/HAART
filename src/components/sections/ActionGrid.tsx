@@ -1,32 +1,56 @@
-import Link from 'next/link';
-import { Container, Section, SectionHeading } from '@/components/ui/Container';
-import { Icon, UiIcon } from '@/components/ui/Icon';
+import { FolioBar, OutlineNumeral, RuleLink, sectionHeadClass } from '@/components/art';
 import { Stagger, StaggerItem } from '@/components/motion/Reveal';
-import { HoverLift } from '@/components/motion/HoverLift';
+import { Container, Section } from '@/components/ui/Container';
 import type { SectionProps } from './SectionRenderer';
 
-export function ActionGrid({ section, surface }: SectionProps<'section.actionGrid'>) {
+/**
+ * Four ways in, set as an index rather than four identical boxes. The editor's
+ * icon field is ignored on purpose: the generic rounded-square icons were the
+ * most template-like thing on the rejected page, and an outline numeral says
+ * the same thing without pretending to be a picture. No boxes, no shadows —
+ * the only structure is the hairline between columns.
+ */
+
+/** Hairlines fall between columns, never around them: 1-up, 2-up, then 4-up. */
+function cell(i: number, total: number): string {
+  const col2 = i % 2;
+  const col4 = i % 4;
+  return [
+    i > 0 ? 'border-t pt-8' : '',
+    i >= 2 ? 'sm:border-t sm:pt-8' : 'sm:border-t-0 sm:pt-0',
+    col2 > 0 ? 'sm:border-l sm:pl-8' : 'sm:border-l-0 sm:pl-0',
+    col2 < 1 ? 'sm:pr-8' : 'sm:pr-0',
+    i >= 4 ? 'min-[900px]:border-t min-[900px]:pt-8' : 'min-[900px]:border-t-0 min-[900px]:pt-0',
+    col4 > 0 ? 'min-[900px]:border-l min-[900px]:pl-8' : 'min-[900px]:border-l-0 min-[900px]:pl-0',
+    col4 < 3 && i < total - 1 ? 'min-[900px]:pr-8' : 'min-[900px]:pr-0',
+  ]
+    .filter(Boolean)
+    .join(' ');
+}
+
+export function ActionGrid({ section, canvas, topRule }: SectionProps<'section.actionGrid'>) {
   const id = `s-${section._key}`;
+  const items = section.items ?? [];
   return (
-    <Section surface={surface} labelledBy={section.heading ? id : undefined}>
+    <Section canvas={canvas} topRule={topRule} labelledBy={section.heading ? id : undefined}>
       <Container>
-        <SectionHeading id={id} heading={section.heading} />
-        <Stagger as="ul" className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {section.items.map((item, i) => (
-            <StaggerItem key={item._key ?? i} as="li" className="h-full">
-              <HoverLift>
-                <Link href={item.link.href} className="group flex h-full flex-col rounded-card border border-border bg-paper-0 p-5 shadow-card transition-shadow duration-150 hover:shadow-card-hover">
-                  <span className="inline-flex size-11 items-center justify-center rounded-control bg-red-50 text-red-600">
-                    <Icon name={item.icon} size={24} />
-                  </span>
-                  <h3 className="mt-4 text-h3">{item.heading}</h3>
-                  <p className="mt-2 flex-1 text-body text-charcoal-700">{item.text}</p>
-                  <span className="mt-4 inline-flex items-center gap-1 font-semibold text-red-600 group-hover:underline">
-                    {item.link.label}
-                    <UiIcon name="ArrowRight" size={16} />
-                  </span>
-                </Link>
-              </HoverLift>
+        <FolioBar rubric="Where to start" />
+        {section.heading ? (
+          <h2 id={id} className={`mb-10 max-w-[18ch] ${sectionHeadClass(section.heading)}`}>
+            {section.heading}
+          </h2>
+        ) : null}
+        <Stagger as="ul" className="grid grid-cols-1 gap-x-0 gap-y-8 sm:grid-cols-2 min-[900px]:grid-cols-4">
+          {items.map((item, i) => (
+            <StaggerItem key={item._key ?? i} as="li" className={`flex flex-col border-[color:var(--hairline)] ${cell(i, items.length)}`}>
+              <div className="flex items-baseline gap-3 sm:block">
+                <OutlineNumeral n={i + 1} size="index" className="sm:block sm:text-folio" />
+                <h3 className="text-feature sm:mt-4">{item.heading}</h3>
+              </div>
+              <p className="mt-3 flex-1 text-[color:var(--text-muted)]">{item.text}</p>
+              <p className="mt-5">
+                <RuleLink href={item.link.href}>{item.link.label}</RuleLink>
+              </p>
             </StaggerItem>
           ))}
         </Stagger>

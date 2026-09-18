@@ -1,45 +1,37 @@
-import Link from 'next/link';
-import { Container, Section, SectionHeading } from '@/components/ui/Container';
-import { UiIcon } from '@/components/ui/Icon';
-import { Reveal } from '@/components/motion/Reveal';
+import { FolioBar, RuleLink, sectionHeadClass } from '@/components/art';
+import { Container, Section } from '@/components/ui/Container';
 import type { SectionProps } from './SectionRenderer';
 
-export function LinkList({ section, surface }: SectionProps<'section.linkList'>) {
+/**
+ * A ruled contents list: the destination as a rule-link on the left, a dotted
+ * leader, and the description in the value column. No boxes, no chevrons, no
+ * hover fill.
+ */
+export function LinkList({ section, canvas, index, topRule }: SectionProps<'section.linkList'>) {
   const id = `s-${section._key}`;
+  const links = section.links ?? [];
   return (
-    <Section surface={surface} labelledBy={section.heading ? id : undefined}>
+    <Section canvas={canvas} topRule={topRule} labelledBy={section.heading ? id : undefined}>
       <Container>
-        <SectionHeading id={id} heading={section.heading} />
-        <Reveal>
-          <ul className="max-w-prose divide-y divide-border rounded-card border border-border bg-paper-0">
-            {section.links.map((l, i) => {
-              const external = /^https?:\/\//.test(l.href);
-              const inner = (
+        <FolioBar rubric="Where to go next" numeral={index + 1} />
+        {section.heading ? (
+          <h2 id={id} className={sectionHeadClass(section.heading)}>
+            {section.heading}
+          </h2>
+        ) : null}
+        <ul className="mt-10 border-t border-[color:var(--hairline)]">
+          {links.map((l, i) => (
+            <li key={l._key ?? i} className="flex flex-col gap-2 border-b border-[color:var(--hairline)] py-5 sm:flex-row sm:items-baseline sm:gap-6">
+              <RuleLink href={l.href}>{l.label}</RuleLink>
+              {l.description ? (
                 <>
-                  <span>
-                    <span className="block font-display text-lead font-bold text-charcoal-900">{l.label}</span>
-                    {l.description ? <span className="mt-0.5 block text-body text-charcoal-700">{l.description}</span> : null}
-                  </span>
-                  <UiIcon name={external ? 'ExternalLink' : 'ArrowRight'} size={20} className="shrink-0 text-red-600" />
+                  <span aria-hidden="true" className="dotted-leader hidden sm:block" />
+                  <span className="text-[0.9375rem] leading-[1.5] text-[color:var(--text-muted)] sm:max-w-[40ch] sm:flex-none sm:text-right">{l.description}</span>
                 </>
-              );
-              const cls = 'flex items-center justify-between gap-4 px-5 py-4 hover:bg-paper-50';
-              return (
-                <li key={l._key ?? i}>
-                  {external ? (
-                    <a href={l.href} className={cls} rel="noopener noreferrer" target="_blank">
-                      {inner}
-                    </a>
-                  ) : (
-                    <Link href={l.href} className={cls}>
-                      {inner}
-                    </Link>
-                  )}
-                </li>
-              );
-            })}
-          </ul>
-        </Reveal>
+              ) : null}
+            </li>
+          ))}
+        </ul>
       </Container>
     </Section>
   );

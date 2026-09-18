@@ -1,62 +1,60 @@
-import { Container, Section, SectionHeading } from '@/components/ui/Container';
-import { Icon, FacebookMark, InstagramMark } from '@/components/ui/Icon';
+import { Container, Section } from '@/components/ui/Container';
+import { FolioBar, IndexList, sectionHeadClass } from '@/components/art';
 import { getSiteSettings } from '@/lib/content/settings';
 import type { SectionProps } from './SectionRenderer';
 
-export async function ContactDetails({ section, surface }: SectionProps<'section.contactDetails'>) {
+export async function ContactDetails({ section, canvas, index, topRule }: SectionProps<'section.contactDetails'>) {
   const s = await getSiteSettings();
   const id = `s-${section._key}`;
-  const row = 'flex items-center gap-3 rounded-card border border-border bg-paper-0 p-4';
+  const heading = section.heading ?? 'Contact details';
+  const out = 'underline decoration-[color:var(--hairline)] underline-offset-4 hover:decoration-[color:var(--rule)]';
+
   return (
-    <Section surface={surface} labelledBy={id}>
+    <Section canvas={canvas} topRule={topRule} labelledBy={id}>
       <Container>
-        <SectionHeading id={id} heading={section.heading ?? 'Contact details'} lead={section.note} />
-        <ul className="grid gap-3 sm:grid-cols-2">
-          <li className={row}>
-            <span className="text-red-600">
-              <Icon name="mail" size={24} />
-            </span>
-            <a href={`mailto:${s.contact.email}`} className="font-semibold hover:text-red-600">
+        <FolioBar rubric="Get in touch" numeral={index + 1} />
+        <h2 id={id} className={sectionHeadClass(heading)}>
+          {heading}
+        </h2>
+        {section.note ? <p className="mt-4 max-w-[34ch] text-deck italic text-[color:var(--text-muted)]">{section.note}</p> : null}
+        <div className="mt-10 grid gap-x-8 gap-y-10 lg:grid-cols-12">
+          <div className="flex flex-col items-start gap-6 lg:col-span-5">
+            <a href={`mailto:${s.contact.email}`} className="rule-link max-w-full text-feature [overflow-wrap:anywhere]">
               {s.contact.email}
             </a>
-          </li>
-          {s.contact.phone ? (
-            <li className={row}>
-              <span className="text-red-600">
-                <Icon name="phone" size={24} />
-              </span>
-              <a href={`tel:${s.contact.phone.replace(/\s+/g, '')}`} className="font-semibold hover:text-red-600">
+            {s.contact.phone ? (
+              <a href={`tel:${s.contact.phone.replace(/\s+/g, '')}`} className="rule-link max-w-full text-feature [overflow-wrap:anywhere]">
                 {s.contact.phone}
               </a>
-            </li>
-          ) : null}
-          {s.social.facebook ? (
-            <li className={row}>
-              <span className="text-red-600">
-                <FacebookMark size={24} />
-              </span>
-              <a href={s.social.facebook} className="font-semibold hover:text-red-600" rel="noopener noreferrer" target="_blank">
-                Facebook: the fastest way to reach us
-              </a>
-            </li>
-          ) : null}
-          {s.social.instagram ? (
-            <li className={row}>
-              <span className="text-red-600">
-                <InstagramMark size={24} />
-              </span>
-              <a href={s.social.instagram} className="font-semibold hover:text-red-600" rel="noopener noreferrer" target="_blank">
-                Instagram
-              </a>
-            </li>
-          ) : null}
-          <li className={row}>
-            <span className="text-red-600">
-              <Icon name="map-pin" size={24} />
-            </span>
-            <span>{s.contact.postalAddress ?? `${s.contact.location}. Foster-based, so no shelter to visit.`}</span>
-          </li>
-        </ul>
+            ) : null}
+          </div>
+
+          <div className="lg:col-span-6 lg:col-start-7">
+            <IndexList
+              rows={[
+                { label: 'Where we are', value: s.contact.location },
+                { label: 'Postal address', value: s.contact.postalAddress },
+                { label: 'Visiting', value: 'Foster-based, so there is no shelter to visit.' },
+                {
+                  label: 'Facebook',
+                  value: s.social.facebook ? (
+                    <a href={s.social.facebook} className={out} rel="noopener noreferrer" target="_blank">
+                      The fastest way to reach us
+                    </a>
+                  ) : null,
+                },
+                {
+                  label: 'Instagram',
+                  value: s.social.instagram ? (
+                    <a href={s.social.instagram} className={out} rel="noopener noreferrer" target="_blank">
+                      Follow the animals
+                    </a>
+                  ) : null,
+                },
+              ]}
+            />
+          </div>
+        </div>
       </Container>
     </Section>
   );
