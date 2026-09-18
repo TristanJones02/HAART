@@ -23,7 +23,7 @@ export async function pageMetadata(slug: string, path: string): Promise<Metadata
 export async function BuilderPage({ slug }: { slug: string }) {
   const page = await getPage(slug);
   if (!page) notFound();
-  return <SectionRenderer sections={page.sections} />;
+  return <SectionRenderer sections={page.sections} pageSlug={slug} />;
 }
 
 /** Slugs served by dedicated routes rather than the generic [slug] route. */

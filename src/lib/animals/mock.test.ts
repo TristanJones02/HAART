@@ -36,22 +36,12 @@ describe('MOCK_ANIMALS integrity', () => {
     expect(by('John Wayne')).toMatchObject({ haartId: 'HC26-002', slug: 'john-wayne-hc26-002' });
   });
 
-  it('every animal has one to three placeholder photos that exist on disk, with honest alt text', () => {
-    const root = path.resolve(__dirname, '../../../public');
+  it('ships no photographs, so every animal renders a plate', () => {
+    // The plate system draws every animal from its record. Production runs
+    // this same path for any animal a volunteer has not photographed yet.
     for (const a of MOCK_ANIMALS) {
-      expect(a.photos.length).toBeGreaterThanOrEqual(1);
-      expect(a.photos.length).toBeLessThanOrEqual(3);
-      for (const p of a.photos) {
-        expect(p.alt).toContain('Placeholder image');
-        expect(p.alt).toContain(a.name);
-        expect(p.url).toMatch(new RegExp(`^/placeholders/${a.species}-[1-6]\\.svg$`));
-        expect(existsSync(path.join(root, p.url!))).toBe(true);
-        expect(p.width).toBe(1200);
-        expect(p.height).toBe(900);
-      }
+      expect(a.photos).toEqual([]);
     }
-    const used = new Set(MOCK_ANIMALS.flatMap((a) => a.photos.map((p) => p.url)));
-    expect(used.size).toBe(12);
   });
 
   it('keeps statuses exactly as inventoried, including unknown for the stale listings (F8)', () => {

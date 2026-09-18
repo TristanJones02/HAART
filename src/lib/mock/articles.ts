@@ -1,4 +1,4 @@
-import type { Article, Category, Person, Series } from '@/lib/content/types';
+import type { Article, Category, ImageWithAlt, Person, Series } from '@/lib/content/types';
 import { textToPortable } from '@/lib/sanity/portable';
 
 /**
@@ -19,7 +19,8 @@ export const MOCK_SERIES: Series[] = [
   { _type: 'series', title: 'Foster diaries', slug: 'foster-diaries', description: 'A sample series: one foster carer, one dog, one week at a time.' },
 ];
 
-const img = (n: number, alt: string) => ({ alt, url: `/placeholders/dog-${n}.svg`, width: 1200, height: 900 });
+// No url: PlateFrame draws a plate when a story has no photograph yet.
+const img = (n: number, alt: string): ImageWithAlt => ({ alt, width: 1200, height: 900 });
 
 export const MOCK_ARTICLES: Article[] = [
   {

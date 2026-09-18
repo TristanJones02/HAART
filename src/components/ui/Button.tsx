@@ -1,7 +1,16 @@
 import Link from 'next/link';
 import type { ComponentProps, ReactNode } from 'react';
+import { Quad } from '@/components/art/Quad';
 
-type Variant = 'primary' | 'secondary' | 'ghost';
+/**
+ * Square, quad-prefixed, no radius, no shadow. The old bordered `secondary`
+ * variant is retired in favour of `RuleLink`, which is the secondary call to
+ * action everywhere on the site.
+ *
+ * `ink` is the variant for a button sitting on an ink band: a cream hairline
+ * box rather than red, because red-600 on ink measures 2.33:1.
+ */
+type Variant = 'primary' | 'ink';
 type Size = 'md' | 'lg';
 
 type BaseProps = {
@@ -10,9 +19,8 @@ type BaseProps = {
   loading?: boolean;
   children: ReactNode;
   className?: string;
-  /** Leading or trailing icon; keep it decorative (aria-hidden). */
-  icon?: ReactNode;
-  iconPosition?: 'start' | 'end';
+  /** The printer's quad before the label. On by default for primary. */
+  quad?: boolean;
 };
 
 type AnchorProps = BaseProps & { href: string; external?: boolean } & Omit<ComponentProps<'a'>, 'href' | 'children' | 'className'>;
@@ -21,17 +29,16 @@ type ButtonProps = BaseProps & { href?: undefined } & Omit<ComponentProps<'butto
 export type ButtonLikeProps = AnchorProps | ButtonProps;
 
 const base =
-  'inline-flex items-center justify-center gap-2 rounded-control font-body font-semibold leading-none whitespace-nowrap select-none transition-[background-color,color,border-color,box-shadow] duration-150 ease-standard disabled:cursor-not-allowed disabled:opacity-60 motion-safe:active:translate-y-px';
+  'inline-flex items-center justify-center gap-2.5 rounded-none border font-display font-extrabold leading-none whitespace-nowrap select-none transition-colors duration-150 ease-standard disabled:cursor-not-allowed disabled:opacity-60 motion-safe:active:translate-y-px';
 
 const variants: Record<Variant, string> = {
-  primary: 'bg-red-600 text-paper-0 hover:bg-red-700 border border-transparent',
-  secondary: 'bg-paper-0 text-charcoal-900 border border-charcoal-300 hover:border-charcoal-700 hover:bg-paper-50',
-  ghost: 'bg-transparent text-charcoal-900 border border-transparent hover:bg-paper-100 underline-offset-4 hover:underline',
+  primary: 'border-transparent bg-red-600 text-paper-0 hover:bg-red-700',
+  ink: 'border-sand-100 bg-transparent text-sand-100 hover:bg-sand-100 hover:text-ink-950',
 };
 
 const sizes: Record<Size, string> = {
-  md: 'h-11 px-4 text-body',
-  lg: 'h-12 px-6 text-lead',
+  md: 'h-11 px-5 text-[1rem]',
+  lg: 'h-13 px-7 text-[1.125rem]',
 };
 
 export function buttonClasses(variant: Variant = 'primary', size: Size = 'md', className = '') {
@@ -39,13 +46,12 @@ export function buttonClasses(variant: Variant = 'primary', size: Size = 'md', c
 }
 
 export function Button(props: ButtonLikeProps) {
-  const { variant = 'primary', size = 'md', loading, children, className = '', icon, iconPosition = 'end', ...rest } = props;
+  const { variant = 'primary', size = 'md', loading, children, className = '', quad = true, ...rest } = props;
   const classes = buttonClasses(variant, size, className);
   const content = (
     <>
-      {icon && iconPosition === 'start' ? <span aria-hidden="true" className="shrink-0">{icon}</span> : null}
+      {quad ? <Quad className={variant === 'primary' ? '!bg-paper-0' : '!bg-sand-100'} /> : null}
       <span>{children}</span>
-      {icon && iconPosition === 'end' ? <span aria-hidden="true" className="shrink-0">{icon}</span> : null}
     </>
   );
 

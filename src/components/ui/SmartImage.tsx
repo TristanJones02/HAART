@@ -1,37 +1,36 @@
 import Image from 'next/image';
+import type { ReactNode } from 'react';
 import type { ImageWithAlt } from '@/lib/content/types';
 import { isSanityCdn, resolveImageUrl, sanityLoader } from '@/lib/sanity/image';
 import { SensitiveImage } from './SensitiveImage';
 
 type Props = {
   image: ImageWithAlt | undefined;
-  /** CSS aspect ratio class, e.g. 'aspect-[4/3]'. Always set so grids never shift. */
+  /** Aspect class, always set so grids never shift. */
   aspect?: string;
   sizes: string;
   priority?: boolean;
   className?: string;
   imgClassName?: string;
-  /** Requested width for the Sanity URL (largest size in `sizes`). */
   width?: number;
-  fallbackLabel?: string;
+  /**
+   * What renders when there is no photo. Pass a <Plate/>. There is no grey-box
+   * branch any more: nothing on this site renders as an empty placeholder.
+   */
+  placeholder?: ReactNode;
+  /**
+   * Elliptical darkening toward the frame edge in the canvas's own colour,
+   * so forty photos shot in forty kitchens read as one commissioned set.
+   */
+  vignette?: boolean;
 };
 
-/**
- * One image component for every source: Sanity CDN (custom loader so the
- * image is processed once), PetRescue and other remote hosts (next/image
- * optimiser), and local SVG placeholders (plain img, no optimiser). Distressing
- * images render blurred behind a reveal control.
- */
-export function SmartImage({ image, aspect = 'aspect-[4/3]', sizes, priority, className = '', imgClassName = '', width = 1200, fallbackLabel = 'No photo yet' }: Props) {
+export function SmartImage({ image, aspect = 'aspect-[4/3]', sizes, priority, className = '', imgClassName = '', width = 1200, placeholder, vignette = true }: Props) {
   const url = resolveImageUrl(image, width);
-  const wrapper = `relative overflow-hidden bg-paper-100 ${aspect} ${className}`;
+  const wrapper = `relative overflow-hidden ${aspect} ${className}`;
 
   if (!image || !url) {
-    return (
-      <div className={wrapper} role="img" aria-label={fallbackLabel}>
-        <div className="absolute inset-0 flex items-center justify-center text-small text-charcoal-500">{fallbackLabel}</div>
-      </div>
-    );
+    return <div className={wrapper}>{placeholder}</div>;
   }
 
   const isSvg = /\.svg(\?|$)/i.test(url);
@@ -54,12 +53,19 @@ export function SmartImage({ image, aspect = 'aspect-[4/3]', sizes, priority, cl
     />
   );
 
+  const body = (
+    <>
+      {img}
+      {vignette ? <span aria-hidden="true" className="pointer-events-none absolute inset-0" style={{ backgroundImage: 'var(--vignette-photo)' }} /> : null}
+    </>
+  );
+
   if (image.sensitive) {
     return (
       <div className={wrapper}>
-        <SensitiveImage>{img}</SensitiveImage>
+        <SensitiveImage>{body}</SensitiveImage>
       </div>
     );
   }
-  return <div className={wrapper}>{img}</div>;
+  return <div className={wrapper}>{body}</div>;
 }

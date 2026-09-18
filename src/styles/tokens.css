@@ -1,91 +1,157 @@
 /*
- * HAART design tokens. Source of truth for every colour, type size, space,
- * radius, shadow and duration used on the site. See docs/design-system.md
- * for the reasoning and the verified contrast pairings.
+ * HAART design tokens — "The register".
  *
- * Tailwind 4 reads the @theme block and generates utilities from it
- * (bg-red-600, text-charcoal-900, font-display, text-h1, rounded-card ...).
- * The default Tailwind palette is cleared so nothing off-system is available.
+ * Source of truth for colour, type, space, rule and duration. See
+ * docs/design-direction.md for the reasoning; docs/design-system.md sections
+ * 1-7 are superseded by it. Every contrast pairing below is asserted in
+ * src/styles/tokens.test.ts, including the ones that deliberately fail so a
+ * future change cannot quietly start using them.
+ *
+ * Tailwind 4 reads @theme and generates utilities (bg-sand-100, text-ink-950,
+ * text-masthead, rounded-card ...). The default palette is cleared, so nothing
+ * off-system is reachable.
  */
 @theme {
-  /* Reset the default palette: only HAART colours exist. */
+  /* Only HAART colours exist. */
   --color-*: initial;
 
-  /* Brand */
+  /* --- Brand ------------------------------------------------------- */
   --color-red-600: #b50806;
   --color-red-700: #8f0605;
+  /* The only red that carries meaning on ink (8.57:1). Banned on light (1.90:1). */
+  --color-red-200: #f6a8a2;
   --color-red-100: #f9dcda;
   --color-red-50: #fdf0ef;
+
+  /* --- Ink and charcoal -------------------------------------------- */
+  /* The dark canvas. A warm printed black, not a grey box. */
+  --color-ink-950: #241f1d;
   --color-charcoal-900: #3d3d3d;
   --color-charcoal-700: #575757;
   --color-charcoal-550: #6b6b6b;
   --color-charcoal-500: #767676;
   --color-charcoal-300: #b3b0ae;
 
-  /* Neutrals (warm) */
+  /* --- Warm neutrals ------------------------------------------------ */
+  --color-sand-100: #f3e3cf;
+  --color-sand-200: #e7d3b6;
+  --color-sand-300: #d9c3a0;
   --color-paper-0: #ffffff;
   --color-paper-50: #faf8f6;
   --color-paper-100: #f4f0ec;
   --color-border: #e5e0dd;
 
-  /* Semantic: animal status only */
+  /* --- Second ink: the caption voice -------------------------------- */
+  --color-terracotta-600: #8f3a22;
+  /* The terracotta substitute on ink (5.91:1). */
+  --color-stone-400: #a49a92;
+
+  /* --- Semantic: animal status only --------------------------------- */
   --color-green-600: #2e7d4f;
   --color-green-700: #23603d;
+  --color-green-300: #6fc48c;
   --color-amber-600: #b57708;
   --color-amber-700: #8a5a06;
+  --color-amber-300: #e8b45c;
 
-  /* Aliases used by components */
   --color-white: #ffffff;
   --color-transparent: transparent;
   --color-current: currentColor;
 
-  /* Typography */
+  /* --- Typography --------------------------------------------------- */
   --font-display: var(--font-nunito), ui-rounded, system-ui, sans-serif;
   --font-body: var(--font-source-sans), system-ui, sans-serif;
 
-  --text-hero: 3rem;
-  --text-hero--line-height: 1.15;
-  --text-hero--font-weight: 900;
-  --text-h1: 2.25rem;
-  --text-h1--line-height: 1.15;
-  --text-h1--font-weight: 800;
-  --text-h2: 1.75rem;
-  --text-h2--line-height: 1.15;
-  --text-h2--font-weight: 800;
-  --text-h3: 1.375rem;
-  --text-h3--line-height: 1.3;
-  --text-h3--font-weight: 700;
-  --text-lead: 1.1875rem;
-  --text-lead--line-height: 1.6;
-  --text-body: 1rem;
-  --text-body--line-height: 1.6;
-  --text-small: 0.875rem;
+  /* Cover scale. clamp() with fixed line-heights so CLS stays at zero. */
+  --text-masthead: clamp(3rem, 7.2vw, 6.5rem);
+  --text-masthead--line-height: 0.88;
+  --text-masthead--letter-spacing: -0.035em;
+  --text-masthead--font-weight: 900;
+  --text-masthead-2: clamp(2.5rem, 5.4vw, 4.5rem);
+  --text-masthead-2--line-height: 0.92;
+  --text-masthead-2--letter-spacing: -0.03em;
+  --text-masthead-2--font-weight: 900;
+  --text-masthead-3: clamp(2rem, 4vw, 3.25rem);
+  --text-masthead-3--line-height: 0.96;
+  --text-masthead-3--letter-spacing: -0.025em;
+  --text-masthead-3--font-weight: 900;
+
+  --text-section: clamp(2rem, 4.2vw, 3.25rem);
+  --text-section--line-height: 0.95;
+  --text-section--letter-spacing: -0.02em;
+  --text-section--font-weight: 800;
+
+  --text-feature: clamp(1.5rem, 2.6vw, 2.125rem);
+  --text-feature--line-height: 1.05;
+  --text-feature--letter-spacing: -0.02em;
+  --text-feature--font-weight: 800;
+
+  --text-rollcall: clamp(1.75rem, 4.4vw, 3.25rem);
+  --text-rollcall--line-height: 1.12;
+  --text-rollcall--letter-spacing: -0.03em;
+  --text-rollcall--font-weight: 900;
+
+  --text-cardname: 1.5rem;
+  --text-cardname--line-height: 1;
+  --text-cardname--letter-spacing: -0.02em;
+  --text-cardname--font-weight: 800;
+
+  --text-figure: clamp(3rem, 7vw, 5rem);
+  --text-figure--line-height: 0.85;
+  --text-figure--letter-spacing: -0.03em;
+  --text-figure--font-weight: 900;
+
+  --text-folio: clamp(2.75rem, 6vw, 4.5rem);
+  --text-folio--line-height: 0.8;
+  --text-folio--letter-spacing: -0.04em;
+  --text-folio--font-weight: 900;
+
+  --text-deck: clamp(1.125rem, 2.4vw, 1.375rem);
+  --text-deck--line-height: 1.4;
+
+  --text-body: 1.0625rem;
+  --text-body--line-height: 1.62;
+  --text-lede: 1.1875rem;
+  --text-lede--line-height: 1.6;
+  --text-small: 0.9375rem;
   --text-small--line-height: 1.5;
-  --text-tiny: 0.75rem;
-  --text-tiny--line-height: 1.4;
-  --text-tiny--font-weight: 600;
-  --text-tiny--letter-spacing: 0.06em;
 
-  --tracking-caps: 0.06em;
+  --text-rubric: 0.75rem;
+  --text-rubric--line-height: 1.2;
+  --text-rubric--letter-spacing: 0.16em;
+  --text-rubric--font-weight: 700;
 
-  /* Spacing: Tailwind's 4px base already gives 1,2,3,4,6,8,12,16 = 4..64px */
+  --text-caption: 0.8125rem;
+  --text-caption--line-height: 1.4;
+  --text-caption--font-weight: 600;
+
+  --text-catalogue: 0.6875rem;
+  --text-catalogue--line-height: 1.2;
+  --text-catalogue--letter-spacing: 0.12em;
+  --text-catalogue--font-weight: 600;
+
+  --text-index-label: 0.6875rem;
+  --text-index-label--line-height: 1.3;
+  --text-index-label--letter-spacing: 0.14em;
+  --text-index-label--font-weight: 600;
+
+  --text-index-value: 1.0625rem;
+  --text-index-value--line-height: 1.3;
+  --text-index-value--font-weight: 600;
+
+  --tracking-caps: 0.16em;
+
+  /* --- Space and measure -------------------------------------------- */
   --spacing: 0.25rem;
-
-  /* Layout */
   --container-site: 1140px;
-  --container-prose: 65ch;
+  --container-prose: 62ch;
 
-  /* Radii */
-  --radius-card: 8px;
+  /* --- Radii. Square is the point. ---------------------------------- */
+  --radius-card: 0px;
+  /* Forms keep a small radius so a form still reads as a form. */
   --radius-control: 6px;
-  --radius-pill: 999px;
 
-  /* Shadows */
-  --shadow-card: 0 2px 8px rgba(61, 61, 61, 0.08);
-  --shadow-card-hover: 0 6px 18px rgba(61, 61, 61, 0.14);
-  --shadow-focus: 0 0 0 3px rgba(181, 8, 6, 0.25);
-
-  /* Motion */
+  /* --- Motion -------------------------------------------------------- */
   --ease-standard: cubic-bezier(0.2, 0, 0, 1);
   --duration-fast: 150ms;
   --duration-base: 250ms;
@@ -93,7 +159,13 @@
 }
 
 :root {
-  --scrim-hero: rgba(61, 61, 61, 0.55);
-  --scrim-hero-deep: rgba(61, 61, 61, 0.65);
-  --header-height: 64px;
+  --shadow-focus: 0 0 0 3px rgba(181, 8, 6, 0.25);
+  /* Focus on ink: a cream ring, because red on ink is 2.33:1. */
+  --ring-focus-ink: 0 0 0 2px #241f1d, 0 0 0 5px #f3e3cf;
+  --vignette-photo: radial-gradient(
+    ellipse 78% 74% at 50% 42%,
+    transparent 38%,
+    color-mix(in srgb, var(--canvas) 62%, transparent) 100%
+  );
+  --header-height: 72px;
 }

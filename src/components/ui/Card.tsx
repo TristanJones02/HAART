@@ -1,9 +1,9 @@
 import type { ComponentProps, ReactNode } from 'react';
 
-/** Surface card: white, 1px border, 8px radius, soft shadow. Hover lift is added by MotionCard. */
+/** A hairline and a square corner. No radius, no shadow — that was the boilerplate. */
 export function Card({ className = '', children, ...rest }: { className?: string; children: ReactNode } & ComponentProps<'div'>) {
   return (
-    <div className={`overflow-hidden rounded-card border border-border bg-paper-0 shadow-card ${className}`} {...rest}>
+    <div className={`overflow-hidden border border-[color:var(--hairline)] bg-[color:var(--canvas)] ${className}`} {...rest}>
       {children}
     </div>
   );

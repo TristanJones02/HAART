@@ -1,31 +1,85 @@
 import type { AnimalStatus } from '@/lib/content/types';
 
-type StatusKey = AnimalStatus | 'fosterNeeded';
-
-const statusStyles: Record<StatusKey, { className: string; dot: string; label: string }> = {
-  available: { className: 'bg-paper-100 text-charcoal-900 border-border', dot: 'bg-charcoal-700', label: 'Available' },
-  pending: { className: 'bg-paper-0 text-amber-700 border-amber-600', dot: 'bg-amber-600', label: 'Application pending' },
-  on_hold: { className: 'bg-paper-0 text-amber-700 border-amber-600', dot: 'bg-amber-600', label: 'On hold' },
-  adopted: { className: 'bg-green-600 text-paper-0 border-green-600', dot: 'bg-paper-0', label: 'Adopted' },
-  unknown: { className: 'bg-paper-100 text-charcoal-700 border-border', dot: 'bg-charcoal-500', label: 'Status to confirm' },
-  fosterNeeded: { className: 'bg-red-50 text-red-700 border-red-100', dot: 'bg-red-600', label: 'Needs a foster' },
-};
+export type StatusKey = AnimalStatus | 'fosterNeeded';
 
 /**
- * Status badge. Semantic colours are reserved for animal status and used
- * nowhere else. Text carries the meaning; the dot is decorative.
+ * Status is a rule and a word, not a pill. Amber-600 measures 2.98:1 on sand,
+ * below the 3:1 non-text threshold, so the bar steps to amber-700 there; on
+ * ink every status steps to its 300-level token. Colour is never the sole
+ * carrier — the word is always present.
  */
-export function StatusBadge({ status, className = '' }: { status: StatusKey; className?: string }) {
-  const s = statusStyles[status];
+const BAR: Record<StatusKey, string> = {
+  available: 'bg-charcoal-900',
+  pending: 'bg-amber-700',
+  on_hold: 'bg-amber-700',
+  adopted: 'bg-green-600',
+  unknown: 'bg-charcoal-500',
+  fosterNeeded: 'bg-red-600',
+};
+
+const BAR_INK: Record<StatusKey, string> = {
+  available: 'bg-sand-300',
+  pending: 'bg-amber-300',
+  on_hold: 'bg-amber-300',
+  adopted: 'bg-green-300',
+  unknown: 'bg-stone-400',
+  fosterNeeded: 'bg-red-200',
+};
+
+const LABEL: Record<StatusKey, string> = {
+  available: 'Available',
+  pending: 'Application pending',
+  on_hold: 'On hold',
+  adopted: 'Adopted',
+  unknown: 'Status to confirm',
+  fosterNeeded: 'Needs a foster',
+};
+
+const TEXT: Record<StatusKey, string> = {
+  available: 'text-[color:var(--text-muted)]',
+  pending: 'text-amber-700',
+  on_hold: 'text-amber-700',
+  adopted: 'text-green-700',
+  unknown: 'text-[color:var(--text-muted)]',
+  fosterNeeded: 'text-red-600',
+};
+
+const TEXT_INK: Record<StatusKey, string> = {
+  available: 'text-sand-300',
+  pending: 'text-amber-300',
+  on_hold: 'text-amber-300',
+  adopted: 'text-green-300',
+  unknown: 'text-stone-400',
+  fosterNeeded: 'text-red-200',
+};
+
+export const statusLabel = (status: StatusKey) => LABEL[status] ?? LABEL.unknown;
+
+/** The 4px bar across the top of a card. */
+export function StatusBar({ status, onInk = false, className = '' }: { status: StatusKey; onInk?: boolean; className?: string }) {
+  return <span aria-hidden="true" className={`block h-1 w-full ${(onInk ? BAR_INK : BAR)[status] ?? BAR.unknown} ${className}`} />;
+}
+
+/** The word. Always rendered, so colour never carries the meaning alone. */
+export function StatusLabel({ status, onInk = false, className = '' }: { status: StatusKey; onInk?: boolean; className?: string }) {
+  return <span className={`text-catalogue uppercase ${(onInk ? TEXT_INK : TEXT)[status] ?? TEXT.unknown} ${className}`}>{statusLabel(status)}</span>;
+}
+
+/** The one floating case, over a plate: a square chip ringed in the canvas colour. */
+export function StatusChip({ status, className = '' }: { status: StatusKey; className?: string }) {
+  const filled = status === 'adopted' || status === 'fosterNeeded';
   return (
-    <span className={`inline-flex items-center gap-1.5 rounded-pill border px-2.5 py-1 text-small font-semibold leading-none ${s.className} ${className}`}>
-      <span aria-hidden="true" className={`size-2 rounded-pill ${s.dot}`} />
-      {s.label}
+    <span
+      className={`sticker-ring inline-flex items-center gap-1.5 px-2 py-1 text-catalogue uppercase ${
+        filled ? (status === 'adopted' ? 'bg-green-600 text-paper-0' : 'bg-red-600 text-paper-0') : 'bg-paper-0 text-charcoal-900'
+      } ${className}`}
+    >
+      {statusLabel(status)}
     </span>
   );
 }
 
-/** Neutral label badge for categories and metadata. */
+/** Neutral label for categories and metadata. */
 export function LabelBadge({ children, className = '' }: { children: React.ReactNode; className?: string }) {
-  return <span className={`inline-flex items-center rounded-pill bg-paper-100 px-2.5 py-1 text-tiny uppercase tracking-caps text-charcoal-700 ${className}`}>{children}</span>;
+  return <span className={`inline-block text-rubric uppercase text-[color:var(--text-caption)] ${className}`}>{children}</span>;
 }

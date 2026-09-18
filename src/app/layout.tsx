@@ -22,7 +22,7 @@ export const metadata: Metadata = {
   formatDetection: { telephone: true },
 };
 
-export const viewport: Viewport = { themeColor: '#ffffff', width: 'device-width', initialScale: 1 };
+export const viewport: Viewport = { themeColor: '#f3e3cf', width: 'device-width', initialScale: 1 };
 
 export default async function RootLayout({ children }: LayoutProps<'/'>) {
   const settings = await getSiteSettings();

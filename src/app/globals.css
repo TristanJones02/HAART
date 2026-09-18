@@ -1,7 +1,67 @@
 @import "tailwindcss";
 @import "../styles/tokens.css";
 
+/*
+ * The canvas system. Canvas is a property of the block type, never of its
+ * position. Each class sets the variables components read, so a component
+ * never branches on which canvas it is sitting on — and a banned pairing
+ * (charcoal-550 on sand) is unreachable rather than merely forbidden.
+ */
 @layer base {
+  .canvas-paper,
+  .canvas-cream,
+  .canvas-sand,
+  .canvas-ink {
+    background: var(--canvas);
+    color: var(--text-strong);
+  }
+
+  .canvas-paper {
+    --canvas: var(--color-paper-0);
+    --text-strong: var(--color-charcoal-900);
+    --text-muted: var(--color-charcoal-550);
+    --text-caption: var(--color-terracotta-600);
+    --hairline: var(--color-charcoal-300);
+    --rule: var(--color-red-600);
+    --focus-ring: var(--shadow-focus);
+    --grain: transparent;
+  }
+
+  .canvas-cream {
+    --canvas: var(--color-paper-50);
+    --text-strong: var(--color-charcoal-900);
+    --text-muted: var(--color-charcoal-550);
+    --text-caption: var(--color-terracotta-600);
+    --hairline: var(--color-charcoal-300);
+    --rule: var(--color-red-600);
+    --focus-ring: var(--shadow-focus);
+    --grain: transparent;
+  }
+
+  /* charcoal-550 is 4.24:1 on sand, so muted steps up to charcoal-700. */
+  .canvas-sand {
+    --canvas: var(--color-sand-100);
+    --text-strong: var(--color-charcoal-900);
+    --text-muted: var(--color-charcoal-700);
+    --text-caption: var(--color-terracotta-600);
+    --hairline: var(--color-sand-200);
+    --rule: var(--color-red-600);
+    --focus-ring: var(--shadow-focus);
+    --grain: rgba(61, 61, 61, 0.055);
+  }
+
+  /* red-600 is 2.33:1 on ink, so the rule and every red signal step up to red-200. */
+  .canvas-ink {
+    --canvas: var(--color-ink-950);
+    --text-strong: var(--color-sand-100);
+    --text-muted: var(--color-sand-300);
+    --text-caption: var(--color-stone-400);
+    --hairline: color-mix(in srgb, var(--color-stone-400) 40%, transparent);
+    --rule: var(--color-red-200);
+    --focus-ring: var(--ring-focus-ink);
+    --grain: rgba(243, 227, 207, 0.05);
+  }
+
   html {
     color-scheme: light;
     scroll-behavior: smooth;
@@ -19,13 +79,13 @@
 
   h1, h2, h3, h4 {
     font-family: var(--font-display);
-    color: var(--color-charcoal-900);
-    text-wrap: balance;
+    color: var(--text-strong, var(--color-charcoal-900));
+    /* Arbitrary volunteer copy must never overflow or truncate. */
+    overflow-wrap: anywhere;
+    hyphens: auto;
   }
 
-  p {
-    text-wrap: pretty;
-  }
+  p { text-wrap: pretty; }
 
   a {
     color: inherit;
@@ -38,19 +98,16 @@
     color: var(--color-charcoal-900);
   }
 
-  /* One focus style everywhere: visible ring that survives on red surfaces. */
+  /* One focus style, switching on the canvas so it survives on ink. */
   :focus-visible {
-    outline: 2px solid var(--color-red-600);
+    outline: 2px solid var(--rule, var(--color-red-600));
     outline-offset: 2px;
-    box-shadow: var(--shadow-focus);
-    border-radius: var(--radius-control);
+    box-shadow: var(--focus-ring, var(--shadow-focus));
+    border-radius: 2px;
   }
 
-  /* Reduced motion: remove smooth scrolling and any CSS transitions/animations. */
   @media (prefers-reduced-motion: reduce) {
-    html {
-      scroll-behavior: auto;
-    }
+    html { scroll-behavior: auto; }
     *, *::before, *::after {
       animation-duration: 0.01ms !important;
       animation-iteration-count: 1 !important;
@@ -58,7 +115,6 @@
     }
   }
 
-  /* Images never overflow their container and hold their space. */
   img, video {
     max-width: 100%;
     height: auto;
@@ -75,13 +131,116 @@
     padding: 0.5rem 0.75rem;
     background: var(--color-paper-0);
     color: var(--color-charcoal-900);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-control);
-    font-weight: 600;
+    border: 2px solid var(--color-charcoal-900);
+    font-weight: 700;
   }
-  .skip-link:focus {
-    top: 1rem;
+  .skip-link:focus { top: 1rem; }
+
+  /* The tooth of uncoated stock. Compositor-only, costs nothing. */
+  .grain::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background-image: radial-gradient(circle at 1px 1px, var(--grain) 1px, transparent 0);
+    background-size: 4px 4px;
   }
+
+  /* The 48x4 rule that opens every folio bar. */
+  .folio-rule {
+    display: block;
+    width: 48px;
+    height: 4px;
+    background: var(--rule);
+    flex: none;
+  }
+
+  /* Label ... value, with a real dotted leader. */
+  .dotted-leader {
+    flex: 1 1 auto;
+    min-width: 1.5rem;
+    border-bottom: 1px dotted var(--hairline);
+    transform: translateY(-0.55em);
+  }
+
+  /*
+   * The secondary call to action site-wide, replacing the bordered button.
+   * The underline grows from the left on hover and focus.
+   */
+  .rule-link {
+    position: relative;
+    display: inline-block;
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 1.125rem;
+    line-height: 1.3;
+    color: var(--text-strong);
+    padding-bottom: 4px;
+  }
+  .rule-link::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 3px;
+    background: var(--rule);
+    transform: scaleX(0.35);
+    transform-origin: left;
+    transition: transform 180ms var(--ease-standard);
+  }
+  @media (hover: hover) {
+    .rule-link:hover::after { transform: scaleX(1); }
+  }
+  .rule-link:focus-visible::after { transform: scaleX(1); }
+
+  /*
+   * Outline numerals. Unsupported browsers get a faint solid fill rather
+   * than invisible text.
+   */
+  .numeral-outline {
+    font-family: var(--font-display);
+    font-weight: 900;
+    color: var(--color-red-100);
+    user-select: none;
+  }
+  .canvas-ink .numeral-outline {
+    color: color-mix(in srgb, var(--color-red-200) 35%, transparent);
+  }
+  @supports (-webkit-text-stroke: 1px red) {
+    .numeral-outline {
+      color: transparent;
+      -webkit-text-stroke: 2px var(--rule);
+    }
+    .canvas-ink .numeral-outline { -webkit-text-stroke: 2px var(--color-red-200); }
+  }
+
+  /* Canvas boundaries run the full viewport, never inset to the container. */
+  .bleed-rule {
+    width: 100vw;
+    max-width: 100vw;
+    margin-left: calc(50% - 50vw);
+  }
+
+  /* The first paragraph of an animal write-up or an article. */
+  .lede {
+    font-size: var(--text-lede);
+    line-height: var(--text-lede--line-height);
+    border-left: 4px solid var(--rule);
+    padding-left: 20px;
+  }
+
+  /* A floating status chip needs a ring in the canvas colour to stay legible over a plate. */
+  .sticker-ring {
+    box-shadow: 0 0 0 2px var(--canvas);
+  }
+
+  /*
+   * Plate crop groups. A 3/4 portrait frame slices ~44% off each side, so
+   * wide-only elements (a tail, a second animal) swap for portrait versions.
+   */
+  .plate[data-ratio="tall"] [data-crop="wide"] { display: none; }
+  .plate[data-ratio="wide"] [data-crop="tall"] { display: none; }
 }
 
 @utility container-site {
@@ -94,6 +253,12 @@
   }
 }
 
-@utility text-balance {
-  text-wrap: balance;
+/* Section rhythm: 88/80 desktop, 56/52 phone. */
+@utility section-y {
+  padding-top: 56px;
+  padding-bottom: 52px;
+  @media (width >= 48rem) {
+    padding-top: 88px;
+    padding-bottom: 80px;
+  }
 }

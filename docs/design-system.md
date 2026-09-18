@@ -1,5 +1,17 @@
 # Design system
 
+> **Superseded.** Sections 1 to 7 of this document describe the first build,
+> which the organisation rejected as generic. The live design direction is
+> **docs/design-direction.md** ("The register"): the canvas system, the plate
+> illustrations, the folio bars, the roll call and the full type scale are
+> specified there, and `src/styles/tokens.css` implements it.
+>
+> This file is kept for the audit trail and for section 8 onward, which still
+> describe decisions that carried across unchanged (imagery rules, alt-text
+> policy, the sensitive-image treatment).
+
+---
+
 Phase 3 checkpoint. The draft token set from the brief survives with three additions and one rule tightened. Everything here is implemented as CSS custom properties in `src/styles/tokens.css`, exposed to Tailwind through `@theme`, and consumed by the components in `src/components/ui`.
 
 ## 1. Adjustments to the draft, and why

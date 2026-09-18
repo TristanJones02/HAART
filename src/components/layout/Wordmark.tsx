@@ -1,13 +1,17 @@
+import { Quad } from '@/components/art/Quad';
+
 /**
- * Typographic wordmark used until the original vector logo is supplied
- * (docs/blockers.md F12). Lowercase "haart" in the display face with a red
- * heart-shaped counter in the first "a" is out of scope; this keeps it plain.
+ * The wordmark: lowercase "haart" in the display face, closed by the
+ * printer's quad. A square, not a circle, so the mark and the typography are
+ * one system. Stands in until the original vector logo is supplied
+ * (docs/blockers.md F12).
  */
-export function Wordmark({ className = '', size = 'md' }: { className?: string; size?: 'md' | 'lg' }) {
+export function Wordmark({ className = '', size = 'md' }: { className?: string; size?: 'md' | 'lg' | 'xl' }) {
+  const text = size === 'xl' ? 'text-[3rem]' : size === 'lg' ? 'text-[2.25rem]' : 'text-[1.75rem]';
   return (
-    <span className={`inline-flex items-baseline font-display font-black leading-none tracking-tight text-charcoal-900 ${size === 'lg' ? 'text-h1' : 'text-h2'} ${className}`}>
+    <span className={`inline-flex items-end gap-[3px] font-display font-black leading-none tracking-[-0.04em] ${text} ${className}`}>
       <span>haart</span>
-      <span aria-hidden="true" className="ml-0.5 inline-block size-2 translate-y-[-2px] rounded-pill bg-red-600" />
+      <Quad className="mb-[0.18em]" />
     </span>
   );
 }

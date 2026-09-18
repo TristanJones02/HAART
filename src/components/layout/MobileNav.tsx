@@ -4,16 +4,19 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
 import type { NavItem } from '@/lib/content/types';
-import { UiIcon } from '@/components/ui/Icon';
+import { Wordmark } from './Wordmark';
 
-/** Full-screen menu for phones and tablets, using a native dialog for focus trapping. */
+/**
+ * The control is the word "Menu" with a 2px underline, not a hamburger glyph.
+ * The panel is a full-height contents page: links at 1.25rem on hairlines,
+ * grouped by rubrics.
+ */
 export function MobileNav({ items }: { items: NavItem[] }) {
   const pathname = usePathname();
   const dialog = useRef<HTMLDialogElement>(null);
   const [open, setOpen] = useState(false);
   const [lastPath, setLastPath] = useState(pathname);
 
-  // Close the menu when the route changes (state adjusted during render, not in an effect).
   if (lastPath !== pathname) {
     setLastPath(pathname);
     setOpen(false);
@@ -28,28 +31,37 @@ export function MobileNav({ items }: { items: NavItem[] }) {
 
   return (
     <div className="lg:hidden">
-      <button type="button" className="inline-flex size-11 items-center justify-center rounded-control text-charcoal-900 hover:bg-paper-100" aria-label="Open menu" aria-haspopup="dialog" onClick={() => setOpen(true)}>
-        <UiIcon name="Menu" size={24} />
+      <button
+        type="button"
+        className="inline-flex h-11 items-center border-b-2 border-charcoal-900 font-display text-[1.0625rem] font-extrabold text-charcoal-900"
+        aria-haspopup="dialog"
+        onClick={() => setOpen(true)}
+      >
+        Menu
       </button>
-      <dialog ref={dialog} onClose={() => setOpen(false)} aria-label="Menu" className="m-0 h-dvh max-h-none w-full max-w-none bg-paper-0 p-0 text-charcoal-900 backdrop:bg-charcoal-900/40">
-        <div className="container-site flex h-16 items-center justify-between border-b border-border">
-          <span className="font-display text-h3 font-black">Menu</span>
-          <button type="button" className="inline-flex size-11 items-center justify-center rounded-control hover:bg-paper-100" aria-label="Close menu" onClick={() => setOpen(false)}>
-            <UiIcon name="X" size={24} />
+      <dialog ref={dialog} onClose={() => setOpen(false)} aria-label="Menu" className="canvas-paper m-0 h-dvh max-h-none w-full max-w-none p-0 text-charcoal-900 backdrop:bg-ink-950/50">
+        <div className="container-site flex h-15 items-center justify-between border-b-2 border-charcoal-900">
+          <Wordmark />
+          <button
+            type="button"
+            className="inline-flex h-11 items-center border-b-2 border-charcoal-900 font-display text-[1.0625rem] font-extrabold"
+            onClick={() => setOpen(false)}
+          >
+            Close
           </button>
         </div>
-        <nav aria-label="Main" className="container-site py-4">
-          <ul className="divide-y divide-border">
+        <nav aria-label="Main" className="container-site py-6">
+          <ul>
             {items.map((item) => (
-              <li key={item.href} className="py-2">
-                <Link href={item.href} className="block py-2.5 font-display text-h3 font-bold">
+              <li key={item.href} className="border-b border-[color:var(--hairline)] py-3 last:border-b-0">
+                <Link href={item.href} className="block py-2 font-display text-[1.25rem] font-bold">
                   {item.label}
                 </Link>
                 {item.children?.length ? (
-                  <ul className="mb-2 ml-3 border-l border-border pl-3">
+                  <ul className="mt-1 ml-4 border-l border-[color:var(--hairline)] pl-4">
                     {item.children.map((c) => (
                       <li key={c.href}>
-                        <Link href={c.href} className="block py-2.5 text-body text-charcoal-700">
+                        <Link href={c.href} className="block py-2.5 text-body text-[color:var(--text-muted)]">
                           {c.label}
                         </Link>
                       </li>
@@ -58,12 +70,11 @@ export function MobileNav({ items }: { items: NavItem[] }) {
                 ) : null}
               </li>
             ))}
-            <li className="py-4">
-              <Link href="/donate" className="inline-flex h-12 w-full items-center justify-center rounded-control bg-red-600 font-semibold text-paper-0 hover:bg-red-700">
-                Donate
-              </Link>
-            </li>
           </ul>
+          <Link href="/donate" className="mt-8 inline-flex h-13 w-full items-center justify-center gap-2.5 bg-red-600 font-display text-[1.125rem] font-extrabold text-paper-0">
+            <span aria-hidden="true" className="inline-block size-[9px] bg-paper-0" />
+            Donate
+          </Link>
         </nav>
       </dialog>
     </div>

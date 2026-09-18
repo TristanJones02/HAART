@@ -348,7 +348,6 @@ const CATS: Seed[] = [
 // Building
 // ---------------------------------------------------------------------------
 
-export const PLACEHOLDER_COUNT = 6;
 export const CAT_STANDARD_FEE = 200;
 
 const triOf = (v: boolean | undefined): Tri => (v === undefined ? 'unknown' : v ? 'yes' : 'no');
@@ -366,21 +365,16 @@ export function listedAtFromHaartId(haartId: string): string | undefined {
   return new Date(Date.UTC(year, 0, day)).toISOString().slice(0, 10);
 }
 
-function placeholderPhotos(species: Species, name: string, index: number): ImageWithAlt[] {
-  const count = 1 + (index % 3);
-  return Array.from({ length: count }, (_, k) => {
-    const n = ((index + k) % PLACEHOLDER_COUNT) + 1;
-    return {
-      _type: 'imageWithAlt' as const,
-      url: `/placeholders/${species}-${n}.svg`,
-      width: 1200,
-      height: 900,
-      alt: k === 0 ? `Placeholder image standing in for a photo of ${name}` : `Placeholder image standing in for another photo of ${name}`,
-    };
-  });
+/**
+ * No photos. The plate system draws every animal, so the mock exercises the
+ * path production actually runs: an animal with no photograph yet. A real
+ * photo drops into the identical frame with no layout change.
+ */
+function placeholderPhotos(): ImageWithAlt[] {
+  return [];
 }
 
-function build(seed: Seed, index: number): Animal {
+function build(seed: Seed): Animal {
   const haartId = normaliseHaartId(seed.haartId);
   const fee = seed.fee ?? (seed.species === 'cat' ? CAT_STANDARD_FEE : undefined);
   const text = seed.fragments.join('\n\n');
@@ -408,7 +402,7 @@ function build(seed: Seed, index: number): Animal {
     medicalNote: seed.medicalNote,
     summary: seed.fragments[0] ? truncate(seed.fragments[0], 120) : undefined,
     description: text ? textToPortable(text) : [],
-    photos: placeholderPhotos(seed.species, seed.name, index),
+    photos: placeholderPhotos(),
     listedAt: listedAtFromHaartId(haartId),
     source: 'mock',
   };

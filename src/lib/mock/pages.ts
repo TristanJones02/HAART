@@ -24,7 +24,6 @@ const home: Page = {
       eyebrow: 'Homeless and Abused Animal Rescue Team',
       heading: "Perth's foster-based, no-kill rescue",
       lead: 'No shelter, no government funding, and no animal put to sleep for want of space. Just volunteers, foster homes across Perth, and the people who support them.',
-      image: { alt: 'Placeholder image standing in for a photo of a rescue dog with its foster carer', url: '/placeholders/dog-3.svg', width: 1200, height: 900 },
       primaryCta: { label: 'Meet the animals', href: '/adopt' },
       secondaryCta: { label: 'Donate', href: '/donate' },
     }),
