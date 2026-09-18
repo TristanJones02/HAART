@@ -1,8 +1,19 @@
-# haart.org.au
+# haart.org.au — unofficial concept rebuild
 
-Rebuild of the website for HAART (Homeless and Abused Animal Rescue Team), a foster-based, no-kill animal rescue in Perth, Western Australia. Next.js App Router, TypeScript, Tailwind 4, Motion, Sanity.
+**Not affiliated with or endorsed by HAART. HAART has not been contacted.**
 
-Start with `docs/session-summary.md` if you are returning to this work cold.
+A concept rebuild of the website of HAART (Homeless and Abused Animal Rescue
+Team), a foster-based, no-kill animal rescue in Perth, Western Australia. Next.js
+App Router, TypeScript, Tailwind 4, Motion, Sanity.
+
+Every page carries an unaffiliated banner, every route is `noindex, nofollow`,
+nothing can take a payment and no form captures anything. Those are hard
+constraints, not defaults — **`docs/constraints.md`**, enforced by
+`src/lib/compliance/constraints.test.ts`.
+
+**Picking this up cold? Read `docs/HANDOVER.md` first.** Documents in `docs/`
+dated before 18 September 2026 describe a pro bono rebuild *for* the rescue,
+which this no longer is.
 
 ## Run it
 

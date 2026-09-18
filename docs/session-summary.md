@@ -1,5 +1,11 @@
 # Session summary
 
+> **Superseded. Read `docs/HANDOVER.md` instead.** This was written on 17
+> September 2026, before the project became an unofficial concept build. It
+> describes working donations, seven live forms and an indexable site, none of
+> which exist any more, and a design that has since been rejected. Kept as a
+> record of what was tried.
+
 Written for someone returning cold. Date: 17 September 2026. Branch: `cc/hopeful-gauss-7jkrl6`.
 
 ## Where things stand in one paragraph

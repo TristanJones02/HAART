@@ -1,3 +1,10 @@
+> **Record, not instructions.** This is the full specification for a design
+> Tristan rejected ("the most boring design I've ever seen"; "shit svg
+> everywhere... hero looks plain and AI-ish"). The illustration system it
+> defines is blocker F32 and should be deleted rather than refined. Kept
+> because the contrast maths, the canvas system and the block inventory are
+> still sound and still in the code. See `docs/HANDOVER.md` §4.
+
 # Design direction: **The register**
 
 Final direction for the haart.org.au rebuild. This document supersedes sections 1–7 of `docs/design-system.md` where they conflict. It is the result of a five-way design panel; the winning direction is *Register*, with grafts from *Roll call*, *Ember*, *Cut paper* and *On the lead* named inline where they apply.
