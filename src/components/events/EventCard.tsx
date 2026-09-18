@@ -1,77 +1,66 @@
 import type { Event } from '@/lib/content/types';
-import { SmartImage } from '@/components/ui/SmartImage';
-import { UiIcon } from '@/components/ui/Icon';
-import { HoverLift } from '@/components/motion/HoverLift';
-import { formatEventDate, formatEventDay, truncateDescription } from '@/lib/events/format';
-import { staticMapUrl } from '@/lib/events/maptile';
-import { Button } from '@/components/ui/Button';
+import { RuleLink } from '@/components/art';
+import { DateBlock } from './DateBlock';
+import { formatEventDate, truncateDescription } from '@/lib/events/format';
 
 /**
- * Event card as briefed: static map tile header (or the event image when an
- * editor sets one), title, two-line description, date badge, location badge,
- * click-through to the Facebook event from the iCal URL field.
+ * Not a card: a row in a ruled list. A Facebook event has no picture, so
+ * there is no image slot at all — the date block is the visual, a vertical
+ * hairline divides it from the words, and the only chrome is the rule under
+ * the row.
+ *
+ * `detail` adds the event's own description; the events page uses it, the
+ * home strip does not.
  */
-export function EventCard({ event }: { event: Event }) {
-  const map = event.location?.lat && event.location?.lng ? staticMapUrl({ lat: event.location.lat, lng: event.location.lng, width: 600, height: 340 }) : null;
-  const day = formatEventDay(event);
-  const href = event.facebookUrl;
-  const Wrapper = href ? 'a' : 'div';
-  const wrapperProps = href ? { href, target: '_blank', rel: 'noopener noreferrer' } : {};
+export function EventCard({ event, past = false, detail = false }: { event: Event; past?: boolean; detail?: boolean }) {
+  const venue = event.location?.name ?? event.location?.address;
+  const when = formatEventDate(event);
+  const description = detail ? truncateDescription(event.description, 180) : '';
+
   return (
-    <HoverLift>
-      <article className="flex h-full flex-col overflow-hidden rounded-card border border-border bg-paper-0 shadow-card transition-shadow duration-150 hover:shadow-card-hover">
-        <Wrapper {...wrapperProps} className="group flex h-full flex-col">
-          <div className="relative aspect-[16/9] bg-paper-100">
-            {event.image ? (
-              <SmartImage image={event.image} aspect="absolute inset-0" sizes="(min-width: 1024px) 360px, 100vw" className="!absolute" />
-            ) : map ? (
-              // eslint-disable-next-line @next/next/no-img-element
-              <img src={map} alt="" width={600} height={340} loading="lazy" decoding="async" className="absolute inset-0 size-full object-cover" />
-            ) : (
-              <div className="absolute inset-0 flex items-center justify-center text-charcoal-300">
-                <UiIcon name="MapPin" size={24} />
-              </div>
-            )}
-            <div className="absolute left-3 top-3 flex flex-col items-center rounded-control bg-paper-0 px-2.5 py-1.5 text-center shadow-card" aria-hidden="true">
-              <span className="text-tiny uppercase tracking-caps text-red-600">{day.month}</span>
-              <span className="font-display text-h2 leading-none text-charcoal-900">{day.day}</span>
-              <span className="text-tiny text-charcoal-550">{day.weekday}</span>
-            </div>
-            {event.cancelled ? <span className="absolute right-3 top-3 rounded-pill bg-charcoal-900 px-2.5 py-1 text-tiny font-semibold uppercase tracking-caps text-paper-0">Cancelled</span> : null}
-          </div>
-          <div className="flex flex-1 flex-col p-4">
-            <h3 className="text-h3 group-hover:text-red-600">{event.title}</h3>
-            <dl className="mt-2 space-y-1 text-small text-charcoal-700">
-              <div className="flex items-center gap-2">
-                <dt className="sr-only">When</dt>
-                <UiIcon name="Clock" size={16} className="shrink-0 text-charcoal-500" />
-                <dd>{formatEventDate(event)}</dd>
-              </div>
-              {event.location?.name || event.location?.address ? (
-                <div className="flex items-center gap-2">
-                  <dt className="sr-only">Where</dt>
-                  <UiIcon name="MapPin" size={16} className="shrink-0 text-charcoal-500" />
-                  <dd className="truncate">{event.location.name ?? event.location.address}</dd>
-                </div>
-              ) : null}
-            </dl>
-            {event.description ? <p className="mt-3 line-clamp-2 flex-1 text-body text-charcoal-700">{truncateDescription(event.description, 180)}</p> : null}
-            {href ? (
-              <span className="mt-4 inline-flex items-center gap-1 text-small font-semibold text-red-600 group-hover:underline">
-                View on Facebook
-                <UiIcon name="ExternalLink" size={16} />
-              </span>
-            ) : null}
-          </div>
-        </Wrapper>
-        {event.ticketLink ? (
-          <div className="border-t border-border p-4 pt-3">
-            <Button href={event.ticketLink} variant="secondary" className="w-full">
-              Buy tickets
-            </Button>
-          </div>
+    <article className="border-b border-[color:var(--hairline)] py-6 sm:flex sm:items-start sm:gap-6 sm:py-7">
+      {/* Decorative: the accessible date is the <time> element below. */}
+      <DateBlock event={event} className={past ? 'opacity-70' : ''} />
+
+      <span aria-hidden="true" className="hidden w-px self-stretch bg-[color:var(--hairline)] sm:block" />
+
+      <div className="mt-3 min-w-0 flex-1 sm:mt-0">
+        {past || event.cancelled ? (
+          <p className="mb-2 flex flex-wrap items-center gap-3">
+            {event.cancelled ? <span className="bg-charcoal-900 px-2 py-1 text-index-label uppercase text-paper-0">Cancelled</span> : null}
+            {past ? <span className="text-index-label uppercase text-[color:var(--text-caption)]">Past</span> : null}
+          </p>
         ) : null}
-      </article>
-    </HoverLift>
+
+        <h3 className="text-cardname font-display text-balance">{event.title}</h3>
+
+        <p className="mt-2 text-[0.875rem] text-[color:var(--text-muted)]">
+          <time dateTime={event.start}>{when}</time>
+          {venue ? (
+            <>
+              <span aria-hidden="true"> · </span>
+              {venue}
+            </>
+          ) : null}
+        </p>
+
+        {description ? <p className="mt-2 max-w-prose text-small text-[color:var(--text-muted)]">{description}</p> : null}
+
+        {event.facebookUrl || event.ticketLink ? (
+          <p className="mt-4 flex flex-wrap items-center gap-x-8 gap-y-3">
+            {event.facebookUrl ? (
+              <RuleLink href={event.facebookUrl}>
+                View on Facebook<span className="sr-only">: {event.title}</span>
+              </RuleLink>
+            ) : null}
+            {event.ticketLink ? (
+              <RuleLink href={event.ticketLink}>
+                Buy tickets<span className="sr-only"> for {event.title}</span>
+              </RuleLink>
+            ) : null}
+          </p>
+        ) : null}
+      </div>
+    </article>
   );
 }

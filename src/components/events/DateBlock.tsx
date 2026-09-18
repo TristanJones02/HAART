@@ -21,7 +21,7 @@ export function DateBlock({ event, className = '' }: { event: Event; className?:
   const figure = 'font-display font-black tabular-nums leading-[0.85] tracking-[-0.03em] text-[color:var(--rule)]';
 
   return (
-    <div aria-hidden="true" className={className}>
+    <div aria-hidden="true" className={`sm:w-[88px] sm:flex-none ${className}`}>
       {/* Phone: one line above the title. */}
       <p className="flex items-baseline gap-2 sm:hidden">
         <span className="text-rubric uppercase text-[color:var(--rule)]">{weekday}</span>
@@ -31,7 +31,7 @@ export function DateBlock({ event, className = '' }: { event: Event; className?:
       </p>
 
       {/* Desktop: the 88px block. */}
-      <p className="hidden w-[88px] flex-none sm:block">
+      <p className="hidden sm:block">
         <span className="block text-rubric uppercase text-[color:var(--rule)]">{month}</span>
         <span className={`mt-1 block text-[3.25rem] ${figure}`}>{day}</span>
         <span className="mt-1 block text-[0.75rem] text-[color:var(--text-muted)]">{year}</span>
