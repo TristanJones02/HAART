@@ -121,9 +121,14 @@
   --text-rubric--letter-spacing: 0.16em;
   --text-rubric--font-weight: 700;
 
-  --text-caption: 0.8125rem;
-  --text-caption--line-height: 1.4;
-  --text-caption--font-weight: 600;
+  /*
+   * Named --text-note, not --text-caption: the canvas classes define
+   * --text-caption as the caption COLOUR, and a theme token of the same name
+   * would make the generated font-size utility resolve to that colour.
+   */
+  --text-note: 0.8125rem;
+  --text-note--line-height: 1.4;
+  --text-note--font-weight: 600;
 
   --text-catalogue: 0.6875rem;
   --text-catalogue--line-height: 1.2;

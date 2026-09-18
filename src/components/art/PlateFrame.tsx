@@ -75,7 +75,7 @@ export function PlateFrame({
         ) : null}
       </div>
       {caption ? (
-        <figcaption className="mt-2 flex items-start gap-2 text-caption italic text-[color:var(--text-caption)]">
+        <figcaption className="mt-2 flex items-start gap-2 text-note italic text-[color:var(--text-caption)]">
           <span aria-hidden="true" className="mt-[0.55em] h-0.5 w-3 flex-none bg-[color:var(--rule)]" />
           {caption}
         </figcaption>

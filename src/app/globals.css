@@ -12,11 +12,13 @@
   .canvas-cream,
   .canvas-sand,
   .canvas-ink {
-    background: var(--canvas);
+    /* background-color, not the shorthand: .grain layers a background-image on top. */
+    background-color: var(--canvas);
     color: var(--text-strong);
   }
 
   .canvas-paper {
+    --rubric: var(--color-terracotta-600);
     --canvas: var(--color-paper-0);
     --text-strong: var(--color-charcoal-900);
     --text-muted: var(--color-charcoal-550);
@@ -28,6 +30,7 @@
   }
 
   .canvas-cream {
+    --rubric: var(--color-terracotta-600);
     --canvas: var(--color-paper-50);
     --text-strong: var(--color-charcoal-900);
     --text-muted: var(--color-charcoal-550);
@@ -40,6 +43,7 @@
 
   /* charcoal-550 is 4.24:1 on sand, so muted steps up to charcoal-700. */
   .canvas-sand {
+    --rubric: var(--color-terracotta-600);
     --canvas: var(--color-sand-100);
     --text-strong: var(--color-charcoal-900);
     --text-muted: var(--color-charcoal-700);
@@ -52,6 +56,7 @@
 
   /* red-600 is 2.33:1 on ink, so the rule and every red signal step up to red-200. */
   .canvas-ink {
+    --rubric: var(--color-red-200);
     --canvas: var(--color-ink-950);
     --text-strong: var(--color-sand-100);
     --text-muted: var(--color-sand-300);
@@ -136,12 +141,11 @@
   }
   .skip-link:focus { top: 1rem; }
 
-  /* The tooth of uncoated stock. Compositor-only, costs nothing. */
-  .grain::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
+  /*
+   * The tooth of uncoated stock. A background-image on the element itself, so
+   * it paints behind in-flow content; as a pseudo-element it sat on top of it.
+   */
+  .grain {
     background-image: radial-gradient(circle at 1px 1px, var(--grain) 1px, transparent 0);
     background-size: 4px 4px;
   }
