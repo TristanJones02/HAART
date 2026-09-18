@@ -28,6 +28,37 @@ Do not put the status in the animal's name. The website ignores asterisks and ca
 
 If HAART is connected to PetRescue, animals listed there appear on the site automatically. Add them in the Studio only if you need to mark them as needing a foster or attach a story.
 
+## Uploading a lot of photos at once
+
+For one animal, do it in the Studio. For a backlog — a folder or a phone roll
+with hundreds of photos in it — there is a command that does the whole lot.
+Somebody technical runs it; your part is the alt text.
+
+1. Put the photos in one folder, with a **subfolder per animal named after its
+   HAART ID**: `HD26-044/`, `HC25-028/`. A file named `HD26-044 Rosemary 3.jpg`
+   works just as well as a folder, and so does the older `hd26 - 44` spelling.
+   Photos with no ID anywhere in the name are listed as unsorted rather than
+   attached to the wrong animal.
+2. They run `pnpm import:photos <folder> --csv`. Nothing is uploaded. It writes
+   a spreadsheet, `docs/photo-manifest.csv`, with one line per photo.
+3. **Open the spreadsheet and fill in the `alt` column**: a short description of
+   what is in the picture, like "Brindle staffy sitting on grass, tongue out".
+   This is the one thing the computer cannot do for you, and it is what a blind
+   supporter hears instead of the photo. Put `TRUE` in the `sensitive` column
+   for any injury or neglect photo; the site keeps those blurred until a reader
+   chooses to see them.
+4. They run it again with `--execute`. Photos with a description go up; photos
+   without one are counted and wait for the next round. Nothing is ever
+   uploaded twice, so you can do a hundred at a time and stop whenever.
+
+Two things the command does that are worth knowing. Phone photos are five or
+six megabytes each and often sideways; it turns them the right way up and gets
+them down to a few hundred kilobytes, so the website stays fast. And it
+**deletes the hidden location data** — phone photos record where they were
+taken, which for us is usually a foster carer's home address. It also tells you
+how many of your photos had it, which is worth knowing before anyone emails a
+folder of originals to a stranger.
+
 ## When an animal is adopted
 
 Set Status to **Adopted** and Publish. Do not delete the animal. Its page stays up with an "Adopted" badge so links people shared on Facebook keep working, and it is hidden from the listing unless someone ticks "Show adopted".

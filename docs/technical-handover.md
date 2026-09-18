@@ -63,7 +63,11 @@ Definitions in `src/lib/forms/definitions.ts` are data; the renderer and the API
 
 ## Images
 
-Sanity images go through the Sanity CDN with a custom `next/image` loader (`sanityLoader`) so they are processed once. Remote images (PetRescue, map tiles) go through the Next optimiser via `remotePatterns`. Local SVG placeholders render as plain `img`. Every `ImageWithAlt` requires alt text at the schema level. Distressing images (`sensitive: true`) render blurred behind a reveal control.
+Sanity images go through the Sanity CDN with a custom `next/image` loader (`sanityLoader`) so they are processed once. Remote images (PetRescue, map tiles) go through the Next optimiser via `remotePatterns`. Local SVG placeholders render as plain `img`. Every `ImageWithAlt` requires alt text at the schema level. Distressing images (`sensitive: true`) render blurred behind a reveal control. An animal with no photograph renders a drawn `Plate` rather than a grey box, so a missing photo is never a hole in the page.
+
+**Ingest.** `src/lib/media/photo.ts` is the pipeline for photographs that arrive from volunteers rather than through the Studio: `processPhoto` applies the EXIF orientation, drops *all* metadata, caps the longest edge (2400px by default, never upscaling) and re-encodes as progressive mozjpeg, returning a 24px LQIP alongside. A 12MP phone photo goes from about 5 MB to about 400 KB before Sanity's CDN has done anything. HEIC/HEIF is read natively by libvips, so iPhone files need no conversion step.
+
+`hasGps` reports whether the original carried a GPS IFD. That is not a curiosity: for a foster-based rescue a geotag on a photo of a dog in a lounge room is a carer's home address, and the import counts them so someone knows before a folder of originals is emailed anywhere. The stripping is not conditional — sharp writes no metadata unless asked — but the count is reported either way. `src/lib/media/photo.test.ts` round-trips a real GPS block through the pipeline to prove it comes out the other side with none.
 
 ## Performance and accessibility budget
 
@@ -71,13 +75,14 @@ Measured with Lighthouse 13 on the mock-content production build, mobile, simula
 
 ## Checks
 
-`pnpm check` runs lint, typecheck, the 180 unit tests and a build. `.github/workflows/ci.yml` runs the same on every push. `src/styles/tokens.test.ts` fails if a token change breaks a documented contrast pairing.
+`pnpm check` runs lint, typecheck, the 224 unit tests and a build. `.github/workflows/ci.yml` runs the same on every push. `src/styles/tokens.test.ts` fails if a token change breaks a documented contrast pairing.
 
 ## Scripts
 
 - `pnpm crawl` crawls both old hosts, fills `docs/content-inventory.json` with verbatim copy, form fields and media dimensions, writes `docs/media-manifest.json` and `docs/crawl-css-summary.json`. Run once from a normal connection.
 - `pnpm import:content` writes `docs/import-preview.ndjson` (dry run). `--execute` imports into the dataset; `--only=animal,partner` limits types. Idempotent.
 - `pnpm sync:events [--fixture] [--dry-run]` runs the events sync from the CLI.
+- `pnpm import:photos <folder> [--csv] [--execute] [--max 2400] [--quality 82]` bulk-ingests volunteer photographs. The scan processes everything into `.photo-cache/` (content-keyed, gitignored) and writes `docs/photo-manifest.json` with an empty `alt` on every row; `--csv` writes the same rows as a spreadsheet for a volunteer to fill in. `--execute` uploads only the rows that have alt text and a matched animal, and skips the rest with a count, so a half-filled manifest imports its ready half. The animal comes from a HAART id anywhere in the path (`HD26-044/`, `HD26-044 Rosemary 3.jpg`, `hd26 - 44`); unmatched photos are reported, never guessed at. Re-running is safe twice over: Sanity keys assets on content so the same bytes return the same asset id, and the scan carries forward alt text already written, by path first and then by content hash.
 
 ## Deploying
 

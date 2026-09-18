@@ -113,3 +113,26 @@ Inventory items carry `verbatimStatus` of `complete`, `fragment` or `missing`. R
 ## D22. Events sync tolerates an empty calendar but not a non-calendar response
 
 **Decision.** An empty but valid iCal is treated as "no upcoming events" (after two missed runs, future Facebook events are marked cancelled). A non-calendar response, such as a login page when the export key has expired, is a hard failure that changes nothing and is recorded in `syncStatus`. This protects the events page from a rotated key wiping it.
+
+## D23. The logo is HAART's own artwork, traced, not typeset
+
+**Decision.** The header, footer, favicon and sharing card carry HAART's real mark and logotype, traced from the artwork file, rather than "haart" set in Nunito 900 with the printer's quad beside it. The quad stays in rubrics and buttons.
+**Why.** The typographic wordmark was a stand-in written before the artwork existed. A rescue with a mark people already recognise from its market stall should use it; a font-based substitute reads as a placeholder to everyone who knows them.
+**How.** Threshold the source into a black layer and a red layer, label connected components, follow each component's crack boundary, simplify with Ramer-Douglas-Peucker, then emit **one path element per component with every ring as a subpath** so `fill-rule="evenodd"` can punch the counters and the heart's interior out. Emitting a path per ring, which is the obvious thing to do, fills every hole: the first attempt rendered "naart" beside a dark blob.
+**Consequence.** No vector source file exists yet, so the curves are polygonal approximations; blocker F30 records that. The artwork's heart is #ea1824 against the system's #b50806, recorded as F29; the site uses the brand red so the header does not carry two reds.
+
+## D24. The heart is a canvas variable, not a fixed colour
+
+**Decision.** The heart in the `Logomark` reads `--logo-heart`, set by each canvas class alongside `--rule` and `--rubric`: red-600 on the papers, red-200 on ink.
+**Why.** red-600 is 2.33:1 on ink. Hardcoded, the heart sank into the footer. A logo component must not branch on which canvas it is sitting on, and the canvas system exists precisely so it does not have to.
+
+## D25. Bulk photo import is a two-pass, alt-text-gated process
+
+**Decision.** `pnpm import:photos` scans and processes on the first pass and writes a manifest with an empty `alt` on every row; only the second pass, with `--execute`, uploads, and only rows that have alt text and a matched animal. Rows without are skipped and counted, not filled in with something generated.
+**Why.** Alt text is the one field a script cannot invent, and "Photo of Rosemary" is worse than useless to a screen reader — it is the kind of filler that makes an accessibility audit pass while helping nobody. Gating on it also makes the backlog visible: the count of waiting rows is the count of undescribed photos.
+**Rejected.** Deriving alt from the animal record (breed, colour, name). It reads plausibly and is wrong often enough to be a liability, and it would hide the backlog rather than surface it.
+
+## D26. Location data is stripped on ingest and counted out loud
+
+**Decision.** `processPhoto` drops all metadata, and `hasGps` reports how many originals carried a GPS IFD. The count is printed on every scan.
+**Why.** For a foster-based rescue, a geotag on a photo of a dog in a lounge room is a foster carer's home address. Silently stripping it protects the website; saying how many there were protects the carers, because the originals are still sitting in somebody's phone and camera roll and get emailed around.
