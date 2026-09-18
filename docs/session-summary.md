@@ -50,7 +50,7 @@ Facts only HAART can confirm before launch: ABN and ACNC verification (F1, F2), 
 2. Create the Sanity project, apply for the non-profit plan, set the variables, run `pnpm import:content --execute`, deploy the Studio, and walk the volunteer guide against it (add the screenshots).
 3. Get the PetRescue token and check `mapListing` against a real response (F25).
 4. Have a page admin generate the Facebook events export URL and run `pnpm sync:events` once by hand (F26).
-5. Replace the four sample stories with two real ones and upload real photos; the placeholder SVGs disappear the moment a Sanity image exists.
+5. Replace the four sample stories with two real ones. For the photo backlog, use `pnpm import:photos <folder> --csv` (see the volunteer guide): every animal renders a drawn plate until a photograph exists, and the plate disappears the moment one does.
 6. Set the Stripe and Square links, then test the donate page's cover-fees toggle with a real link.
 7. Re-run Lighthouse with real images. If the home page drops below 95, the levers are: keep the hero photo under 200 KB at 1600px (the pipeline does this), and consider inlining the critical CSS.
 8. Committee sign-off on F1 to F16, then tick the Verified boxes in the Studio.
@@ -66,6 +66,27 @@ Facts only HAART can confirm before launch: ABN and ACNC verification (F1, F2), 
 
 ## Test and check results at handover
 
-- `pnpm lint`: clean. `pnpm typecheck`: clean. `pnpm test`: 180 passing across 15 files. `pnpm build`: succeeds (76 static pages with mock content).
+- `pnpm lint`: clean. `pnpm typecheck`: clean. `pnpm test`: 224 passing across 16 files. `pnpm build`: succeeds (76 static pages with mock content).
 - Lighthouse 13, mobile, simulated throttling, mock content: home 94–95, dogs listing 98, animal profile 98, foster 95, donate 96–98, events 97, story 98; accessibility 100 on every page; CLS 0 everywhere; TBT 30–60 ms.
 - Interaction checks by Playwright: `?animal=` prefill works, `?frequency=monthly` preselects, the dog grid filters, the desktop dropdown opens from the keyboard, the mobile menu opens as a dialog, no console errors on any page at either viewport.
+
+
+## Added after the redesign
+
+**The logo is HAART's own.** Tristan supplied the artwork file; the mark, the
+logotype and the heart are traced from it and used in the header, the footer,
+the favicon and the sharing card. The typographic "haart" in Nunito 900 that
+the design register specified was a stand-in written before the artwork
+existed, and the register is amended to say so. Two things to settle: the
+artwork's heart is #ea1824 and the system's brand red is #b50806 (F29), and
+there is no vector source file, so the curves are traced approximations (F30).
+
+**Photographs can now be bulk-loaded.** `pnpm import:photos <folder>` reads a
+folder of phone photos — HEIC included — turns them the right way up, strips
+the metadata (GPS especially: those are foster carers' home addresses), caps
+them at 2400px, and writes a manifest with an empty alt field per photo. A
+volunteer fills the alt column in, and `--execute` uploads only the rows that
+have one. See the volunteer guide for the volunteer-facing version and the
+technical handover for the mechanics. The site still ships zero photographs:
+every animal renders a plate, which is the production path for any animal
+nobody has photographed yet.
