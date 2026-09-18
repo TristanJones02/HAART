@@ -47,4 +47,26 @@ export const env = {
   get isProduction() {
     return process.env.NODE_ENV === 'production';
   },
+  /**
+   * The live site, as opposed to a build someone is reviewing.
+   *
+   * Every Vercel deployment is built with NODE_ENV=production, previews
+   * included, so NODE_ENV alone cannot tell haart.org.au from a link a
+   * committee member has been sent. VERCEL_ENV can: it is 'production' only
+   * for the production deployment. Off Vercel there is no such signal and
+   * NODE_ENV is trusted, which is the conservative answer.
+   *
+   * Only the mock-content gates and robots.txt read this. Anything that
+   * decides whether a request is *authorised* still reads `isProduction`,
+   * because a weaker rule on a preview is how preview URLs become holes.
+   */
+  get isLiveSite() {
+    if (process.env.NODE_ENV !== 'production') return false;
+    const deployment = read('VERCEL_ENV');
+    return deployment ? deployment === 'production' : true;
+  },
+  /** 'production', 'preview', 'development', or undefined off Vercel. */
+  get deploymentEnv() {
+    return read('VERCEL_ENV');
+  },
 } as const;

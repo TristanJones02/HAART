@@ -46,7 +46,7 @@ export type ResolverOptions = {
 };
 
 export function mockContentAllowed(): boolean {
-  return !env.isProduction || process.env.ALLOW_MOCK_CONTENT === 'true';
+  return !env.isLiveSite || process.env.ALLOW_MOCK_CONTENT === 'true';
 }
 
 function defaultOptions(): Required<Pick<ResolverOptions, 'sources' | 'overlay'>> {

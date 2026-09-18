@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from 'next';
 import { Nunito, Source_Sans_3 } from 'next/font/google';
 import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
+import { PreviewStrip } from '@/components/layout/PreviewStrip';
 import { Analytics } from '@/components/layout/Analytics';
 import { MotionProvider } from '@/components/motion/MotionProvider';
 import { getSiteSettings } from '@/lib/content/settings';
@@ -32,6 +33,7 @@ export default async function RootLayout({ children }: LayoutProps<'/'>) {
         <a href="#main" className="skip-link">
           Skip to content
         </a>
+        <PreviewStrip />
         <MotionProvider>
           <Header nav={settings.navigation.header} />
           <main id="main" className="flex-1">

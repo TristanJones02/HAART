@@ -61,7 +61,7 @@ type MockFilter = (events: Event[], nowMs: number) => Event[];
 let loggedMockFallback = false;
 
 function mockAllowed(): boolean {
-  return !env.isProduction || process.env.ALLOW_MOCK_CONTENT === 'true';
+  return !env.isLiveSite || process.env.ALLOW_MOCK_CONTENT === 'true';
 }
 
 function mock(reason: string, filter: MockFilter): Event[] {
@@ -80,11 +80,11 @@ async function query(groqQuery: string, params: Record<string, unknown>, filter:
   try {
     const rows = await client.fetch<unknown>(groqQuery, params, FETCH_OPTIONS);
     const events = Array.isArray(rows) ? rows.filter(isEventRow).map(clean) : [];
-    if (events.length === 0 && !env.isProduction) return mock('Sanity returned no events', filter);
+    if (events.length === 0 && !env.isLiveSite) return mock('Sanity returned no events', filter);
     return events;
   } catch (err) {
     console.error('[events] Sanity query failed', err instanceof Error ? err.message : err);
-    return mockAllowed() && !env.isProduction ? mock('Sanity query failed', filter) : [];
+    return mockAllowed() && !env.isLiveSite ? mock('Sanity query failed', filter) : [];
   }
 }
 
