@@ -30,17 +30,10 @@ export const MOCK_SETTINGS: SiteSettings = {
   },
   donate: {
     // TODO(tristan): paste Stripe Payment Links here or in the Studio (blocker C6).
-    oneOffLink: undefined,
-    monthlyLink: undefined,
-    oneOffCoverFeesLink: undefined,
-    monthlyCoverFeesLink: undefined,
     paypalGivingFundLink: undefined,
     bankDetails: undefined, // blocker F4
     containersForChangeId: undefined, // blocker F5
-    processingFeePercent: 1.75,
-    processingFeeFixed: 30,
   },
-  newsletter: { provider: undefined, embedUrl: undefined }, // blocker F18
   fees: {
     catStandard: 200,
     dogFrom: undefined, // blocker F6
@@ -57,7 +50,6 @@ export const MOCK_SETTINGS: SiteSettings = {
           { label: 'Dogs', href: '/adopt/dogs' },
           { label: 'Cats', href: '/adopt/cats' },
           { label: 'How adoption works', href: '/adopt' },
-          { label: 'Apply to adopt', href: '/adopt/apply/dogs' },
         ],
       },
       { label: 'Foster', href: '/foster' },
@@ -109,7 +101,6 @@ export const MOCK_SETTINGS: SiteSettings = {
           { label: 'About HAART', href: '/about' },
           { label: 'Rescue stories', href: '/stories' },
           { label: 'Surrendering an animal', href: '/surrender' },
-          { label: 'All forms', href: '/forms' },
           { label: 'Contact', href: '/contact' },
           { label: 'Privacy', href: '/privacy' },
         ],

@@ -1,7 +1,14 @@
 /**
- * Privacy-respecting analytics: Plausible in cookieless mode.
- * `track` is safe to call anywhere; it is a no-op on the server, when the
- * script has not loaded, or when analytics is not configured.
+ * Disabled. This build collects nothing about anybody.
+ *
+ * It was Plausible in cookieless mode, which does not fingerprint and would
+ * arguably have been allowed — but a concept rebuild carrying someone else's
+ * name has no business measuring their visitors, and the cheapest way to hold
+ * that line is to have nothing to configure. The script is gone from the
+ * layout and `track` no longer calls anything.
+ *
+ * The call sites stay, and so does the event union: they are the record of
+ * which four moments matter, and restoring measurement is one function body.
  */
 export type ConversionEvent =
   | 'donation_started'
@@ -21,13 +28,9 @@ declare global {
   }
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars -- the signature is the contract; the body is deliberately empty.
 export function track(event: ConversionEvent | (string & {}), props?: Props): void {
-  if (typeof window === 'undefined') return;
-  try {
-    window.plausible?.(event, props ? { props } : undefined);
-  } catch {
-    // analytics must never break the page
-  }
+  // Intentionally empty. See the note above.
 }
 
 /** Builds a campaign link so volunteers never hand-type UTM parameters. */

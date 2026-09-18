@@ -57,7 +57,6 @@ export default async function AnimalPage(props: PageProps<'/adopt/[species]/[slu
   const deck = animalFacts(animal).join(' · ');
   const fee = feeLabel(animal, settings.fees.catStandard);
   const listingPath = `/adopt/${species}`;
-  const applyPath = `/adopt/apply/${species}?animal=${encodeURIComponent(animal.slug)}`;
   const adopted = animal.status === 'adopted';
   const url = `${siteUrl}/adopt/${species}/${slug}`;
   const plate = plateFor(plateSubject(animal));
@@ -119,14 +118,27 @@ export default async function AnimalPage(props: PageProps<'/adopt/[species]/[slu
                 </div>
               ) : (
                 <div className="relative mt-8 mb-14">
-                  <Button href={applyPath} size="lg" className="w-full">
-                    Apply to adopt {animal.name}
-                  </Button>
-                  {animal.fosterNeeded ? (
-                    <p className="mt-4">
-                      <RuleLink href={`/foster/apply/${species}?animal=${encodeURIComponent(animal.slug)}`}>Foster {animal.name}</RuleLink>
-                    </p>
-                  ) : null}
+                  {/*
+                    No enquiry is captured here, ever. The call to action leaves
+                    for the platform that handles adoptions, because its enquiry
+                    numbering is what entitles an adopter to its benefits and
+                    intercepting that would cost them and the rescue both. Until
+                    the adapter supplies that link there is no button at all: a
+                    dead "Apply" control on a page carrying someone else's
+                    animals is worse than none.
+                  */}
+                  {animal.enquiryUrl ? (
+                    <Button href={animal.enquiryUrl} size="lg" className="w-full" external>
+                      Enquire about {animal.name}
+                    </Button>
+                  ) : (
+                    <div className="border border-charcoal-300 bg-paper-100 p-4" role="status">
+                      <p className="font-semibold">Enquiries are not handled here.</p>
+                      <p className="mt-1 text-small text-charcoal-700">
+                        This is an unofficial concept build and takes no applications. {animal.name} is listed by HAART, and enquiries go to the rescue through their own channels.
+                      </p>
+                    </div>
+                  )}
                   <TearOff tabFill="paper" />
                 </div>
               )}

@@ -1,5 +1,11 @@
 # Technical handover
 
+> **Superseded in part.** This project is now an unofficial concept rebuild:
+> HAART has not been contacted and has not endorsed it. Forms, donations,
+> payments and analytics have been removed, and every route is `noindex`.
+> Sections below describing those features no longer match the code. See
+> `docs/constraints.md`.
+
 For whoever inherits the codebase. Read `docs/session-summary.md` first for state and history, then this for how it works.
 
 ## Stack

@@ -26,13 +26,13 @@ const permanent = (source: string, destination: string): Redirect => ({
 /** Pages that moved or merged. Trailing slashes are handled by Next (trailingSlash: false). */
 export const pageRedirects: Redirect[] = [
   permanent('/about-our-rescue-mission', '/about'),
-  permanent('/adopt/pre-adoption-questionnaire-dogs', '/adopt/apply/dogs'),
-  permanent('/adopt/pre-adoption-questionnaire-cats', '/adopt/apply/cats'),
-  permanent('/foster/dogs', '/foster/apply/dogs'),
-  permanent('/foster/cats', '/foster/apply/cats'),
+  permanent('/adopt/pre-adoption-questionnaire-dogs', '/adopt/dogs'),
+  permanent('/adopt/pre-adoption-questionnaire-cats', '/adopt/cats'),
+  permanent('/foster/dogs', '/foster'),
+  permanent('/foster/cats', '/foster'),
   permanent('/friends-of-haart', '/partners'),
   permanent('/sponsor-kennel', '/partners'),
-  permanent('/sponsorship-application', '/partners/apply'),
+  permanent('/sponsorship-application', '/partners'),
   permanent('/goodwill-wines', '/support'),
   permanent('/adoption-gallery-cats', '/adopt/cats'),
   permanent('/adoption-gallery-dogs', '/adopt/dogs'),

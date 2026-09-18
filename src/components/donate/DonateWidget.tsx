@@ -2,7 +2,6 @@
 
 import { useId, useState, useSyncExternalStore } from 'react';
 import type { SiteSettings } from '@/lib/content/types';
-import { track } from '@/lib/analytics';
 
 type Frequency = 'once' | 'monthly';
 
@@ -24,33 +23,26 @@ const OFF = 'border-charcoal-900 bg-paper-0 text-charcoal-900 hover:bg-paper-100
 
 /**
  * Amount presets and a one-off / monthly choice with equal weight. Nothing is
- * preselected on first load unless a campaign link asks for it. The cover-fees
- * option swaps to the grossed-up payment link; if that link does not exist,
- * the option is not shown. A missing link never renders a dead button.
+ * preselected on first load unless a campaign link asks for it.
+ *
+ * **Non-functional by constraint.** This is a concept rebuild of someone
+ * else's charity: it must never be able to take a person's money. There is no
+ * payment provider, no payment link, no redirect and no card field anywhere in
+ * this component — the settings still carry link fields, and this deliberately
+ * does not read them. The submit control is permanently disabled and says why.
+ *
+ * The controls above it stay live so the interaction can still be judged, and
+ * so the day this becomes a real site the only change is a link and a button.
  */
-export function DonateWidget({ amounts, links }: { amounts: number[]; links: SiteSettings['donate'] }) {
+export function DonateWidget({ amounts }: { amounts: number[]; links?: SiteSettings['donate'] }) {
   const id = useId();
   const urlFrequency = useSyncExternalStore(noopSubscribe, readUrlFrequency, () => null);
   const [chosenFrequency, setFrequency] = useState<Frequency | null>(null);
   const frequency = chosenFrequency ?? urlFrequency;
   const [amount, setAmount] = useState<number | null>(null);
   const [custom, setCustom] = useState('');
-  const [coverFees, setCoverFees] = useState(false);
 
-  const canCover = frequency === 'once' ? !!links.oneOffCoverFeesLink : frequency === 'monthly' ? !!links.monthlyCoverFeesLink : false;
-  const baseLink = frequency === 'once' ? links.oneOffLink : frequency === 'monthly' ? links.monthlyLink : undefined;
-  const feeLink = frequency === 'once' ? links.oneOffCoverFeesLink : links.monthlyCoverFeesLink;
-  const link = coverFees && canCover ? feeLink : baseLink;
   const chosen = amount ?? (custom ? Number(custom) : null);
-  const feePct = links.processingFeePercent ?? 1.75;
-  const feeFixed = (links.processingFeeFixed ?? 30) / 100;
-  const fee = chosen ? Math.round((chosen * (feePct / 100) + feeFixed) * 100) / 100 : null;
-
-  const href = link && chosen ? `${link}${link.includes('?') ? '&' : '?'}${new URLSearchParams({ prefilled_amount: String(Math.round(chosen * 100)), utm_source: 'website', utm_medium: 'donate_page' })}` : null;
-
-  /* Anything configured at all? If not, say so plainly instead of offering a control that cannot work. */
-  const configured = !!(links.oneOffLink || links.monthlyLink);
-  const showNotice = !baseLink && (!configured || !!frequency);
 
   const freqBtn = (f: Frequency, label: string, sub: string) => (
     <button key={f} type="button" role="radio" aria-checked={frequency === f} onClick={() => setFrequency(f)} className={`flex flex-1 flex-col items-start px-4 py-3 text-left ${CONTROL} ${frequency === f ? ON : OFF}`}>
@@ -112,40 +104,19 @@ export function DonateWidget({ amounts, links }: { amounts: number[]; links: Sit
         </label>
       </fieldset>
 
-      {canCover ? (
-        <label className="mt-6 flex items-start gap-3 text-body">
-          <input type="checkbox" className="mt-1 size-5 flex-none accent-red-600" checked={coverFees} onChange={(e) => setCoverFees(e.target.checked)} />
-          <span>
-            Add {fee ? `$${fee.toFixed(2)}` : 'the processing fee'} so HAART receives the full amount
-            <span className="mt-1 block text-small text-charcoal-550">
-              Card processing costs about {feePct}% plus {Math.round(feeFixed * 100)} cents. Optional.
-            </span>
-          </span>
-        </label>
-      ) : null}
-
       <div className="mt-7">
-        {showNotice ? (
-          <div className="border border-charcoal-300 bg-paper-100 p-4 text-body text-charcoal-900" role="status">
-            <p className="font-semibold">Online donations are being set up.</p>
-            <p className="mt-1">Bank transfer details are below, or email info@haart.org.au and we will help.</p>
-          </div>
-        ) : href ? (
-          <a
-            href={href}
-            className="flex min-h-[52px] w-full items-center justify-center gap-3 bg-red-600 px-6 font-body text-[1.1875rem] font-semibold leading-tight text-paper-0 hover:bg-red-700"
-            onClick={() => track('donation_started', { frequency: frequency ?? 'unset', amount: chosen ?? 0, coverFees })}
-          >
-            <span aria-hidden="true" className="size-[9px] flex-none bg-paper-0" />
-            Donate ${chosen}
-            {frequency === 'monthly' ? ' a month' : ''}
-          </a>
-        ) : (
-          <button type="button" disabled className="flex min-h-[52px] w-full cursor-not-allowed items-center justify-center border border-charcoal-300 bg-paper-100 px-6 font-body text-[1.1875rem] font-semibold leading-tight text-charcoal-700" aria-disabled="true">
-            {frequency ? 'Choose an amount' : 'Choose one-off or monthly'}
-          </button>
-        )}
-        <p className="mt-4 text-small text-charcoal-550">You will finish on a secure Stripe page. No account needed. Monthly gifts can be stopped any time.</p>
+        <button
+          type="button"
+          disabled
+          aria-disabled="true"
+          className="flex min-h-[52px] w-full cursor-not-allowed items-center justify-center border border-charcoal-300 bg-paper-100 px-6 font-body text-[1.1875rem] font-semibold leading-tight text-charcoal-700"
+        >
+          {chosen ? `Donate $${chosen}${frequency === 'monthly' ? ' a month' : ''}` : frequency ? 'Choose an amount' : 'Choose one-off or monthly'}
+        </button>
+        <p className="mt-4 border border-charcoal-300 bg-paper-100 p-4 text-small text-charcoal-900" role="status">
+          <strong className="font-semibold">Donations are switched off in this concept build.</strong>{' '}
+          Nothing here can take a payment, and this site is not connected to HAART. To give to the rescue, go to their own website or their Facebook page.
+        </p>
       </div>
     </form>
   );

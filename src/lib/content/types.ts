@@ -104,7 +104,6 @@ export type SiteSettings = {
     processingFeePercent?: number;
     processingFeeFixed?: number;
   };
-  newsletter?: { embedUrl?: string; provider?: string };
   fees: {
     catStandard?: number;
     dogFrom?: number;
@@ -165,6 +164,13 @@ export type Animal = {
   photos: ImageWithAlt[];
   petrescueId?: string;
   petrescueUrl?: string;
+  /**
+   * Outbound link to this animal's profile on the platform that actually
+   * handles enquiries. This build never takes an enquiry itself: the platform's
+   * enquiry numbering is what entitles an adopter to its benefits, and
+   * intercepting that would cost both them and the rescue.
+   */
+  enquiryUrl?: string;
   listedAt?: string;
   adoptedAt?: string;
   location?: string;
@@ -260,24 +266,6 @@ export type Partner = {
   sortOrder?: number;
 };
 
-export type FormId =
-  | 'preAdoptionDogs'
-  | 'preAdoptionCats'
-  | 'fosterDogs'
-  | 'fosterCats'
-  | 'volunteer'
-  | 'contact'
-  | 'partnership';
-
-export type Submission = {
-  _type: 'submission';
-  form: FormId;
-  receivedAt: string;
-  data: string;
-  emailSent: boolean;
-  status: 'new' | 'in_progress' | 'done';
-};
-
 export type SyncStatus = {
   _type: 'syncStatus';
   _id: string;
@@ -322,9 +310,7 @@ export type Section =
   | (Base<'section.donateWidget'> & { heading?: string; text?: string; amounts: number[]; impactLines?: { _key?: string; amount: number; text: string }[] })
   | (Base<'section.otherWaysToGive'> & { heading?: string; showBankDetails?: boolean; showContainersForChange?: boolean; items: { _key?: string; icon: IconName; heading: string; text: string; link?: Link }[] })
   | (Base<'section.contactDetails'> & { heading?: string; note?: string })
-  | (Base<'section.formEmbed'> & { form: FormId; heading?: string; intro?: string })
   | (Base<'section.linkList'> & { heading?: string; links: { _key?: string; label: string; href: string; description?: string }[] })
-  | (Base<'section.newsletter'> & { heading?: string; text?: string })
   | (Base<'section.imageWithText'> & { heading: string; body: PortableTextBlock[] | string; image: ImageWithAlt; cta?: Link })
   | (Base<'section.quote'> & { quote: string; attribution?: string; image?: ImageWithAlt });
 
@@ -364,5 +350,3 @@ export const ICON_NAMES: IconName[] = [
   'stethoscope', 'car', 'camera', 'megaphone', 'handshake', 'badge-check', 'dollar', 'repeat', 'truck',
   'calendar', 'map-pin', 'mail', 'phone', 'sparkles', 'check',
 ];
-
-export const FORM_IDS: FormId[] = ['preAdoptionDogs', 'preAdoptionCats', 'fosterDogs', 'fosterCats', 'volunteer', 'contact', 'partnership'];

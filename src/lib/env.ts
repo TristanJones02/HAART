@@ -31,15 +31,6 @@ export const env = {
     provider: read('MAP_STATIC_PROVIDER') ?? 'geoapify',
     apiKey: read('MAP_STATIC_API_KEY'),
   },
-  analytics: {
-    plausibleDomain: read('NEXT_PUBLIC_PLAUSIBLE_DOMAIN'),
-    plausibleScriptHost: read('NEXT_PUBLIC_PLAUSIBLE_HOST') ?? 'https://plausible.io',
-  },
-  forms: {
-    resendApiKey: read('RESEND_API_KEY'),
-    toEmail: read('FORMS_TO_EMAIL') ?? 'info@haart.org.au',
-    fromEmail: read('FORMS_FROM_EMAIL') ?? 'website@haart.org.au',
-  },
   /** True when Sanity is configured; false means mock content everywhere. */
   get hasSanity() {
     return Boolean(this.sanity.projectId);

@@ -2,8 +2,7 @@ import type { Metadata, Viewport } from 'next';
 import { Nunito, Source_Sans_3 } from 'next/font/google';
 import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
-import { PreviewStrip } from '@/components/layout/PreviewStrip';
-import { Analytics } from '@/components/layout/Analytics';
+import { UnofficialBanner } from '@/components/layout/UnofficialBanner';
 import { MotionProvider } from '@/components/motion/MotionProvider';
 import { getSiteSettings } from '@/lib/content/settings';
 import { JsonLd, organisationJsonLd } from '@/lib/seo/jsonld';
@@ -19,8 +18,12 @@ export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: { default: 'HAART: Homeless and Abused Animal Rescue Team, Perth', template: '%s | HAART' },
   description: 'HAART is a not-for-profit, no-kill animal rescue in Perth, Western Australia. Foster-based, volunteer-run, no government funding.',
-  applicationName: 'HAART',
+  applicationName: 'HAART (unofficial concept)',
   formatDetection: { telephone: true },
+  // Hard constraint: this must never appear in search results beside the real
+  // rescue. Set here as well as in robots.txt, because robots.txt is a request
+  // and a meta directive is an instruction.
+  robots: { index: false, follow: false, nocache: true, googleBot: { index: false, follow: false } },
 };
 
 export const viewport: Viewport = { themeColor: '#f3e3cf', width: 'device-width', initialScale: 1 };
@@ -33,16 +36,18 @@ export default async function RootLayout({ children }: LayoutProps<'/'>) {
         <a href="#main" className="skip-link">
           Skip to content
         </a>
-        <PreviewStrip />
         <MotionProvider>
-          <Header nav={settings.navigation.header} />
+          {/* Banner and header travel together so the notice never scrolls away. */}
+          <div className="sticky top-0 z-40">
+            <UnofficialBanner />
+            <Header nav={settings.navigation.header} />
+          </div>
           <main id="main" className="flex-1">
             {children}
           </main>
           <Footer settings={settings} />
         </MotionProvider>
         <JsonLd data={organisationJsonLd(settings)} />
-        <Analytics />
       </body>
     </html>
   );

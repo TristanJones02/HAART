@@ -13,15 +13,6 @@ const ICONS = [
   'calendar', 'map-pin', 'mail', 'phone', 'sparkles', 'check',
 ];
 
-const FORMS = [
-  { title: 'Pre-adoption questionnaire: dogs', value: 'preAdoptionDogs' },
-  { title: 'Pre-adoption questionnaire: cats', value: 'preAdoptionCats' },
-  { title: 'Foster application: dogs', value: 'fosterDogs' },
-  { title: 'Foster application: cats', value: 'fosterCats' },
-  { title: 'Volunteer expression of interest', value: 'volunteer' },
-  { title: 'Contact', value: 'contact' },
-  { title: 'Partnership enquiry', value: 'partnership' },
-];
 
 const heading = (required = false, title = 'Heading') =>
   defineField({ name: 'heading', title, type: 'string', validation: required ? (r) => r.required().max(90) : (r) => r.max(90) });
@@ -185,11 +176,6 @@ export const sections = [
     items('items', 'Other options', [icon(), heading(true), text(), linkField('link', 'Link')], 0),
   ]),
   section('contactDetails', 'Contact details', 'Email, phone and social links from Site settings.', [heading(), text('note', 'Note', 2)]),
-  section('formEmbed', 'Form', 'One of the site\'s forms.', [
-    defineField({ name: 'form', title: 'Which form', type: 'string', options: { list: FORMS }, validation: (r) => r.required() }),
-    heading(),
-    text('intro', 'Text above the form', 3),
-  ]),
   section('linkList', 'Link list', 'A plain list of links with a line of description each.', [
     heading(),
     items('links', 'Links', [
@@ -198,7 +184,6 @@ export const sections = [
       defineField({ name: 'description', title: 'Description', type: 'string' }),
     ]),
   ]),
-  section('newsletter', 'Newsletter signup', 'Links to the signup page set under Site settings.', [heading(), text()]),
   section('imageWithText', 'Photo and text', 'A photo beside a block of text. Photos alternate sides down the page automatically.', [
     heading(true),
     defineField({ name: 'body', title: 'Text', type: 'simpleText', validation: (r) => r.required() }),

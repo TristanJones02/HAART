@@ -27,9 +27,7 @@ import { ProductGrid } from './ProductGrid';
 import { DonateWidgetSection } from './DonateWidgetSection';
 import { OtherWaysToGive } from './OtherWaysToGive';
 import { ContactDetails } from './ContactDetails';
-import { FormEmbed } from './FormEmbed';
 import { LinkList } from './LinkList';
-import { Newsletter } from './Newsletter';
 import { ImageWithText } from './ImageWithText';
 import { Quote } from './Quote';
 
@@ -128,12 +126,8 @@ async function renderSection(section: Section, canvas: Canvas, index: number, to
       return <OtherWaysToGive section={section} {...p} />;
     case 'section.contactDetails':
       return <ContactDetails section={section} {...p} />;
-    case 'section.formEmbed':
-      return <FormEmbed section={section} {...p} />;
     case 'section.linkList':
       return <LinkList section={section} {...p} />;
-    case 'section.newsletter':
-      return <Newsletter section={section} {...p} />;
     case 'section.imageWithText':
       return <ImageWithText section={section} {...p} />;
     case 'section.quote':

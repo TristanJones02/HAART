@@ -27,4 +27,4 @@ export async function BuilderPage({ slug }: { slug: string }) {
 }
 
 /** Slugs served by dedicated routes rather than the generic [slug] route. */
-export const DEDICATED_SLUGS = new Set(['home', 'adopt-dogs', 'adopt-cats', 'adopt-apply-dogs', 'adopt-apply-cats', 'foster-apply-dogs', 'foster-apply-cats', 'donate-thank-you', 'partners-apply']);
+export const DEDICATED_SLUGS = new Set(['home', 'adopt-dogs', 'adopt-cats']);

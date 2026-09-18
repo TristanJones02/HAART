@@ -1,5 +1,11 @@
 # Running the website: a guide for HAART volunteers
 
+> **Superseded in part.** This project is now an unofficial concept rebuild:
+> HAART has not been contacted and has not endorsed it. Forms, donations,
+> payments and analytics have been removed, and every route is `noindex`.
+> Sections below describing those features no longer match the code. See
+> `docs/constraints.md`.
+
 You do not need to be technical to run this website. Everything you change day to day happens in one place, the Studio, and the site updates itself. This guide is organised by task. Screenshots to be added once the Studio is live (they are placeholders below, marked "Screenshot").
 
 ## The one address to remember

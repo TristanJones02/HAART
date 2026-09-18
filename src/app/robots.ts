@@ -1,16 +1,15 @@
 import type { MetadataRoute } from 'next';
-import { env } from '@/lib/env';
-import { siteUrl } from '@/lib/seo/metadata';
 
+/**
+ * Nothing here is indexable, ever.
+ *
+ * This is an unofficial concept rebuild carrying a real charity's name. A
+ * review copy outranking, or merely sitting beside, the rescue's own site
+ * would send adopters and donors to a page that cannot take either. There is
+ * no environment branch: no deployment of this project is allowed to be
+ * crawled. The root layout sets `noindex, nofollow` as well, because
+ * robots.txt is a request and a meta directive is an instruction.
+ */
 export default function robots(): MetadataRoute.Robots {
-  // A preview deployment must never be indexed: it carries HAART's name over
-  // unconfirmed registration details, and a review link outranking the real
-  // site is a worse outcome than no preview at all. Vercel also sets
-  // X-Robots-Tag: noindex on previews; this is the belt to that pair of braces.
-  if (!env.isLiveSite) return { rules: [{ userAgent: '*', disallow: '/' }] };
-  return {
-    rules: [{ userAgent: '*', allow: '/', disallow: ['/api/', '/donate/thank-you'] }],
-    sitemap: `${siteUrl}/sitemap.xml`,
-    host: siteUrl,
-  };
+  return { rules: [{ userAgent: '*', disallow: '/' }] };
 }

@@ -51,7 +51,6 @@ const home: Page = {
       note: 'HAART is a Not-For-Profit Charitable organisation that saves the lives of hundreds of animals each year, supported only by the generosity of the general public for our funding.',
     }),
     s('section.partnerLogos', { heading: 'Supported by' }),
-    s('section.newsletter', { heading: 'Hear about news and events first', text: 'A short email now and then. No spam, unsubscribe any time.' }),
   ],
 };
 
@@ -124,15 +123,13 @@ const adopt: Page = {
         { question: 'Do you adopt outside Perth?', answer: 'Occasionally, for the right match, if a home check can be arranged. Ask when we call.' },
       ],
     }),
-    s('section.cta', { heading: 'Ready to apply?', text: 'The questionnaire is the first step for every adoption.', primary: { label: 'Dog questionnaire', href: '/adopt/apply/dogs' }, secondary: { label: 'Cat questionnaire', href: '/adopt/apply/cats' } }),
+    s('section.cta', { heading: 'Ready to apply?', text: 'Adoption enquiries go through the rescue directly. This concept build does not take them.', primary: { label: 'Meet the dogs', href: '/adopt/dogs' }, secondary: { label: 'Meet the cats', href: '/adopt/cats' } }),
   ],
 };
 
 const adoptDogs: Page = { _type: 'page', title: 'Dogs for adoption', slug: 'adopt-dogs', seo: { description: 'Dogs and puppies available for adoption through HAART in Perth.' }, sections: [s('section.pageHeader', { eyebrow: 'Adopt', heading: 'Dogs', lead: 'All of the dogs listed are available for adoption. All adoption fees include microchipping and sterilisation as well as up to date vaccinations, flea treatment and worming.' }), s('section.animalListing', { species: 'dog' })] };
 const adoptCats: Page = { _type: 'page', title: 'Cats for adoption', slug: 'adopt-cats', seo: { description: 'Cats and kittens available for adoption through HAART in Perth.' }, sections: [s('section.pageHeader', { eyebrow: 'Adopt', heading: 'Cats', lead: 'All of the cats listed are available for adoption. The standard fee for adopting a cat with HAART is $200 and this includes vet check, vaccinations, flea and worming, microchipping and sterilisation.' }), s('section.animalListing', { species: 'cat' })] };
 
-const applyDogs: Page = { _type: 'page', title: 'Pre-adoption questionnaire: dogs', slug: 'adopt-apply-dogs', sections: [s('section.pageHeader', { eyebrow: 'Adopt', heading: 'Pre-adoption questionnaire for dogs', lead: 'Ten minutes, no commitment. We use it to match you with a dog that will suit your home, and a volunteer will call you within seven days.' }), s('section.formEmbed', { form: 'preAdoptionDogs' })] };
-const applyCats: Page = { _type: 'page', title: 'Pre-adoption questionnaire: cats', slug: 'adopt-apply-cats', sections: [s('section.pageHeader', { eyebrow: 'Adopt', heading: 'Pre-adoption questionnaire for cats', lead: 'Ten minutes, no commitment. A volunteer will call you within seven days.' }), s('section.formEmbed', { form: 'preAdoptionCats' })] };
 
 const foster: Page = {
   _type: 'page',
@@ -170,12 +167,10 @@ const foster: Page = {
       ],
     }),
     s('section.fosterNeededStrip', { heading: 'Animals waiting for a foster home now', text: 'Each of these is in a pound or a boarding kennel until a carer says yes.' }),
-    s('section.cta', { heading: 'Apply to foster', text: 'One form, then a call from the coordinator.', primary: { label: 'Foster dogs', href: '/foster/apply/dogs' }, secondary: { label: 'Foster cats', href: '/foster/apply/cats' } }),
+    s('section.cta', { heading: 'Want to foster?', text: 'Foster applications go to the rescue directly. This concept build does not take them.', primary: { label: 'Who needs a foster home', href: '/adopt/dogs' }, secondary: { label: 'About HAART', href: '/about' } }),
   ],
 };
 
-const fosterDogs: Page = { _type: 'page', title: 'Foster carer application: dogs', slug: 'foster-apply-dogs', sections: [s('section.pageHeader', { eyebrow: 'Foster', heading: 'Foster carer application for dogs', lead: 'Tell us about your home and what you can manage. The foster coordinator will call to talk it through.' }), s('section.formEmbed', { form: 'fosterDogs' })] };
-const fosterCats: Page = { _type: 'page', title: 'Foster carer application: cats', slug: 'foster-apply-cats', sections: [s('section.pageHeader', { eyebrow: 'Foster', heading: 'Foster carer application for cats', lead: 'Kittens, mums with litters, and adult cats needing a quiet room for a few weeks.' }), s('section.formEmbed', { form: 'fosterCats' })] };
 
 const volunteer: Page = {
   _type: 'page',
@@ -203,7 +198,6 @@ const volunteer: Page = {
         { question: 'Can I volunteer with my kids?', answer: 'Events and stalls, yes. Transport and home checks are adults only.' },
       ],
     }),
-    s('section.formEmbed', { form: 'volunteer', heading: 'Register your interest' }),
   ],
 };
 
@@ -253,7 +247,6 @@ const donate: Page = {
   ],
 };
 
-const donateThanks: Page = { _type: 'page', title: 'Thank you', slug: 'donate-thank-you', seo: { noIndex: true }, sections: [s('section.pageHeader', { heading: 'Thank you', lead: 'Your gift is already at work. A receipt is on its way to your inbox.' }), s('section.storyFeature', { heading: 'What your money does' }), s('section.cta', { heading: 'Tell someone', text: 'Sharing HAART with one friend is worth as much as a second donation.', primary: { label: 'Meet the animals', href: '/adopt' }, secondary: { label: 'Follow on Facebook', href: 'https://www.facebook.com/haartav' } })] };
 
 const contact: Page = {
   _type: 'page',
@@ -272,7 +265,6 @@ const contact: Page = {
       ],
     }),
     s('section.contactDetails', { heading: 'Contact details' }),
-    s('section.formEmbed', { form: 'contact', heading: 'Send a message' }),
   ],
 };
 
@@ -288,16 +280,15 @@ const partners: Page = {
       heading: 'Sponsor a kennel',
       intro: 'As a Kennel Sponsor, your support will make an incredible difference, providing bedding, blankets, toys and treats to keep dogs happy and healthy. Pricing and terms to be confirmed by the committee.',
       cards: [
-        { title: 'One year', price: '$2,500', period: 'year', features: ['Your logo on the kennel and on this page', 'Quarterly update on the dogs you have housed', 'Social media thank-you'], cta: { label: 'Enquire', href: '/partners/apply' } },
-        { title: 'Two years', price: 'Discounted', period: 'two-year term', features: ['Everything in one year', 'A discounted rate for committing longer'], cta: { label: 'Enquire', href: '/partners/apply' } },
-        { title: 'Three years', price: 'Discounted', period: 'three-year term', features: ['Everything in one year', 'Our best rate', 'Named kennel for the term'], cta: { label: 'Enquire', href: '/partners/apply' } },
+        { title: 'One year', price: '$2,500', period: 'year', features: ['Your logo on the kennel and on this page', 'Quarterly update on the dogs you have housed', 'Social media thank-you'], cta: undefined },
+        { title: 'Two years', price: 'Discounted', period: 'two-year term', features: ['Everything in one year', 'A discounted rate for committing longer'], cta: undefined },
+        { title: 'Three years', price: 'Discounted', period: 'three-year term', features: ['Everything in one year', 'Our best rate', 'Named kennel for the term'], cta: undefined },
       ],
     }),
-    s('section.cta', { heading: 'Have something else in mind?', text: 'Product, a raffle prize, a workplace fundraiser, or a skill we could use.', primary: { label: 'Partnership enquiry', href: '/partners/apply' } }),
+    s('section.cta', { heading: 'Have something else in mind?', text: 'Product, a raffle prize, a workplace fundraiser, or a skill we could use. Partnership enquiries go to the rescue directly.', primary: { label: 'About HAART', href: '/about' } }),
   ],
 };
 
-const partnersApply: Page = { _type: 'page', title: 'Partnership enquiry', slug: 'partners-apply', sections: [s('section.pageHeader', { eyebrow: 'Support', heading: 'Partnership enquiry', lead: 'Tell us about your business and what you are thinking. A committee member will reply.' }), s('section.formEmbed', { form: 'partnership' })] };
 
 const support: Page = {
   _type: 'page',
@@ -319,31 +310,11 @@ const support: Page = {
   ],
 };
 
-const shop: Page = { _type: 'page', title: 'Shop', slug: 'shop', seo: { description: 'HAART merchandise. Every sale supports rescue animals in Perth.' }, sections: [s('section.pageHeader', { eyebrow: 'Support', heading: 'Shop', lead: 'Paid securely through Square. Pick-up at events or posted within Australia.' }), s('section.productGrid', { heading: 'Merchandise', kind: 'merch' }), s('section.productGrid', { heading: 'Fundraisers', kind: 'fundraiser' })] };
+const shop: Page = { _type: 'page', title: 'Shop', slug: 'shop', seo: { description: 'HAART merchandise. Every sale supports rescue animals in Perth.' }, sections: [s('section.pageHeader', { eyebrow: 'Support', heading: 'Shop', lead: 'What HAART sells at markets and events. This concept build cannot take a payment; nothing here is purchasable.' }), s('section.productGrid', { heading: 'Merchandise', kind: 'merch' }), s('section.productGrid', { heading: 'Fundraisers', kind: 'fundraiser' })] };
 
 const events: Page = { _type: 'page', title: 'Events', slug: 'events', seo: { description: 'HAART events in Perth: adoption days, quiz nights, fundraisers and photo days.' }, sections: [s('section.pageHeader', { eyebrow: 'Support', heading: 'Events', lead: 'Adoption days, quiz nights, sausage sizzles and photo days. Events are posted on our Facebook page and appear here automatically.' }), s('section.eventList', { showPast: true })] };
 
 const stories: Page = { _type: 'page', title: 'Rescue stories', slug: 'stories', seo: { description: 'Stories from HAART: where the animals came from and where they ended up.' }, sections: [s('section.pageHeader', { eyebrow: 'Stories', heading: 'Rescue stories', lead: 'Where they came from, what it took, and where they are now.' }), s('section.articleList', { limit: 12 })] };
-
-const forms: Page = {
-  _type: 'page',
-  title: 'Forms',
-  slug: 'forms',
-  sections: [
-    s('section.pageHeader', { heading: 'Forms', lead: 'Every form on the site, in one place.' }),
-    s('section.linkList', {
-      links: [
-        { label: 'Dog pre-adoption questionnaire', href: '/adopt/apply/dogs', description: 'The first step to adopting a dog.' },
-        { label: 'Cat pre-adoption questionnaire', href: '/adopt/apply/cats', description: 'The first step to adopting a cat.' },
-        { label: 'Dog foster application', href: '/foster/apply/dogs' },
-        { label: 'Cat foster application', href: '/foster/apply/cats' },
-        { label: 'Volunteer registration', href: '/volunteer' },
-        { label: 'Partnership enquiry', href: '/partners/apply' },
-        { label: 'Contact form', href: '/contact' },
-      ],
-    }),
-  ],
-};
 
 const surrender: Page = {
   _type: 'page',
@@ -384,4 +355,4 @@ const privacy: Page = {
   ],
 };
 
-export const MOCK_PAGES: Page[] = [home, about, adopt, adoptDogs, adoptCats, applyDogs, applyCats, foster, fosterDogs, fosterCats, volunteer, donate, donateThanks, contact, partners, partnersApply, support, shop, events, stories, forms, surrender, privacy];
+export const MOCK_PAGES: Page[] = [home, about, adopt, adoptDogs, adoptCats, foster, volunteer, donate, contact, partners, support, shop, events, stories, surrender, privacy];

@@ -64,3 +64,19 @@ Things that cannot be resolved without a person, a credential or access this ses
 | F28 | Newsletter box wording | The home page newsletter block only renders once a signup page URL is set in Site settings (F18). |
 | F29 | Two brand reds | The logo artwork Tristan supplied uses #ea1824 for the heart. The design system's brand red is #b50806, which is what every rule, button and signal on the site uses. The site renders the heart in the brand red so the header does not carry two different reds; #ea1824 is also only 4.51:1 on white against #b50806's 7:1. Confirm which red is canonical. If #ea1824 is the real brand red, the whole palette moves, not just the logo, and the contrast table in `docs/design-direction.md` §2 has to be re-run. |
 | F30 | Logo source file | The mark and logotype in `src/components/layout/Logomark.tsx` are traced from a JPEG, so the curves are polygonal approximations (smooth at every size the site uses, but not the original vectors). If HAART has the original AI/EPS/SVG, drop it in and replace the paths. The tagline "Homeless & Abused Animal Rescue Team" is deliberately not traced: it is set as live text so it stays selectable, translatable and legible at small sizes. |
+
+## Closed by the concept-build constraints
+
+| # | Item | Why it is closed |
+|---|---|---|
+| C5 | Square payment links | No payments. Constraint 3. |
+| C6 | Stripe / PayPal donation links | No payments. Constraint 3. |
+| C8 | Analytics | No analytics. Constraint 5. |
+| C10 | Transactional mail for form submissions | No forms. Constraints 4 and 5. |
+| F18 | Newsletter signup URL | Block deleted. Constraint 5. |
+| F20 | Form field lists | Every form deleted. Constraints 4 and 5. |
+
+| # | Item | Detail |
+|---|---|---|
+| F31 | Adoption platform is SavourLife, not PetRescue | The animals and their photographs come from SavourLife's rescue-group embed. Endpoint discovery is blocked from this environment; see `docs/savourlife-api.md`. The PetRescue adapter in `src/lib/animals/petrescue.ts` is now the wrong source and should be removed or repointed once the SavourLife adapter lands. |
+| F32 | Drawn animal plates still in place | The illustration system Tristan rejected is still rendering on every listing and profile. It is a design change, not a constraint, so it was left alone during the Section 2 retrofit. It should go when the real photographs arrive. |

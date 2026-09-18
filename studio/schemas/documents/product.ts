@@ -58,21 +58,3 @@ export const partner = defineType({
   preview: { select: { title: 'name', subtitle: 'tier', media: 'logo' } },
 });
 
-export const submission = defineType({
-  name: 'submission',
-  title: 'Form submission',
-  type: 'document',
-  description: 'A copy of every form sent through the website, in case an email goes missing.',
-  fields: [
-    defineField({ name: 'form', title: 'Form', type: 'string', readOnly: true }),
-    defineField({ name: 'receivedAt', title: 'Received', type: 'datetime', readOnly: true }),
-    defineField({ name: 'data', title: 'Answers', type: 'text', rows: 20, readOnly: true }),
-    defineField({ name: 'emailSent', title: 'Email sent', type: 'boolean', readOnly: true }),
-    defineField({ name: 'status', title: 'Status', type: 'string', options: { list: ['new', 'in_progress', 'done'], layout: 'radio', direction: 'horizontal' }, initialValue: 'new' }),
-  ],
-  orderings: [{ title: 'Newest first', name: 'receivedDesc', by: [{ field: 'receivedAt', direction: 'desc' }] }],
-  preview: {
-    select: { form: 'form', receivedAt: 'receivedAt', status: 'status', emailSent: 'emailSent' },
-    prepare: ({ form, receivedAt, status, emailSent }) => ({ title: `${form} · ${status}`, subtitle: `${receivedAt ?? ''}${emailSent ? '' : ' · email not sent'}` }),
-  },
-});

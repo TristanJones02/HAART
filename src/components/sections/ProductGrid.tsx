@@ -1,7 +1,6 @@
 import { Container, Section } from '@/components/ui/Container';
 import { SmartImage } from '@/components/ui/SmartImage';
-import { Button } from '@/components/ui/Button';
-import { FolioBar, Plate, PlateFrame, RuleLink, editorialPlate, sectionHeadClass } from '@/components/art';
+import { FolioBar, Plate, PlateFrame, editorialPlate, sectionHeadClass } from '@/components/art';
 import { getProducts } from '@/lib/content/partners';
 import { resolveImageUrl } from '@/lib/sanity/image';
 import { formatCurrency } from '@/lib/format';
@@ -27,10 +26,7 @@ export async function ProductGrid({ section, canvas, index, topRule }: SectionPr
         ) : null}
         <ul className="grid gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
           {products.map((p, i) => {
-            const href = p.squareLink ?? p.externalUrl;
-            const external = !!p.externalUrl && !p.squareLink;
             const photo = resolveImageUrl(p.image, 800) ? p.image : undefined;
-            const label = p.kind === 'merch' ? 'Buy' : p.kind === 'sponsorship' ? 'Enquire' : 'Visit';
             return (
               <li key={p.slug} className="h-full">
                 <article className="flex h-full flex-col">
@@ -51,23 +47,13 @@ export async function ProductGrid({ section, canvas, index, topRule }: SectionPr
 
                   {p.description ? <p className="mt-3 flex-1 text-body text-[color:var(--text-muted)]">{p.description}</p> : null}
 
-                  <p className="mt-5">
-                    {href ? (
-                      p.kind === 'merch' ? (
-                        <Button href={href} variant="primary">
-                          {label}
-                          <span className="sr-only">: {p.name}</span>
-                        </Button>
-                      ) : (
-                        <RuleLink href={href} external={external}>
-                          {label}
-                          <span className="sr-only">: {p.name}</span>
-                        </RuleLink>
-                      )
-                    ) : (
-                      <span className="text-small italic text-[color:var(--text-caption)]">{p.kind === 'sponsorship' ? 'Enquire on the partners page' : 'Coming soon'}</span>
-                    )}
-                  </p>
+                  {/*
+                    No purchase path. `squareLink` and `externalUrl` still exist
+                    on the product and this deliberately does not read either:
+                    a concept rebuild of someone else's charity must not be able
+                    to take a payment, so there is nothing here to click.
+                  */}
+                  <p className="mt-5 text-small italic text-[color:var(--text-caption)]">Not for sale here — this is a concept build.</p>
                 </article>
               </li>
             );
