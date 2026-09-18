@@ -24,7 +24,7 @@ export function Footer({ settings }: { settings: SiteSettings }) {
       <div className="container-site pb-12 pt-16 md:pt-20">
         <div className="grid gap-8 lg:grid-cols-12">
           <div className="lg:col-span-6">
-            <Wordmark size="xl" className="text-sand-100" />
+            <Wordmark size="xl" stacked className="text-sand-100" />
           </div>
           {tagline ? <p className="text-deck italic text-sand-100 lg:col-span-6 lg:self-end">{tagline}</p> : null}
         </div>

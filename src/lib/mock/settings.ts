@@ -9,7 +9,7 @@ export const MOCK_SETTINGS: SiteSettings = {
   organisationName: 'HAART',
   organisationNameLong: 'Homeless and Abused Animal Rescue Team',
   legalName: 'Homeless And Abused Animal Rescue Team Association Inc',
-  tagline: "Perth's foster-based, no-kill animal rescue.",
+  tagline: 'Adopt smart, adopt with HAART.',
   abn: { value: '61 836 601 234', verified: false, note: 'From the SavourLife directory. Confirm on ABN Lookup (blocker F1).' },
   acncRegisterId: { value: 'e71ee1f8-38af-e811-a962-000d3ad24a0d', verified: false, note: 'ACNC register listing found; confirm current status (blocker F2).' },
   dgrEndorsed: false,

@@ -240,6 +240,33 @@
   }
 
   /*
+   * The plate reveal: a print appearing. A cover in the canvas colour wipes
+   * down off the plate once, on load.
+   *
+   * Deliberately CSS rather than a Motion curtain. Motion applies its initial
+   * state as an inline style during server rendering, so an opaque cover meant
+   * the plate was a blank frame for anyone without JavaScript. A CSS animation
+   * ends at scaleY(0) whether or not it ever runs, and the global
+   * prefers-reduced-motion rule collapses its duration to nothing.
+   */
+  .plate-reveal::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    background: var(--canvas);
+    transform-origin: top;
+    transform: scaleY(0);
+    animation: plate-wipe 550ms var(--ease-standard) both;
+  }
+
+  @keyframes plate-wipe {
+    from { transform: scaleY(1); }
+    to { transform: scaleY(0); }
+  }
+
+  /*
    * Plate crop groups. A 3/4 portrait frame slices ~44% off each side, so
    * wide-only elements (a tail, a second animal) swap for portrait versions.
    */
