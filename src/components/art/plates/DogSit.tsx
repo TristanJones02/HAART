@@ -19,9 +19,9 @@ export function DogSit({ className }: PlateProps) {
       <path d="M132 96C96 88 84 142 108 172c14 18 34 6 36-22Z" fill={INK} />
       <path d="M260 96c36-8 48 46 24 76-14 18-34 6-36-22Z" fill={INK} />
       <circle cx="196" cy="126" r="72" fill={INK} />
-      <circle cx="172" cy="116" r="9" fill={GROUND} />
-      <circle cx="220" cy="116" r="9" fill={GROUND} />
-      <path d="M196 156c15 0 21.6 8.4 21.6 15 0 8.3-10 13.3-21.6 13.3s-21.6-5-21.6-13.3c0-6.6 6.6-15 21.6-15Z" fill={GROUND} />
+      <circle cx="178" cy="114" r="7.5" fill={GROUND} />
+      <circle cx="214" cy="114" r="7.5" fill={GROUND} />
+      <path d="M196 158c11 0 16 6 16 11 0 6-7.4 9.8-16 9.8s-16-3.8-16-9.8c0-5 5-11 16-11Z" fill={GROUND} />
     </svg>
   );
 }

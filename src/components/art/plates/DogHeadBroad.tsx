@@ -12,10 +12,10 @@ export function DogHeadBroad({ className }: PlateProps) {
       {/* cheek highlight, the one accent */}
       <path d="M110 150C96 200 106 252 140 288" stroke={TINT} strokeWidth="14" strokeLinecap="round" fill="none" />
       <ellipse cx="200" cy="255" rx="64" ry="52" fill={INK} />
-      <circle cx="160" cy="186" r="11" fill={GROUND} />
-      <circle cx="240" cy="186" r="11" fill={GROUND} />
-      <path d="M200 236c18 0 26 10 26 18 0 10-12 16-26 16s-26-6-26-16c0-8 8-18 26-18Z" fill={GROUND} />
-      <path d="M200 270v14M178 288q22 16 44 0" stroke={GROUND} strokeWidth="3" strokeLinecap="round" fill="none" />
+      <circle cx="168" cy="184" r="9" fill={GROUND} />
+      <circle cx="232" cy="184" r="9" fill={GROUND} />
+      <path d="M200 240c13 0 19 7 19 13 0 7-9 11-19 11s-19-4-19-11c0-6 6-13 19-13Z" fill={GROUND} />
+      <path d="M200 264v12M184 282q16 11 32 0" stroke={GROUND} strokeWidth="3" strokeLinecap="round" fill="none" />
     </svg>
   );
 }
